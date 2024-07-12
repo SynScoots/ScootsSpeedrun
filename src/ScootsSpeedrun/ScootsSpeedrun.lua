@@ -53,6 +53,7 @@ local npcMap = {
 		['Harrison Jones'] = 1
 	},
 	['Karazhan'] = {
+		['Berthold'] = 4,
 		['Barnes'] = 1,
 		['Grandmother'] = 1,
 		['Echo of Medivh'] = 1,
