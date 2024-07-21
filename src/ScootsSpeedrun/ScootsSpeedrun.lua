@@ -110,7 +110,8 @@ local npcMap = {
 		['Ribbly Screwspigot'] = 1,
 		['Plugger Spazzring'] = 'SPECIAL_BRD_PS',
 		['Private Rocknot'] = 'SPECIAL_BRD_PR',
-		['Doom\'rel'] = 1
+		['Doom\'rel'] = 1,
+		['Coren Direbrew'] = 1
 	},
 	['Zul\'Farrak'] = {
 		['Sergeant Bly'] = 1,
