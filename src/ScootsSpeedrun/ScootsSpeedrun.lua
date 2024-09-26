@@ -22,7 +22,8 @@ local npcMap = {
 		['Lady Jaina Proudmoore'] = 'SPECIAL_HOR_LJP'
 	},
 	['Trial of the Champion'] = {
-		['Arelas Brightstar'] = 'SPECIAL_TOC_AB'
+		['Arelas Brightstar'] = 'SPECIAL_TOC_AB',
+		['Jaeren Sunsworn'] = 'SPECIAL_TOC_AB'
 	},
 	['The Violet Hold'] = {
 		['Lieutenant Sinclari'] = 2
