@@ -19,7 +19,8 @@ local npcMap = {
 	
 	-- WotLK dungeons
 	['Halls of Reflection'] = {
-		['Lady Jaina Proudmoore'] = 'SPECIAL_HOR_LJP'
+		['Lady Jaina Proudmoore'] = 'SPECIAL_HOR_LJP',
+		['Lady Sylvanas Windrunner'] = 'SPECIAL_HOR_LJP'
 	},
 	['Trial of the Champion'] = {
 		['Arelas Brightstar'] = 'SPECIAL_TOC_AB',
@@ -136,10 +137,12 @@ local npcMap = {
 
 SPRFrame:SetScript('OnEvent', function(self, event)
 	if(not IsAltKeyDown()) then
-		local loc = GetZoneText()
-	
-		if(event == 'GOSSIP_SHOW' or event == 'QUEST_DETAIL' or event == 'QUEST_PROGRESS' or event == 'QUEST_COMPLETE' or event == 'MERCHANT_SHOW') then
-			local choiceCount = GetNumGossipOptions()
+		if(event == 'CONFIRM_XP_LOSS') then
+			_G['StaticPopup1Button1']:Click()
+			_G['StaticPopup1Button1']:Click()
+		elseif(event == 'GOSSIP_SHOW' or event == 'QUEST_DETAIL' or event == 'QUEST_PROGRESS' or event == 'QUEST_COMPLETE' or event == 'MERCHANT_SHOW') then
+			local choiceCount = GetNumGossipOptions()  
+			local loc = GetZoneText()
 			local npc = UnitName('npc')
 			
 			if(npcMap[loc] and npcMap[loc][npc]) then
@@ -204,3 +207,4 @@ SPRFrame:RegisterEvent('QUEST_DETAIL')
 SPRFrame:RegisterEvent('QUEST_PROGRESS')
 SPRFrame:RegisterEvent('QUEST_COMPLETE')
 SPRFrame:RegisterEvent('MERCHANT_SHOW')
+SPRFrame:RegisterEvent('CONFIRM_XP_LOSS')
