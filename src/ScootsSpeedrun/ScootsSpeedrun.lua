@@ -128,7 +128,8 @@ local npcMap = {
 	},
 	['Shadowfang Keep'] = {
 		['Sorcerer Ashcrombe'] = 1,
-		['Deathstalker Adamant'] = 1
+		['Deathstalker Adamant'] = 1,
+		['Apothecary Hummel'] = 1
 	},
 	['The Wailing Caverns'] = {
 		['Disciple of Naralex'] = 1
