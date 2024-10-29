@@ -126,6 +126,9 @@ local npcMap = {
 	['Gnomeregan'] = {
 		['Blastmaster Emi Shortfuse'] = 1
 	},
+	['Scarlet Monastery'] = {
+		['Pumpkin Shrine'] = 1
+	},
 	['Shadowfang Keep'] = {
 		['Sorcerer Ashcrombe'] = 1,
 		['Deathstalker Adamant'] = 1,
