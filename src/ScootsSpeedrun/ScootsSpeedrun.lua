@@ -52,7 +52,11 @@ local npcMap = {
 		['Tyrande Whisperwind'] = 1
 	},
 	['Zul\'Aman'] = {
-		['Harrison Jones'] = 1
+		['Harrison Jones'] = 1,
+		['Harkor'] = 1,
+		['Tanzar'] = 1,
+		['Ashli'] = 1,
+		['Kraz'] = 1
 	},
 	['Karazhan'] = {
 		['Berthold'] = 4,
@@ -102,7 +106,7 @@ local npcMap = {
 	-- Vanilla dungeons
 	['Dire Maul'] = {
 		['Broken Trap'] = 'SPECIAL_DMN_BT',
-		['Knot Thimblejack'] = 'SPECIAL_DMN_KT',
+--		['Knot Thimblejack'] = 'SPECIAL_DMN_KT',
 		['Captain Kromcrush'] = 1,
 		['Mizzle the Crafty'] = 1,
 --		['Pusillin'] = 1,
