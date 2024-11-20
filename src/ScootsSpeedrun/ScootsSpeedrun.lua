@@ -174,6 +174,8 @@ SPRFrame:SetScript('OnEvent', function(self, event)
 							SelectGossipOption(3)
 						elseif(choiceCount == 2) then
 							SelectGossipOption(2)
+						elseif(choiceCount == 1) then
+							SelectGossipOption(1)
 						end
 					elseif(npcMap[loc][npc] == 'SPECIAL_DMN_BT') then
 						-- Dire Maul North: Broken Trap
