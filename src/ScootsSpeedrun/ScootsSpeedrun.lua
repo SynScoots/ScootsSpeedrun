@@ -140,6 +140,11 @@ local npcMap = {
 	},
 	['The Wailing Caverns'] = {
 		['Disciple of Naralex'] = 1
+	},
+	
+	-- Open world
+	['Tanaris'] = {
+		['Steward of Time'] = 1
 	}
 }
 
