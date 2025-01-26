@@ -143,6 +143,9 @@ local npcMap = {
 	},
 	
 	-- Open world
+	['Blackrock Mountain'] = {
+		['Orb of Command'] = 1
+	},
 	['Tanaris'] = {
 		['Steward of Time'] = 1
 	}
