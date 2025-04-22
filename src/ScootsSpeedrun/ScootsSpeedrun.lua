@@ -148,6 +148,12 @@ local npcMap = {
 	},
 	['Tanaris'] = {
 		['Steward of Time'] = 1
+	},
+	['Silithus'] = {
+		['Lesser Wind Stone'] = 1,
+		['Wind Stone'] = 1,
+		['Greater Wind Stone'] = 1,
+		['Hermit Ortell'] = 'SPECIAL_SILITHUS_HO'
 	}
 }
 
@@ -189,8 +195,9 @@ SPRFrame:SetScript('OnEvent', function(self, event)
 						-- Dire Maul North: Broken Trap
 						_G['QuestFrameCompleteButton']:Click()
 						_G['QuestFrameCompleteQuestButton']:Click()
-					elseif(npcMap[loc][npc] == 'SPECIAL_DMN_KT') then
+					elseif(npcMap[loc][npc] == 'SPECIAL_DMN_KT' or npcMap[loc][npc] == 'SPECIAL_SILITHUS_HO') then
 						-- Dire Maul North: Knot Thimblejack
+						-- Silithus: Hermit Ortell
 						SelectGossipActiveQuest(1)
 						_G['QuestFrameCompleteButton']:Click()
 						_G['QuestFrameCompleteQuestButton']:Click()
