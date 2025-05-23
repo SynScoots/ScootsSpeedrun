@@ -147,6 +147,7 @@ local npcMap = {
         ['Orb of Command'] = 1
     },
     ['Dalaran'] = {
+        ['Christi Stockton'] = 'SPECIAL_QUESTLOOP_1',
         ['Marcia Chase'] = 'SPECIAL_QUESTLOOP_1',
         ['Olisarra the Kind'] = 'SPECIAL_QUESTLOOP_1'
     },
@@ -169,7 +170,8 @@ local npcMap = {
     },
     ['Terokkar Forest'] = {
         ['Severin'] = 'SPECIAL_QUESTLOOP_1',
-        ['Hazzik'] = 'SPECIAL_QUESTLOOP_1'
+        ['Hazzik'] = 'SPECIAL_QUESTLOOP_1',
+        ['Old Man Barlo'] = 'SPECIAL_QUESTLOOP_1'
     }
 }
 
