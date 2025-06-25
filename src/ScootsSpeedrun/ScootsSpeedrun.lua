@@ -146,6 +146,9 @@ local npcMap = {
     ['Blackrock Mountain'] = {
         ['Orb of Command'] = 1
     },
+    ['Caverns of Time'] = {
+        ['Steward of Time'] = 1
+    },
     ['Dalaran'] = {
         ['Christi Stockton'] = 'SPECIAL_QUESTLOOP_1',
         ['Marcia Chase'] = 'SPECIAL_QUESTLOOP_1',
