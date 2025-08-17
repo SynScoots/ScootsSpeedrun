@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.0.0',
+    ['version'] = '2.0.1',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -122,6 +122,16 @@ ScootsSpeedrun = {
                 {
                     ['action'] = 'accept-quest',
                     ['data'] = 13149, -- Dispelling Illusions
+                },
+                {
+                    ['action'] = 'dialogue-select',
+                    ['data'] = 3,
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'quest-complete',
+                            ['data'] = 13149, -- Dispelling Illusions
+                        },
+                    },
                 },
                 {
                     ['action'] = 'dialogue-select',
@@ -2248,7 +2258,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                 
                 if(actions[actionType]) then
                     actionExecuted = actions[actionType](actionData)
-                    ScootsSpeedrun.printDebug('action : ' .. actionType .. ' : ' .. tostring(actionExecuted))
+                    ScootsSpeedrun.printDebug('action : ' .. actionType .. '(' .. tostring(actionData) .. ') : ' .. tostring(actionExecuted))
                 else
                     ScootsSpeedrun.printError('action : ' .. actionType .. ' : HANDLER MISSING')
                 end

@@ -2,6 +2,6 @@
 ## Title: ScootsSpeedrun
 ## Notes: Automatically chooses conversation options to speed up dungeon/raid runs
 ## Author: Scoots
-## Version: 2.0.0
+## Version: 2.0.1
 
 ScootsSpeedrun.lua
