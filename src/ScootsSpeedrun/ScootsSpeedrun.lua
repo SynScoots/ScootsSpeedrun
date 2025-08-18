@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.0.1',
+    ['version'] = '2.1.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -1858,8 +1858,16 @@ ScootsSpeedrun = {
                             },
                         },
                         {
-                            ['type'] = 'item-not-in-bags',
-                            ['data'] = 32716, -- Gezzarak's Claw
+                            ['type'] = 'own-fewest-in-set',
+                            ['data'] = {
+                                ['item'] = 32716, -- Gezzarak's Claw
+                                ['set'] = {
+                                    32716, -- Gezzarak's Claw
+                                    32715, -- Akkarai's Talons
+                                    32717, -- Karrog's Spine
+                                    32718, -- Vakkiz's Scale
+                                },
+                            },
                         },
                     },
                 },
@@ -1875,8 +1883,16 @@ ScootsSpeedrun = {
                             },
                         },
                         {
-                            ['type'] = 'item-not-in-bags',
-                            ['data'] = 32715, -- Akkarai's Talons
+                            ['type'] = 'own-fewest-in-set',
+                            ['data'] = {
+                                ['item'] = 32715, -- Akkarai's Talons
+                                ['set'] = {
+                                    32716, -- Gezzarak's Claw
+                                    32715, -- Akkarai's Talons
+                                    32717, -- Karrog's Spine
+                                    32718, -- Vakkiz's Scale
+                                },
+                            },
                         },
                     },
                 },
@@ -1892,8 +1908,16 @@ ScootsSpeedrun = {
                             },
                         },
                         {
-                            ['type'] = 'item-not-in-bags',
-                            ['data'] = 32717, -- Karrog's Spine
+                            ['type'] = 'own-fewest-in-set',
+                            ['data'] = {
+                                ['item'] = 32717, -- Karrog's Spine
+                                ['set'] = {
+                                    32716, -- Gezzarak's Claw
+                                    32715, -- Akkarai's Talons
+                                    32717, -- Karrog's Spine
+                                    32718, -- Vakkiz's Scale
+                                },
+                            },
                         },
                     },
                 },
@@ -1909,8 +1933,16 @@ ScootsSpeedrun = {
                             },
                         },
                         {
-                            ['type'] = 'item-not-in-bags',
-                            ['data'] = 32718, -- Vakkiz's Scale
+                            ['type'] = 'own-fewest-in-set',
+                            ['data'] = {
+                                ['item'] = 32718, -- Vakkiz's Scale
+                                ['set'] = {
+                                    32716, -- Gezzarak's Claw
+                                    32715, -- Akkarai's Talons
+                                    32717, -- Karrog's Spine
+                                    32718, -- Vakkiz's Scale
+                                },
+                            },
                         },
                     },
                 },
@@ -2027,6 +2059,7 @@ ScootsSpeedrun.eventHandler = function(_, event)
     or event == 'MERCHANT_SHOW'
     or event == 'SCOOTSSPEEDRUN_POPUP_SHOW') then
         local actionPerformed = false
+        ScootsSpeedrun.setCheck = nil
         
         if(npcId and ScootsSpeedrun.map[locationId] and ScootsSpeedrun.map[locationId][npcId]) then
             actionPerformed = ScootsSpeedrun.handleCharacterMap(event, ScootsSpeedrun.map[locationId][npcId])
@@ -2207,6 +2240,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['completeable-quest-count'] = ScootsSpeedrun.condition.completableQuestCount,
                     ['item-in-bags'] = ScootsSpeedrun.condition.itemInBags,
                     ['item-not-in-bags'] = ScootsSpeedrun.condition.itemNotInBags,
+                    ['own-fewest-in-set'] = ScootsSpeedrun.condition.ownFewestInSet,
                 }
                 
                 local conditionIndex
@@ -2566,7 +2600,7 @@ ScootsSpeedrun.condition.itemNotInBags = function(itemIdCheck)
         local bagSlots = GetContainerNumSlots(bagIndex)
         
         for slotIndex = 1, bagSlots do
-            local _, itemCount, _, _, _, _, itemLink = GetContainerItemInfo(bagIndex, slotIndex)
+            local itemLink = select(7, GetContainerItemInfo(bagIndex, slotIndex))
             local itemId = CustomExtractItemId(itemLink)
 
             if(itemId and itemId == itemIdCheck) then
@@ -2576,6 +2610,37 @@ ScootsSpeedrun.condition.itemNotInBags = function(itemIdCheck)
     end
     
     return true
+end
+
+ScootsSpeedrun.condition.ownFewestInSet = function(data)
+    if(ScootsSpeedrun.setCheck == nil) then
+        ScootsSpeedrun.setCheck = {}
+        for _, item in pairs(data.set) do
+            ScootsSpeedrun.setCheck[item] = 0
+        end
+    
+        for bagIndex = 0, 4 do
+            local bagSlots = GetContainerNumSlots(bagIndex)
+            
+            for slotIndex = 1, bagSlots do
+                local _, itemCount, _, _, _, _, itemLink = GetContainerItemInfo(bagIndex, slotIndex)
+                local itemId = CustomExtractItemId(itemLink)
+
+                if(itemId and ScootsSpeedrun.setCheck[itemId] ~= nil) then
+                    ScootsSpeedrun.setCheck[itemId] = ScootsSpeedrun.setCheck[itemId] + itemCount
+                end
+            end
+        end
+    end
+    
+    local lowest = nil
+    for _, count in pairs(ScootsSpeedrun.setCheck) do
+        if(lowest == nil or count < lowest) then
+            lowest = count
+        end
+    end
+    
+    return ScootsSpeedrun.setCheck[data.item] == lowest
 end
 
 -- ########### --
