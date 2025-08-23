@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.1.0',
+    ['version'] = '2.2.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -1063,6 +1063,222 @@ ScootsSpeedrun = {
                     ['data'] = 1,
                 }
             },
+            [14387] = { -- Lothos Riftwalker
+                {
+                    ['action'] = 'dialogue-select',
+                    ['data'] = 1,
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'available-quest-count',
+                            ['data'] = 0,
+                        },
+                        {
+                            ['type'] = 'active-quest-count',
+                            ['data'] = 0,
+                        },
+                    },
+                }
+            },
+        },
+        [4] = { -- Blasted Lands
+            [7363] = { -- Kum'isha the Collector
+                {
+                    ['action'] = 'use-item',
+                    ['data'] = 12122, -- Kum'isha's Junk
+                },
+                {
+                    ['action'] = 'use-item',
+                    ['data'] = 10752, -- Emerald Encrusted Chest
+                },
+                {
+                    ['action'] = 'select-available-quest',
+                    ['data'] = 3501, -- Everything Counts In Large Amounts
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 10593, -- Imperfect Draenethyst Fragment
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'accept-quest',
+                    ['data'] = 3501, -- Everything Counts In Large Amounts
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 10593, -- Imperfect Draenethyst Fragment
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'select-active-quest',
+                    ['data'] = 3501, -- Everything Counts In Large Amounts
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 10593, -- Imperfect Draenethyst Fragment
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'progress-quest',
+                    ['data'] = 3501, -- Everything Counts In Large Amounts
+                },
+                {
+                    ['action'] = 'complete-quest',
+                    ['data'] = 3501, -- Everything Counts In Large Amounts
+                },
+                {
+                    ['action'] = 'select-available-quest',
+                    ['data'] = 3502, -- One Draenei's Junk
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 10593, -- Imperfect Draenethyst Fragment
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'accept-quest',
+                    ['data'] = 3502, -- One Draenei's Junk
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 10593, -- Imperfect Draenethyst Fragment
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'select-active-quest',
+                    ['data'] = 3502, -- One Draenei's Junk
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 10593, -- Imperfect Draenethyst Fragment
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'progress-quest',
+                    ['data'] = 3502, -- One Draenei's Junk
+                },
+                {
+                    ['action'] = 'complete-quest',
+                    ['data'] = 3502, -- One Draenei's Junk
+                },
+                {
+                    ['action'] = 'select-available-quest',
+                    ['data'] = 2521, -- To Serve Kum'isha
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 8244, -- Flawless Draenethyst Sphere
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'accept-quest',
+                    ['data'] = 2521, -- To Serve Kum'isha
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 8244, -- Flawless Draenethyst Sphere
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'select-active-quest',
+                    ['data'] = 2521, -- To Serve Kum'isha
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 8244, -- Flawless Draenethyst Sphere
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'progress-quest',
+                    ['data'] = 2521, -- To Serve Kum'isha
+                },
+                {
+                    ['action'] = 'complete-quest',
+                    ['data'] = 2521, -- To Serve Kum'isha
+                },
+                {
+                    ['action'] = 'select-available-quest',
+                    ['data'] = 2522, -- Kum'isha's Endeavors
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 8244, -- Flawless Draenethyst Sphere
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'accept-quest',
+                    ['data'] = 2522, -- Kum'isha's Endeavors
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 8244, -- Flawless Draenethyst Sphere
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'select-active-quest',
+                    ['data'] = 2522, -- Kum'isha's Endeavors
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'item-in-bags',
+                            ['data'] = {
+                                ['item'] = 8244, -- Flawless Draenethyst Sphere
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'progress-quest',
+                    ['data'] = 2522, -- Kum'isha's Endeavors
+                },
+                {
+                    ['action'] = 'complete-quest',
+                    ['data'] = 2522, -- Kum'isha's Endeavors
+                },
+            },
         },
         [4395] = { -- Dalaran
             [37776] = { -- Apprentice Nelphi
@@ -1127,7 +1343,7 @@ ScootsSpeedrun = {
                     ['data'] = 13836, -- Disarmed!
                 },
             },
-            [32337] = {
+            [32337] = { -- Christi Stockton
                 {
                     ['action'] = 'progress-quest',
                     ['data'] = 14203, -- Waterlogged Recipe
@@ -1135,6 +1351,43 @@ ScootsSpeedrun = {
                 {
                     ['action'] = 'complete-quest',
                     ['data'] = 14203, -- Waterlogged Recipe
+                },
+            },
+            [28701] = { -- Timothy Jones
+                {
+                    ['action'] = 'use-item',
+                    ['data'] = 43297, -- Damaged necklace (quest starter)
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'quest-not-in-log',
+                            ['data'] = 13148, -- Necklace Repair
+                        },
+                        {
+                            ['type'] = 'item-in-bags-and-resource-bank',
+                            ['data'] = {
+                                ['item'] = 36923, -- Chalcodeny
+                                ['count'] = 1,
+                            },
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'select-active-quest',
+                    ['data'] = 13148, -- Necklace Repair
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'quest-handin-ready',
+                            ['data'] = 13148, -- Necklace Repair
+                        },
+                    },
+                },
+                {
+                    ['action'] = 'progress-quest',
+                    ['data'] = 13148, -- Necklace Repair
+                },
+                {
+                    ['action'] = 'complete-quest',
+                    ['data'] = 13148, -- Necklace Repair
                 },
             },
         },
@@ -2004,6 +2257,10 @@ ScootsSpeedrun = {
     ['noNpcQuests'] = {
         {
             ['action'] = 'accept-quest',
+            ['data'] = 13148, -- Necklace Repair
+        },
+        {
+            ['action'] = 'accept-quest',
             ['data'] = 14203, -- Waterlogged Recipe
         },
     },
@@ -2066,13 +2323,16 @@ ScootsSpeedrun.eventHandler = function(_, event)
         end
         
         if(actionPerformed == false) then
+            ScootsSpeedrun.printDebug('Using noNpcQuests')
             actionPerformed = ScootsSpeedrun.handleCharacterMap(event, ScootsSpeedrun.noNpcQuests)
         end
         
         if(actionPerformed == false) then
+            ScootsSpeedrun.printDebug('Calling buildMapFromTracker()')
             local map = ScootsSpeedrun.buildMapFromTracker(event)
             
             if(map == nil or #map == 0) then
+                ScootsSpeedrun.printDebug('Calling buildMapFromHandinReadyQuests()')
                 map = ScootsSpeedrun.buildMapFromHandinReadyQuests()
             end
             
@@ -2233,6 +2493,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                 local conditionChecks = {
                     ['gossip-choice-count'] = ScootsSpeedrun.condition.gossipChoiceCount,
                     ['quest-handin-ready'] = ScootsSpeedrun.condition.questHandinReady,
+                    ['quest-not-in-log'] = ScootsSpeedrun.condition.questNotInLog,
                     ['quest-complete'] = ScootsSpeedrun.condition.questComplete,
                     ['quest-complete-any'] = ScootsSpeedrun.condition.questCompleteAny,
                     ['available-quest-count'] = ScootsSpeedrun.condition.availableQuestCount,
@@ -2241,6 +2502,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['item-in-bags'] = ScootsSpeedrun.condition.itemInBags,
                     ['item-not-in-bags'] = ScootsSpeedrun.condition.itemNotInBags,
                     ['own-fewest-in-set'] = ScootsSpeedrun.condition.ownFewestInSet,
+                    ['item-in-bags-and-resource-bank'] = ScootsSpeedrun.condition.itemInBagsAndResourceBank,
                 }
                 
                 local conditionIndex
@@ -2542,6 +2804,19 @@ ScootsSpeedrun.condition.questCompleteAny = function(questIdList)
     return false
 end
 
+ScootsSpeedrun.condition.questNotInLog = function(checkQuestId)
+    local questIndex
+    for questIndex = 1, GetNumQuestLogEntries() do
+        local _, _, _, _, isHeader, _, _, _, questId = GetQuestLogTitle(questIndex)
+        
+        if(not isHeader and questId == checkQuestId) then
+            return false
+        end
+    end
+    
+    return true
+end
+
 ScootsSpeedrun.condition.availableQuestCount = function(numQuests)
     return GetNumGossipAvailableQuests() == numQuests
 end
@@ -2641,6 +2916,32 @@ ScootsSpeedrun.condition.ownFewestInSet = function(data)
     end
     
     return ScootsSpeedrun.setCheck[data.item] == lowest
+end
+
+ScootsSpeedrun.condition.itemInBagsAndResourceBank = function(data)
+    local currentCount = GetCustomGameData(13, data.item)
+    if(currentCount >= data.count) then
+        return true
+    end
+    
+    for bagIndex = 0, 4 do
+        local bagSlots = GetContainerNumSlots(bagIndex)
+        
+        for slotIndex = 1, bagSlots do
+            local _, itemCount, _, _, _, _, itemLink = GetContainerItemInfo(bagIndex, slotIndex)
+            local itemId = CustomExtractItemId(itemLink)
+
+            if(itemId and itemId == data.item) then
+                currentCount = currentCount + itemCount
+        
+                if(currentCount >= data.count) then
+                    return true
+                end
+            end
+        end
+    end
+    
+    return false
 end
 
 -- ########### --
