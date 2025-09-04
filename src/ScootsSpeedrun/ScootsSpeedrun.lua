@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.2.0',
+    ['version'] = '2.3.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -555,6 +555,15 @@ ScootsSpeedrun = {
                     ['data'] = 1,
                 },
             },
+            [24396] = { -- Gunter
+                {
+                    ['action'] = 'purchase-item',
+                    ['data'] = {
+                        ['item'] = 33926, -- Sealed Scroll Case
+                        ['count'] = 1,
+                    },
+                },
+            },
         },
         [3457] = { -- Karazhan
             [16153] = { -- Berthold
@@ -1077,7 +1086,7 @@ ScootsSpeedrun = {
                             ['data'] = 0,
                         },
                     },
-                }
+                },
             },
         },
         [4] = { -- Blasted Lands
@@ -2270,10 +2279,6 @@ ScootsSpeedrun = {
 -- ########### --
 
 ScootsSpeedrun.eventHandler = function(_, event)
-    if(not Custom_GetGossipQuests or not CustomExtractItemId) then
-        return nil
-    end
-
     if(IsAltKeyDown()) then
         return nil
     end
@@ -2281,6 +2286,10 @@ ScootsSpeedrun.eventHandler = function(_, event)
     if(event == 'CONFIRM_XP_LOSS') then
         StaticPopup1Button1:Click()
         StaticPopup1Button1:Click()
+        return nil
+    end
+    
+    if(not Custom_GetGossipQuests or not CustomExtractItemId) then
         return nil
     end
     
@@ -2474,7 +2483,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
             if(event ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
-        elseif(map[mapIndex].action == 'purchase-item-to-count') then
+        elseif(map[mapIndex].action == 'purchase-item' or map[mapIndex].action == 'purchase-item-to-count') then
             if(event ~= 'MERCHANT_SHOW') then
                 basicConditionsMet = false
             end
@@ -2543,6 +2552,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['complete-quest'] = ScootsSpeedrun.action.completeQuest,
                     ['select-attuneable-reward'] = ScootsSpeedrun.action.selectAttuneableReward,
                     ['use-item'] = ScootsSpeedrun.action.useItemFromBag,
+                    ['purchase-item'] = ScootsSpeedrun.action.purchaseItem,
                     ['purchase-item-to-count'] = ScootsSpeedrun.action.purchaseItemUpToCount,
                     ['auto-confirm'] = ScootsSpeedrun.action.autoConfirm,
                     ['do-nothing'] = ScootsSpeedrun.action.doNothing,
@@ -2690,6 +2700,29 @@ ScootsSpeedrun.action.useItemFromBag = function(itemIdToUse)
     end
     
     return false
+end
+
+ScootsSpeedrun.action.purchaseItem = function(data)
+    local maxShopIndex = GetMerchantNumItems()
+    local purchaseIndex = nil
+    local availableStock = nil
+    for shopIndex = 1, maxShopIndex do
+        local itemLink = GetMerchantItemLink(shopIndex)
+        local itemId = CustomExtractItemId(itemLink)
+        
+        if(itemId == data.item) then
+            purchaseIndex = shopIndex
+            availableStock = select(5, GetMerchantItemInfo(shopIndex))
+            break
+        end
+    end
+    
+    if(purchaseIndex == nil or availableStock == 0) then
+        return false
+    end
+    
+    BuyMerchantItem(purchaseIndex, data.count)
+    return true
 end
 
 ScootsSpeedrun.action.purchaseItemUpToCount = function(data)
