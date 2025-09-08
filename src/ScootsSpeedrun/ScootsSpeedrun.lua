@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.3.0',
+    ['version'] = '2.4.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -1049,6 +1049,12 @@ ScootsSpeedrun = {
                 },
             },
             [3850] = { -- Deathstalker Adamant
+                {
+                    ['action'] = 'dialogue-select',
+                    ['data'] = 1,
+                },
+            },
+            [36296] = { -- Apothecary Hummel
                 {
                     ['action'] = 'dialogue-select',
                     ['data'] = 1,
