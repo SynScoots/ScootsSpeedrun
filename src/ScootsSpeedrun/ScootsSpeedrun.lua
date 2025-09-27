@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.4.1',
+    ['version'] = '2.5.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -2476,7 +2476,7 @@ ScootsSpeedrun.updateTrackerQuestCache = function()
     end
 end
 
-ScootsSpeedrun.handleCharacterMap = function(event, map, eventarg1, eventarg2)
+ScootsSpeedrun.handleCharacterMap = function(event, map)
     local mapIndex
     for mapIndex = 1, #map do
         local basicConditionsMet = true
