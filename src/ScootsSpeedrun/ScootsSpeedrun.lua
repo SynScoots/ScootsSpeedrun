@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.4.0',
+    ['version'] = '2.4.1',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -2279,12 +2279,20 @@ ScootsSpeedrun = {
             ['data'] = 14203, -- Waterlogged Recipe
         },
     },
+    ['onLootEvent'] = {
+        ['Interface\\Icons\\INV_Egg_06'] = {
+            {
+                ['action'] = 'use-item',
+                ['data'] = 45072, -- Brightly Colored Egg
+            },
+        },
+    },
     ['questsFromTracker'] = {},
 }
 
 -- ########### --
 
-ScootsSpeedrun.eventHandler = function(_, event)
+ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     if(IsAltKeyDown()) then
         return nil
     end
@@ -2354,6 +2362,14 @@ ScootsSpeedrun.eventHandler = function(_, event)
             if(map ~= nil and #map > 0) then
                 ScootsSpeedrun.handleCharacterMap(event, map)
             end
+        end
+    end
+    
+    if(event == 'ITEM_PUSH') then
+        local map = ScootsSpeedrun['onLootEvent'][arg2]
+        
+        if(map ~= nil) then
+            ScootsSpeedrun.handleCharacterMap(event, map)
         end
     end
 end
@@ -2460,7 +2476,7 @@ ScootsSpeedrun.updateTrackerQuestCache = function()
     end
 end
 
-ScootsSpeedrun.handleCharacterMap = function(event, map)
+ScootsSpeedrun.handleCharacterMap = function(event, map, eventarg1, eventarg2)
     local mapIndex
     for mapIndex = 1, #map do
         local basicConditionsMet = true
@@ -3018,6 +3034,7 @@ ScootsSpeedrun.frames.events:RegisterEvent('QUEST_PROGRESS')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_COMPLETE')
 ScootsSpeedrun.frames.events:RegisterEvent('CONFIRM_XP_LOSS')
 ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_SHOW')
+ScootsSpeedrun.frames.events:RegisterEvent('ITEM_PUSH')
 
 for popupIndex = 1, 10 do
     local popup = _G['StaticPopup' .. popupIndex]
