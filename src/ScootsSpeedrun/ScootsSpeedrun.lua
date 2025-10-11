@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.6.0',
+    ['version'] = '2.6.1',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {

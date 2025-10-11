@@ -309,6 +309,10 @@ ScootsSpeedrun.map[718] = {
 ScootsSpeedrun.map[796] = {
     [55195] = { -- Pumpkin Shrine
         {
+            ['action'] = 'use-item',
+            ['data'] = 54516, -- Loot-Filled Pumpkin
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
         },
