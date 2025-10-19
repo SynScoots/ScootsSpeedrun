@@ -18,6 +18,14 @@ ScootsSpeedrun.map[2367] = {
             ['data'] = 10283, -- Taretha's Diversion
         },
         {
+            ['action'] = 'select-active-quest',
+            ['data'] = 10284, -- Escape from Durnholde
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 10284, -- Escape from Durnholde
+        },
+        {
             ['action'] = 'select-available-quest',
             ['data'] = 10285, -- Return to Andormu
         },
