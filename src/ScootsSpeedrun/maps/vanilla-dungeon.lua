@@ -107,6 +107,16 @@ ScootsSpeedrun.map[1584] = {
             ['data'] = 1,
         },
     },
+    [23872] = { -- Coren Direbrew
+        {
+            ['action'] = 'use-item',
+            ['data'] = 54535, -- Keg-Shaped Treasure Chest
+        },
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+        },
+    },
 }
 
 -- Zul'Farrak
