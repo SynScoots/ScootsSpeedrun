@@ -157,6 +157,24 @@ ScootsSpeedrun.map[4228] = {
             ['conditions'] = {
                 {
                     ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
+                {
+                    ['type'] = 'available-quest-count',
+                    ['data'] = 0
+                },
+                {
+                    ['type'] = 'active-quest-count',
+                    ['data'] = 0
+                },
+            },
+        },
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+            ['conditions'] = {
+                {
+                    ['type'] = 'gossip-choice-count',
                     ['data'] = 2,
                 },
                 {

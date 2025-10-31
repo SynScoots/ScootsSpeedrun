@@ -291,7 +291,7 @@ ScootsSpeedrun.map[209] = {
             ['data'] = 1,
         },
     },
-    [3850] = { -- Deathstalker Adamant
+    [3849] = { -- Deathstalker Adamant
         {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
