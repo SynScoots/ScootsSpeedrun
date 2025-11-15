@@ -85,4 +85,10 @@ ScootsSpeedrun.map[3717] = {
             ['data'] = 1,
         },
     },
+    [56810] = { -- Ice Stone
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+        },
+    },
 }

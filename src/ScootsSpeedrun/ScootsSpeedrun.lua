@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.7.1',
+    ['version'] = '2.8.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -141,11 +141,9 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
     elseif(event == 'QUEST_DETAIL') then
         local questId = Custom_GetGossipQuests(3)
         
-        if(ScootsSpeedrun.questsFromTracker[questId] ~= true) then
+        if(ScootsSpeedrun.questsFromTracker[questId] ~= true and ScootsSpeedrun.extraQuests[questId] ~= true) then
             ScootsSpeedrun.updateTrackerQuestCache()
-        end
-        
-        if(ScootsSpeedrun.questsFromTracker[questId] == true) then
+        else
             return {
                 {
                     ['action'] = 'accept-quest',
@@ -160,14 +158,14 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
             local availableQuests = Custom_GetGossipQuests(1)
             
             for questIndex = 1, #availableQuests do
-                if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] ~= true) then
+                if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] ~= true and ScootsSpeedrun.extraQuests[availableQuests[questIndex]] ~= true) then
                     ScootsSpeedrun.updateTrackerQuestCache()
                     break
                 end
             end
             
             for questIndex = 1, #availableQuests do
-                if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] == true) then
+                if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] == true or ScootsSpeedrun.extraQuests[availableQuests[questIndex]] == true) then
                     table.insert(map, {
                         ['action'] = 'select-available-quest',
                         ['data'] = availableQuests[questIndex],
@@ -200,6 +198,10 @@ ScootsSpeedrun.buildMapFromHandinReadyQuests = function()
         
         return map
     end
+end
+
+ScootsSpeedrun.buildMapFromExtraQuests = function(event)
+
 end
 
 ScootsSpeedrun.updateTrackerQuestCache = function()
