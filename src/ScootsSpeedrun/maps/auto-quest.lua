@@ -1,4 +1,8 @@
 ScootsSpeedrun.extraQuests = {
+    -- Vanilla
+    [5047] = true, -- Finkle Einhorn, At Your Service!
+    
+    -- WotLK
     [12557] = true, -- Lab Work
     [12597] = true, -- Something for the Pain
     [12599] = true, -- Creature Comforts
@@ -14,6 +18,8 @@ ScootsSpeedrun.extraQuests = {
     [12979] = true, -- Loken's Lackeys
     [12991] = true, -- Hut Them Where it Hurts
     [13009] = true, -- A New Beginning
+    
+    -- Midsummer Festival
     [11580] = true, -- Desecrate this Fire!
     [11581] = true, -- Desecrate this Fire!
     [11732] = true, -- Desecrate this Fire!

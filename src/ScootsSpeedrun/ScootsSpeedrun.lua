@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.9.1',
+    ['version'] = '2.9.2',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -266,7 +266,9 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
         if(basicConditionsMet) then
             local conditionsMet = true
             
-            if(map[mapIndex].conditions) then
+            if(map[mapIndex].conditions == nil) then
+                ScootsSpeedrun.printDebug('No extra conditions')
+            else
                 local conditionChecks = {
                     ['gossip-choice-count'] = ScootsSpeedrun.condition.gossipChoiceCount,
                     ['quest-handin-ready'] = ScootsSpeedrun.condition.questHandinReady,

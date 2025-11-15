@@ -580,8 +580,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -590,8 +592,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -600,8 +604,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -610,8 +616,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -620,8 +628,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -630,8 +640,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -640,8 +652,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -650,8 +664,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -660,8 +676,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -670,8 +688,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -680,8 +700,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
@@ -690,8 +712,10 @@ ScootsSpeedrun.map[1377] = {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
-                ['type'] = 'gossip-choice-count',
-                ['data'] = 1,
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 1,
+                },
             },
         },
     },
