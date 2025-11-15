@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.8.1',
+    ['version'] = '2.9.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -27,6 +27,9 @@ ScootsSpeedrun = {
                 ['data'] = 45072, -- Brightly Colored Egg
             },
         },
+    },
+    ['autoCompleteIgnoreLootItems'] = {
+        [23247] = true, -- Burning Blossom
     },
     ['questsFromTracker'] = {},
 }
@@ -442,8 +445,27 @@ end
 ScootsSpeedrun.action.selectAttuneableRewardOrCompleteQuest = function(param)
     if(GetNumQuestChoices() > 0) then
         return ScootsSpeedrun.action.selectAttuneableReward(param)
-    elseif(GetNumQuestRewards() == 0) then
+    end
+    
+    local numRewards = GetNumQuestRewards()
+    
+    if(numRewards == 0) then
         return ScootsSpeedrun.action.completeQuest(param)
+    elseif(CustomExtractItemId ~= nil) then
+        ignoreRewards = true
+        
+        for rewardIndex = 1, numRewards do
+            local itemId = CustomExtractItemId(GetQuestItemLink('reward', rewardIndex))
+            
+            if(ScootsSpeedrun.autoCompleteIgnoreLootItems[itemId] ~= true) then
+                ignoreRewards = false
+                break
+            end
+        end
+        
+        if(ignoreRewards) then
+            return ScootsSpeedrun.action.completeQuest(param)
+        end
     end
     
     return false
