@@ -339,6 +339,59 @@ ScootsSpeedrun.map[4395] = {
     },
 }
 
+-- Shattrath City
+ScootsSpeedrun.map[3703] = {
+    [22429] = { -- Vekax
+        {
+            ['action'] = 'use-item',
+            ['data'] = 31800, -- Outcast's Cache
+        },
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 10918, -- More Feathers
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 25719, -- Arakkoa Feather
+                        ['count'] = 30,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 10918, -- More Feathers
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 10918, -- More Feathers
+        },
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 10917, -- The Outcast's Plight
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 10917, -- The Outcast's Plight
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 10917, -- The Outcast's Plight
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-handin-ready',
+                    ['data'] = 10917, -- The Outcast's Plight
+                },
+            },
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 10917, -- The Outcast's Plight
+        },
+    },
+}
+
 -- Silithus
 ScootsSpeedrun.map[1377] = {
     [15540] = { -- Windcaller Kaldon

@@ -2,6 +2,17 @@ ScootsSpeedrun.extraQuests = {
     -- Vanilla
     [5047] = true, -- Finkle Einhorn, At Your Service!
     
+    -- TBC
+    [9716] = true, -- Disturbance at Umbrafen Lake
+    [9718] = true, -- As the Crow Flies
+    [9720] = true, -- Balance Must Be Preserved
+    [9971] = true, -- Clues in the Thicket
+    [9990] = true, -- Investigate Tuurem
+    [10228] = true, -- Ezekiel
+    [10231] = true, -- What Book? I Don't See Any Book.
+    [10251] = true, -- The Master's Grand Design?
+    [10252] = true, -- Vision of the Dead
+    
     -- WotLK
     [12557] = true, -- Lab Work
     [12597] = true, -- Something for the Pain
