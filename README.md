@@ -10,3 +10,4 @@ Download this repository, then extract the `ScootsSpeedrun` subdirectory from th
 
 Speak to an applicable NPC to automatically choose dialogue options.\
 Hold alt when speaking to an NPC to suppress this behaviour.
+Control options with `/scootsspeedrun`
