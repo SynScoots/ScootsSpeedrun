@@ -12,6 +12,14 @@ ScootsSpeedrun.extraQuests = {
     [10231] = true, -- What Book? I Don't See Any Book.
     [10251] = true, -- The Master's Grand Design?
     [10252] = true, -- Vision of the Dead
+    [10009] = true, -- Crackin' Some Skulls
+    [10642] = true, -- A Ghost in the Machine
+    [10643] = true, -- Harbingers of Shadowmoon
+    [10644] = true, -- Teron Gorefiend - Lore and Legend
+    [10634] = true, -- Divination: Gorefiend's Armor
+    [10635] = true, -- Divination: Gorefiend's Cloak
+    [10636] = true, -- Divination: Gorefiend's Truncheon
+    [10662] = true, -- The Hermit Smith
     
     -- WotLK
     [12557] = true, -- Lab Work
@@ -27,7 +35,7 @@ ScootsSpeedrun.extraQuests = {
     [12975] = true, -- In Memoriam
     [12976] = true, -- A Monument to the Fallen
     [12979] = true, -- Loken's Lackeys
-    [12991] = true, -- Hut Them Where it Hurts
+    [12991] = true, -- Hit Them Where it Hurts
     [13009] = true, -- A New Beginning
     
     -- Midsummer Festival

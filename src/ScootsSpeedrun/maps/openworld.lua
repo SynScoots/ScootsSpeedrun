@@ -1248,6 +1248,150 @@ ScootsSpeedrun.map[3519] = {
     },
 }
 
+-- Nagrand
+ScootsSpeedrun.map[3518] = {
+    [18816] = { -- Chief Researcher Amereldine
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 10075, -- Oshu'gun Crystal Powder
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 26042, -- Oshu'gun Crystal Powder Sample
+                        ['count'] = 10,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 10075, -- Oshu'gun Crystal Powder
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 26042, -- Oshu'gun Crystal Powder Sample
+                        ['count'] = 10,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 10075, -- Oshu'gun Crystal Powder
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 10075, -- Oshu'gun Crystal Powder
+        },
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 10074, -- Oshu'gun Crystal Powder
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 26042, -- Oshu'gun Crystal Powder Sample
+                        ['count'] = 10,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 10074, -- Oshu'gun Crystal Powder
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 26042, -- Oshu'gun Crystal Powder Sample
+                        ['count'] = 10,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 10074, -- Oshu'gun Crystal Powder
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 10074, -- Oshu'gun Crystal Powder
+        },
+    },
+    [18817] = { -- Chief Researcher Kartos
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 10077, -- Oshu'gun Crystal Powder
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 26043, -- Oshu'gun Crystal Powder Sample
+                        ['count'] = 10,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 10077, -- Oshu'gun Crystal Powder
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 26043, -- Oshu'gun Crystal Powder Sample
+                        ['count'] = 10,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 10077, -- Oshu'gun Crystal Powder
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 10077, -- Oshu'gun Crystal Powder
+        },
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 10076, -- Oshu'gun Crystal Powder
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 26043, -- Oshu'gun Crystal Powder Sample
+                        ['count'] = 10,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 10076, -- Oshu'gun Crystal Powder
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = 26043, -- Oshu'gun Crystal Powder Sample
+                        ['count'] = 10,
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 10076, -- Oshu'gun Crystal Powder
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 10076, -- Oshu'gun Crystal Powder
+        },
+    },
+}
+
 -- Caverns of Time
 ScootsSpeedrun.map[6035] = {
     [20142] = { -- Steward of Time

@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.10.0',
+    ['version'] = '2.11.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -30,22 +30,38 @@ ScootsSpeedrun = {
     },
     ['autoCompleteIgnoreLootItems'] = {
         [23247] = true, -- Burning Blossom
+        [26044] = true, -- Halaa Research Token
+        [32569] = true, -- Apexis Shard
     },
     ['questsFromTracker'] = {},
+    ['options'] = {
+        ['autoRelease'] = false,
+    },
 }
 
 -- ########### --
 
 ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
+    if(event == 'ADDON_LOADED') then
+        if(_G['SCOOTS_SPEED_RUN_OPTIONS'] ~= nil) then
+            for key, _ in pairs(ScootsSpeedrun.options) do
+                if(_G['SCOOTS_SPEED_RUN_OPTIONS'][key] ~= nil) then
+                    ScootsSpeedrun.options[key] = _G['SCOOTS_SPEED_RUN_OPTIONS'][key]
+                end
+            end
+        end
+        
+        return nil
+    elseif(event == 'PLAYER_LOGOUT') then
+        _G['SCOOTS_SPEED_RUN_OPTIONS'] = ScootsSpeedrun.options
+        return nil
+    end
+
     if(IsAltKeyDown()) then
         return nil
     end
     
-    if(event == 'CONFIRM_XP_LOSS') then
-        StaticPopup1Button1:Click()
-        StaticPopup1Button1:Click()
-        return nil
-    end
+    local locationId = Custom_GetCurrentZone()
     
     if(not Custom_GetGossipQuests or not CustomExtractItemId) then
         return nil
@@ -64,7 +80,7 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     
     local locationId = Custom_GetCurrentZone()
     
-    if(npcId and ScootsSpeedrun.debug) then
+    if(npcId and ScootsSpeedrun.options.debug) then
         local location = GetZoneText()
         
         local npc = UnitName('npc')
@@ -73,6 +89,12 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
         end
         
         ScootsSpeedrun.printDebug(event .. '\n' .. location .. ': ' .. locationId .. '\n' .. npc .. ': ' .. npcId)
+    end
+    
+    if(event == 'SCOOTSSPEEDRUN_POPUP_SHOW') then
+        if(ScootsSpeedrun.handlePopup(arg1, locationId)) then
+            return nil
+        end
     end
     
     if(event == 'GOSSIP_SHOW'
@@ -119,7 +141,7 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
 end
 
 ScootsSpeedrun.printDebug = function(message, force)
-    if(ScootsSpeedrun.debug or force) then
+    if(ScootsSpeedrun.options.debug or force) then
         print('\124cff' .. '98fb98' .. ScootsSpeedrun.title .. '\124r' .. ' DEBUG: \n' .. message)
     end
 end
@@ -201,10 +223,6 @@ ScootsSpeedrun.buildMapFromHandinReadyQuests = function()
         
         return map
     end
-end
-
-ScootsSpeedrun.buildMapFromExtraQuests = function(event)
-
 end
 
 ScootsSpeedrun.updateTrackerQuestCache = function()
@@ -302,7 +320,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                         if(thisConditionMet == false) then
                             conditionsMet = false
                             
-                            if(ScootsSpeedrun.debug ~= true) then
+                            if(ScootsSpeedrun.options.debug ~= true) then
                                 break
                             end
                         end
@@ -344,6 +362,23 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                 end
             end
         end
+    end
+    
+    return false
+end
+
+-- ########### --
+
+ScootsSpeedrun.handlePopup = function(popup, locationId)
+    if(popup.which == 'DEATH') then
+        if(ScootsSpeedrun.options.autoRelease) then
+            RepopMe()
+        end
+        
+        return true
+    elseif(popup.which == 'XP_LOSS') then
+        AcceptXPLoss()
+        return true
     end
     
     return false
@@ -769,22 +804,56 @@ end
 -- ########### --
 
 ScootsSpeedrun.handleChatCommand = function(params)
-    local heading = table.concat({
-        '\124cff',
-        '98fb98',
-        ScootsSpeedrun.title,
-        ' ',
-        ScootsSpeedrun.version,
-        '\124r',
-        '\n'
-    }, '')
-
-    if(params == 'debug') then
-        print(heading .. 'Debug toggled ' .. ((ScootsSpeedrun.debug and 'off') or 'on') .. '.')
-        ScootsSpeedrun.debug = not ScootsSpeedrun.debug
+    local header = '\124cff' .. '98fb98' .. ScootsSpeedrun.title .. ' ' .. ScootsSpeedrun.version .. '\124r'
+    local output = {}
+    
+    if(params ~= nil and params == 'auto-release') then
+        ScootsSpeedrun.options.autoRelease = not ScootsSpeedrun.options.autoRelease
+        table.insert(output, header)
+        table.insert(output, table.concat({
+            'Auto-release toggled ',
+            '\124cff',
+            '9898fb',
+            ((ScootsSpeedrun.options.autoRelease and 'on') or 'off'),
+            '\124r',
+        }))
+    elseif(params ~= nil and params == 'debug') then
+        ScootsSpeedrun.options.debug = not ScootsSpeedrun.options.debug
+        table.insert(output, header)
+        table.insert(output, table.concat({
+            'Debug mode toggled ',
+            '\124cff',
+            '9898fb',
+            ((ScootsSpeedrun.options.debug and 'on') or 'off'),
+            '\124r',
+        }))
     else
-        print(heading .. 'Type "/scootsspeedrun debug" to toggle debug mode.\nDebug mode is currently ' .. ((ScootsSpeedrun.debug and 'on') or 'off') .. '.')
+        table.insert(output, header .. ' usage:\n')
+        table.insert(output, table.concat({
+            '\124cff',
+            '98fb98',
+            '/scootsspeedrun auto-release',
+            '\124r',
+            ' - Auto-release spirit on death (except in Icecrown Citadel) - currently ',
+            '\124cff',
+            '9898fb',
+            ((ScootsSpeedrun.options.autoRelease and 'on') or 'off'),
+            '\124r',
+        }, ''))
+        table.insert(output, table.concat({
+            '\124cff',
+            '98fb98',
+            '/scootsspeedrun debug',
+            '\124r',
+            ' - Display debug when relevant operations performed - currently ',
+            '\124cff',
+            '9898fb',
+            ((ScootsSpeedrun.options.debug and 'on') or 'off'),
+            '\124r',
+        }, ''))
     end
+    
+    print(table.concat(output, '\n'))
 end
 
 SLASH_SCOOTSSPEEDRUN1 = '/scootsspeedrun'
@@ -799,15 +868,16 @@ ScootsSpeedrun.frames.events:RegisterEvent('QUEST_GREETING')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_DETAIL')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_PROGRESS')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_COMPLETE')
-ScootsSpeedrun.frames.events:RegisterEvent('CONFIRM_XP_LOSS')
 ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_SHOW')
 ScootsSpeedrun.frames.events:RegisterEvent('ITEM_PUSH')
+ScootsSpeedrun.frames.events:RegisterEvent('ADDON_LOADED')
+ScootsSpeedrun.frames.events:RegisterEvent('PLAYER_LOGOUT')
 
 for popupIndex = 1, 10 do
     local popup = _G['StaticPopup' .. popupIndex]
     if(popup) then
         popup:HookScript('OnShow', function()
-            ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_POPUP_SHOW')
+            ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_POPUP_SHOW', popup)
         end)
     end
 end
