@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.11.0',
+    ['version'] = '2.11.1',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -371,7 +371,7 @@ end
 
 ScootsSpeedrun.handlePopup = function(popup, locationId)
     if(popup.which == 'DEATH') then
-        if(ScootsSpeedrun.options.autoRelease) then
+        if(ScootsSpeedrun.options.autoRelease and locationId ~= 4812) then -- 4812 = Icecrown Citadel
             RepopMe()
         end
         
