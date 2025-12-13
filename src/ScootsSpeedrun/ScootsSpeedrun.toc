@@ -2,7 +2,7 @@
 ## Title: ScootsSpeedrun
 ## Notes: Automatically chooses conversation options to speed up dungeon/raid runs
 ## Author: Scoots
-## Version: 2.11.1
+## Version: 2.12.0
 ## SavedVariables: SCOOTS_SPEED_RUN_OPTIONS
 
 ScootsSpeedrun.lua
@@ -12,5 +12,8 @@ maps\tbc-raid.lua
 maps\tbc-dungeon.lua
 maps\vanilla-raid.lua
 maps\vanilla-dungeon.lua
-maps\openworld.lua
+maps\openworld-easternkingdoms.lua
+maps\openworld-kalimdor.lua
+maps\openworld-northrend.lua
+maps\openworld-outland.lua
 maps\auto-quest.lua

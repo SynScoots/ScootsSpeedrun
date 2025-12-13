@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.11.1',
+    ['version'] = '2.12.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -27,8 +27,27 @@ ScootsSpeedrun = {
                 ['data'] = 45072, -- Brightly Colored Egg
             },
         },
+        ['Interface\\Icons\\INV_Box_01'] = {
+            {
+                ['action'] = 'use-item',
+                ['data'] = 6355, -- Sturdy Locked Chest
+            },
+        },
+        ['Interface\\Icons\\INV_Crate_03'] = {
+            {
+                ['action'] = 'use-item',
+                ['data'] = 6357, -- Sealed Crate
+            },
+        },
+        ['Interface\\Icons\\INV_Crate_04'] = {
+            {
+                ['action'] = 'use-item',
+                ['data'] = 44475, -- Reinforced Crate
+            },
+        },
     },
     ['autoCompleteIgnoreLootItems'] = {
+        [19182] = true, -- Darkmoon Faire Prize Ticket
         [23247] = true, -- Burning Blossom
         [26044] = true, -- Halaa Research Token
         [32569] = true, -- Apexis Shard
@@ -269,6 +288,18 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
             if(event ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
+        elseif(map[mapIndex].action == 'select-attuneable-reward-or-complete-quest') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'select-fewest-owned-reward-in-set') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'select-attuneable-reward') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+                basicConditionsMet = false
+            end
         elseif(map[mapIndex].action == 'purchase-item' or map[mapIndex].action == 'purchase-item-to-count') then
             if(event ~= 'MERCHANT_SHOW') then
                 basicConditionsMet = false
@@ -334,6 +365,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['close-gossip'] = ScootsSpeedrun.action.closeGossip,
                     ['select-available-quest'] = ScootsSpeedrun.action.selectAvailableQuest,
                     ['select-attuneable-reward-or-complete-quest'] = ScootsSpeedrun.action.selectAttuneableRewardOrCompleteQuest,
+                    ['select-fewest-owned-reward-in-set'] = ScootsSpeedrun.action.selectFewestOwnedRewardInSet,
                     ['accept-quest'] = ScootsSpeedrun.action.acceptQuest,
                     ['select-active-quest'] = ScootsSpeedrun.action.selectActiveQuest,
                     ['progress-quest'] = ScootsSpeedrun.action.progressQuest,
@@ -506,6 +538,53 @@ ScootsSpeedrun.action.selectAttuneableRewardOrCompleteQuest = function(param)
     end
     
     return false
+end
+
+ScootsSpeedrun.action.selectFewestOwnedRewardInSet = function(data)
+    if(CustomExtractItemId == nil) then
+        return false
+    end
+
+    local setCheck = {}
+    for _, item in pairs(data) do
+        setCheck[item] = 0
+    end
+    
+    for bagIndex = 0, 4 do
+        local bagSlots = GetContainerNumSlots(bagIndex)
+            
+        for slotIndex = 1, bagSlots do
+            local _, itemCount, _, _, _, _, itemLink = GetContainerItemInfo(bagIndex, slotIndex)
+            local itemId = CustomExtractItemId(itemLink)
+
+            if(itemId and setCheck[itemId] ~= nil) then
+                setCheck[itemId] = setCheck[itemId] + itemCount
+            end
+        end
+    end
+    
+    local lowest = nil
+    local chooseItemId = nil
+    for itemId, count in pairs(setCheck) do
+        if(lowest == nil or count < lowest) then
+            lowest = count
+            chooseItemId = itemId
+        end
+    end
+
+    local numRewards = GetNumQuestChoices()
+    if(numRewards == 0) then
+        return false
+    end
+    
+    for rewardIndex = 1, numRewards do
+        local itemId = CustomExtractItemId(GetQuestItemLink('choice', rewardIndex))
+        
+        if(itemId == chooseItemId) then
+            _G['QuestInfoItem' .. rewardIndex]:Click()
+            return false
+        end
+    end
 end
 
 ScootsSpeedrun.action.useItemFromBag = function(itemIdToUse)

@@ -1,5 +1,9 @@
 ScootsSpeedrun.extraQuests = {
     -- Vanilla
+    [4324] = true, -- Yuka Screwspigot
+    [4766] = true, -- Mayara Brightwing
+    [5001] = true, -- Bijou's Belongings
+    [5002] = true, -- Message to Maxwell
     [5047] = true, -- Finkle Einhorn, At Your Service!
     
     -- TBC
