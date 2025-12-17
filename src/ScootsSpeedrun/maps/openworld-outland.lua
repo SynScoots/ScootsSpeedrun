@@ -55,6 +55,10 @@ ScootsSpeedrun.map[3703] = {
 ScootsSpeedrun.map[3519] = {
     [25580] = { -- Old Man Barlo
         {
+            ['action'] = 'use-item',
+            ['data'] = 34863, -- Bag of Fishing Treasures
+        },
+        {
             ['action'] = 'accept-quest',
             ['data'] = 11666, -- Bait Bandits
         },

@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.12.0',
+    ['version'] = '2.13.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -48,6 +48,7 @@ ScootsSpeedrun = {
     },
     ['autoCompleteIgnoreLootItems'] = {
         [19182] = true, -- Darkmoon Faire Prize Ticket
+        [21100] = true, -- Coin of Ancestry
         [23247] = true, -- Burning Blossom
         [26044] = true, -- Halaa Research Token
         [32569] = true, -- Apexis Shard
