@@ -215,6 +215,9 @@ ScootsSpeedrun.map[3519] = {
     },
     [54841] = { -- Skull Pile
         {
+            ['action'] = 'dismount',
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
@@ -317,6 +320,9 @@ ScootsSpeedrun.map[3519] = {
         
     },
     [54856] = { -- Ancient Skull Pile
+        {
+            ['action'] = 'dismount',
+        },
         {
             ['action'] = 'dialogue-select',
             ['data'] = 2,

@@ -236,6 +236,9 @@ ScootsSpeedrun.map[1377] = {
     },
     [49384] = { -- Lesser Wind Stone
         {
+            ['action'] = 'dismount',
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
@@ -247,6 +250,9 @@ ScootsSpeedrun.map[1377] = {
         },
     },
     [49446] = { -- Lesser Wind Stone
+        {
+            ['action'] = 'dismount',
+        },
         {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
@@ -260,6 +266,9 @@ ScootsSpeedrun.map[1377] = {
     },
     [49457] = { -- Lesser Wind Stone
         {
+            ['action'] = 'dismount',
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
@@ -271,6 +280,9 @@ ScootsSpeedrun.map[1377] = {
         },
     },
     [49472] = { -- Lesser Wind Stone
+        {
+            ['action'] = 'dismount',
+        },
         {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
@@ -284,6 +296,9 @@ ScootsSpeedrun.map[1377] = {
     },
     [49477] = { -- Lesser Wind Stone
         {
+            ['action'] = 'dismount',
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
@@ -295,6 +310,9 @@ ScootsSpeedrun.map[1377] = {
         },
     },
     [49492] = { -- Lesser Wind Stone
+        {
+            ['action'] = 'dismount',
+        },
         {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
@@ -308,6 +326,9 @@ ScootsSpeedrun.map[1377] = {
     },
     [49389] = { -- Wind Stone
         {
+            ['action'] = 'dismount',
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
@@ -319,6 +340,9 @@ ScootsSpeedrun.map[1377] = {
         },
     },
     [49462] = { -- Wind Stone
+        {
+            ['action'] = 'dismount',
+        },
         {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
@@ -332,6 +356,9 @@ ScootsSpeedrun.map[1377] = {
     },
     [49482] = { -- Wind Stone
         {
+            ['action'] = 'dismount',
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
@@ -343,6 +370,9 @@ ScootsSpeedrun.map[1377] = {
         },
     },
     [49394] = { -- Greater Wind Stone
+        {
+            ['action'] = 'dismount',
+        },
         {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
@@ -356,6 +386,9 @@ ScootsSpeedrun.map[1377] = {
     },
     [49467] = { -- Greater Wind Stone
         {
+            ['action'] = 'dismount',
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
@@ -367,6 +400,9 @@ ScootsSpeedrun.map[1377] = {
         },
     },
     [49487] = { -- Greater Wind Stone
+        {
+            ['action'] = 'dismount',
+        },
         {
             ['action'] = 'dialogue-select',
             ['data'] = 1,

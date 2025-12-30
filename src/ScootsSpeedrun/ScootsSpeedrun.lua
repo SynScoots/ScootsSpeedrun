@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.13.0',
+    ['version'] = '2.14.0',
     ['title'] = 'ScootsSpeedrun',
     ['debug'] = false,
     ['frames'] = {
@@ -10,44 +10,15 @@ ScootsSpeedrun = {
     ['map'] = {
         -- ['zoneId'] = { ['npcId'] = { ... } }
     },
-    ['noNpcQuests'] = {
-        {
-            ['action'] = 'accept-quest',
-            ['data'] = 13148, -- Necklace Repair
-        },
-        {
-            ['action'] = 'accept-quest',
-            ['data'] = 14203, -- Waterlogged Recipe
-        },
-    },
-    ['onLootEvent'] = {
-        ['Interface\\Icons\\INV_Egg_06'] = {
-            {
-                ['action'] = 'use-item',
-                ['data'] = 45072, -- Brightly Colored Egg
-            },
-        },
-        ['Interface\\Icons\\INV_Box_01'] = {
-            {
-                ['action'] = 'use-item',
-                ['data'] = 6355, -- Sturdy Locked Chest
-            },
-        },
-        ['Interface\\Icons\\INV_Crate_03'] = {
-            {
-                ['action'] = 'use-item',
-                ['data'] = 6357, -- Sealed Crate
-            },
-        },
-        ['Interface\\Icons\\INV_Crate_04'] = {
-            {
-                ['action'] = 'use-item',
-                ['data'] = 44475, -- Reinforced Crate
-            },
-        },
-    },
     ['autoCompleteIgnoreLootItems'] = {
         [19182] = true, -- Darkmoon Faire Prize Ticket
+        [20800] = true, -- Cenarion Logistics Badge
+        [20801] = true, -- Cenarion Tactical Badge
+        [20802] = true, -- Cenarion Combat Badge
+        [20805] = true, -- Followup Logistics Assignment
+        [20809] = true, -- Tactical Assignment
+        [21132] = true, -- Logistics Assignment
+        [21133] = true, -- Followup Tactical Assignment
         [21100] = true, -- Coin of Ancestry
         [23247] = true, -- Burning Blossom
         [26044] = true, -- Halaa Research Token
@@ -57,6 +28,8 @@ ScootsSpeedrun = {
     ['options'] = {
         ['autoRelease'] = false,
     },
+    ['queuedEvents'] = {},
+    ['queueTimer'] = 0,
 }
 
 -- ########### --
@@ -129,11 +102,6 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
         
         if(npcId and ScootsSpeedrun.map[locationId] and ScootsSpeedrun.map[locationId][npcId]) then
             actionPerformed = ScootsSpeedrun.handleCharacterMap(event, ScootsSpeedrun.map[locationId][npcId])
-        end
-        
-        if(actionPerformed == false) then
-            ScootsSpeedrun.printDebug('Using noNpcQuests')
-            actionPerformed = ScootsSpeedrun.handleCharacterMap(event, ScootsSpeedrun.noNpcQuests)
         end
         
         if(actionPerformed == false) then
@@ -376,6 +344,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['purchase-item'] = ScootsSpeedrun.action.purchaseItem,
                     ['purchase-item-to-count'] = ScootsSpeedrun.action.purchaseItemUpToCount,
                     ['auto-confirm'] = ScootsSpeedrun.action.autoConfirm,
+                    ['dismount'] = ScootsSpeedrun.action.dismount,
                     ['do-nothing'] = ScootsSpeedrun.action.doNothing,
                 }
                 
@@ -398,6 +367,32 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
     end
     
     return false
+end
+
+-- ########### --
+
+ScootsSpeedrun.pushQueuedEvent = function(timeout, callback)
+    table.insert(ScootsSpeedrun.queuedEvents, {
+        ['when'] = ScootsSpeedrun.queueTimer + timeout,
+        ['callback'] = callback,
+    })
+end
+
+ScootsSpeedrun.queueHandler = function(_, elapsed)
+    ScootsSpeedrun.queueTimer = ScootsSpeedrun.queueTimer + elapsed
+    
+    if(#ScootsSpeedrun.queuedEvents > 0) then
+        local queueIndex = 1
+        
+        while queueIndex <= #ScootsSpeedrun.queuedEvents do
+            if(ScootsSpeedrun.queuedEvents[queueIndex] and ScootsSpeedrun.queuedEvents[queueIndex].when <= ScootsSpeedrun.queueTimer) then
+                ScootsSpeedrun.queuedEvents[queueIndex].callback()
+                table.remove(ScootsSpeedrun.queuedEvents, queueIndex)
+            else
+                queueIndex = queueIndex + 1
+            end
+        end
+    end
 end
 
 -- ########### --
@@ -686,6 +681,20 @@ ScootsSpeedrun.action.autoConfirm = function(popupWhich)
     end
 end
 
+ScootsSpeedrun.action.dismount = function()
+    if(GetPerkOption('Automatic Mount', 'Disabled') == nil) then
+        TogglePerkOption('Automatic Mount', 'Disabled', false)
+        
+        ScootsSpeedrun.pushQueuedEvent(2, function()
+            TogglePerkOption('Automatic Mount', 'Disabled', false)
+        end)
+    end
+
+    Dismount()
+    
+    return false
+end
+
 ScootsSpeedrun.action.doNothing = function()
     return true
 end
@@ -941,7 +950,16 @@ SlashCmdList['SCOOTSSPEEDRUN'] = ScootsSpeedrun.handleChatCommand
 
 -- ########### --
 
+ChatFrame_AddMessageEventFilter('CHAT_MSG_SYSTEM', function(_, _, message)
+    if(message == 'You are not mounted so you can\'t dismount.') then -- There doesn't appear to be a constant for this string for some reason
+        return true
+    end
+end)
+
+-- ########### --
+
 ScootsSpeedrun.frames.events:SetScript('OnEvent', ScootsSpeedrun.eventHandler)
+ScootsSpeedrun.frames.events:SetScript('OnUpdate', ScootsSpeedrun.queueHandler)
 
 ScootsSpeedrun.frames.events:RegisterEvent('GOSSIP_SHOW')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_GREETING')

@@ -109,4 +109,22 @@ ScootsSpeedrun.map[4395] = {
             ['data'] = 13148, -- Necklace Repair
         },
     },
+    [31848] = { -- Zidormi
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1
+        },
+    },
+    [32169] = { -- Arcanist Braedin
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1
+        },
+    },
+    [32170] = { -- Magister Surdiel
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1
+        },
+    },
 }

@@ -2,7 +2,7 @@
 ## Title: ScootsSpeedrun
 ## Notes: Automatically chooses conversation options to speed up dungeon/raid runs
 ## Author: Scoots
-## Version: 2.13.0
+## Version: 2.14.0
 ## SavedVariables: SCOOTS_SPEED_RUN_OPTIONS
 
 ScootsSpeedrun.lua
@@ -17,3 +17,4 @@ maps\openworld-kalimdor.lua
 maps\openworld-northrend.lua
 maps\openworld-outland.lua
 maps\auto-quest.lua
+maps\loot-events.lua
