@@ -299,8 +299,18 @@ ScootsSpeedrun.map[209] = {
     },
     [36296] = { -- Apothecary Hummel
         {
+            ['action'] = 'use-item',
+            ['data'] = 54537, -- Heart-Shaped Box
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-not-in-log',
+                    ['data'] = 14488, -- You've Been Served
+                },
+            },
         },
     },
 }

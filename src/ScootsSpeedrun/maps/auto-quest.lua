@@ -304,4 +304,33 @@ ScootsSpeedrun.extraQuests = {
     [13015] = true, -- Fargal the Elder
     [13021] = true, -- Igasho the Elder
     [13025] = true, -- Lunaro the Elder
+    
+    -- Love is in the Air
+    [24636] = true, -- Bonbon Blitz
+    [24629] = true, -- A Perfect Puff of Perfume
+    [24651] = true, -- Crushing the Crown
+    [24635] = true, -- A Cloudlet of Classy Cologne
+    [24597] = true, -- A Gift for the King of Stormwind
+    [24609] = true, -- A Gift for the Lord of Ironforge
+    [24610] = true, -- A Gift for the High Priestess of Elune
+    [24611] = true, -- A Gift for the Prophet
+    [24612] = true, -- A Gift for the Warchief
+    [24614] = true, -- A Gift for the High Chieftain
+    [24613] = true, -- A Gift for the Banshee Queen
+    [24615] = true, -- A Gift for the Regent Lord of Quel'Thalas
+    [24650] = true, -- Crushing the Crown
+    [24665] = true, -- Crushing the Crown
+    [24664] = true, -- Crushing the Crown
+    [24666] = true, -- Crushing the Crown
+    [24659] = true, -- Crushing the Crown
+    [24658] = true, -- Crushing the Crown
+    [24660] = true, -- Crushing the Crown
+    [24662] = true, -- Crushing the Crown
+    [24663] = true, -- Crushing the Crown
+    [24649] = true, -- Crushing the Crown
+    [24638] = true, -- Crushing the Crown
+    [24645] = true, -- Crushing the Crown
+    [24648] = true, -- Crushing the Crown
+    [24652] = true, -- Crushing the Crown
+    [24647] = true, -- Crushing the Crown
 }

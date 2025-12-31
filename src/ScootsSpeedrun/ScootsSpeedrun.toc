@@ -2,10 +2,12 @@
 ## Title: ScootsSpeedrun
 ## Notes: Automatically chooses conversation options to speed up dungeon/raid runs
 ## Author: Scoots
-## Version: 2.14.0
+## Version: 2.15.0
 ## SavedVariables: SCOOTS_SPEED_RUN_OPTIONS
 
-ScootsSpeedrun.lua
+ScootsSpeedrun-core.lua
+ScootsSpeedrun-conditions.lua
+ScootsSpeedrun-actions.lua
 maps\wotlk-raid.lua
 maps\wotlk-dungeon.lua
 maps\tbc-raid.lua
