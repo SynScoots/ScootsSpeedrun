@@ -1,6 +1,14 @@
 ## Description ##
 
-This addon will automatically and instantly select dialogue choices when speaking to NPCs within dungeons.
+This addon will automatically and instantly perform many repetitive operations throughout the game:
+- Pickup / advance / hand-in most dungeon quest chains.
+- Choose dialogue when speaking to certain NPCs, particularly within dungeons.
+- Accepting quests / pre-quests that lead to attuneable rewards.
+- Handing-in pre-quests that lead to attuneable rewards.
+- Highlighting attuneable rewards in quest panels.
+- Accept / hand-in many repeatable quests for Silithus, Terokk, Argent Dawn, and other grinds.
+- Accept / hand-in many quests during world events.
+- Open certain containers during fishing / world events.
 
 ## Installation ##
 
