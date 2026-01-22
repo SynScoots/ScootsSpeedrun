@@ -23,6 +23,8 @@ ScootsSpeedrun = {
         [23247] = true, -- Burning Blossom
         [26044] = true, -- Halaa Research Token
         [32569] = true, -- Apexis Shard
+        [37836] = true, -- Venture Coin
+        [43228] = true, -- Stone Keeper's Shard
         [49927] = true, -- Love Token
         [49936] = true, -- Lovely Stormwind Card
         [49940] = true, -- Lovely Ironforge Card
@@ -39,6 +41,8 @@ ScootsSpeedrun = {
     },
     ['queuedEvents'] = {},
     ['queueTimer'] = 0,
+    ['watchedItems'] = {},
+    ['doBagUpdateAt'] = nil,
 }
 
 -- ########### --
@@ -62,8 +66,6 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     if(IsAltKeyDown()) then
         return nil
     end
-    
-    local locationId = Custom_GetCurrentZone()
     
     if(not Custom_GetGossipQuests or not CustomExtractItemId) then
         return nil
@@ -126,14 +128,14 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
                 ScootsSpeedrun.handleCharacterMap(event, map)
             end
         end
-    end
-    
-    if(event == 'ITEM_PUSH') then
+    elseif(event == 'ITEM_PUSH') then
         local map = ScootsSpeedrun['onLootEvent'][arg2]
         
         if(map ~= nil) then
             ScootsSpeedrun.handleCharacterMap(event, map)
         end
+    elseif(event == 'BAG_UPDATE') then
+        ScootsSpeedrun.doBagUpdateAt = ScootsSpeedrun.queueTimer + 0.25
     end
 end
 
@@ -350,6 +352,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['complete-quest'] = ScootsSpeedrun.action.completeQuest,
                     ['select-attuneable-reward'] = ScootsSpeedrun.action.selectAttuneableReward,
                     ['use-item'] = ScootsSpeedrun.action.useItemFromBag,
+                    ['register-item-for-use'] = ScootsSpeedrun.action.registerItemForUseFromBag,
                     ['purchase-item'] = ScootsSpeedrun.action.purchaseItem,
                     ['purchase-item-to-count'] = ScootsSpeedrun.action.purchaseItemUpToCount,
                     ['auto-confirm'] = ScootsSpeedrun.action.autoConfirm,
@@ -391,14 +394,45 @@ ScootsSpeedrun.queueHandler = function(_, elapsed)
     ScootsSpeedrun.queueTimer = ScootsSpeedrun.queueTimer + elapsed
     
     if(#ScootsSpeedrun.queuedEvents > 0) then
-        local queueIndex = 1
-        
-        while queueIndex <= #ScootsSpeedrun.queuedEvents do
-            if(ScootsSpeedrun.queuedEvents[queueIndex] and ScootsSpeedrun.queuedEvents[queueIndex].when <= ScootsSpeedrun.queueTimer) then
-                ScootsSpeedrun.queuedEvents[queueIndex].callback()
-                table.remove(ScootsSpeedrun.queuedEvents, queueIndex)
-            else
-                queueIndex = queueIndex + 1
+        ScootsSpeedrun.processQueuedEvents()
+    end
+    
+    if(ScootsSpeedrun.doBagUpdateAt ~= nil and ScootsSpeedrun.doBagUpdateAt < ScootsSpeedrun.queueTimer) then
+        ScootsSpeedrun.doBagUpdateAt = nil
+        ScootsSpeedrun.processWatchedItems()
+    end
+end
+
+ScootsSpeedrun.processQueuedEvents = function()
+    local queueIndex = 1
+    
+    while queueIndex <= #ScootsSpeedrun.queuedEvents do
+        if(ScootsSpeedrun.queuedEvents[queueIndex] and ScootsSpeedrun.queuedEvents[queueIndex].when <= ScootsSpeedrun.queueTimer) then
+            ScootsSpeedrun.queuedEvents[queueIndex].callback()
+            table.remove(ScootsSpeedrun.queuedEvents, queueIndex)
+        else
+            queueIndex = queueIndex + 1
+        end
+    end
+end
+
+ScootsSpeedrun.processWatchedItems = function()
+    local usedItem = false
+    
+    for texture, items in pairs(ScootsSpeedrun.watchedItems) do
+        if(items ~= nil and #items > 0) then
+            for _, itemId in ipairs(items) do
+                local open = ScootsSpeedrun.action.useItemFromBag(itemId, true)
+                
+                if(open == true) then
+                    usedItem = true
+                    break
+                end
+            end
+            
+            if(usedItem == true) then
+                ScootsSpeedrun.watchedItems[texture] = nil
+                break
             end
         end
     end
@@ -497,6 +531,7 @@ ScootsSpeedrun.frames.events:RegisterEvent('QUEST_PROGRESS')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_COMPLETE')
 ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_SHOW')
 ScootsSpeedrun.frames.events:RegisterEvent('ITEM_PUSH')
+ScootsSpeedrun.frames.events:RegisterEvent('BAG_UPDATE')
 ScootsSpeedrun.frames.events:RegisterEvent('ADDON_LOADED')
 ScootsSpeedrun.frames.events:RegisterEvent('PLAYER_LOGOUT')
 

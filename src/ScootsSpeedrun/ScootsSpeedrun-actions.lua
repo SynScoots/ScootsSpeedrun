@@ -167,7 +167,7 @@ ScootsSpeedrun.action.selectFewestOwnedRewardInSet = function(data)
     end
 end
 
-ScootsSpeedrun.action.useItemFromBag = function(itemIdToUse)
+ScootsSpeedrun.action.useItemFromBag = function(itemIdToUse, returnTrueOnSuccess)
     for bagIndex = 0, 4 do
         local bagSlots = GetContainerNumSlots(bagIndex)
         
@@ -177,7 +177,7 @@ ScootsSpeedrun.action.useItemFromBag = function(itemIdToUse)
 
             if(itemId and itemId == itemIdToUse) then
                 UseContainerItem(bagIndex, slotIndex)
-                return false -- Always return false to allow next action to happen
+                return (returnTrueOnSuccess == true)
             end
         end
     end
@@ -185,10 +185,21 @@ ScootsSpeedrun.action.useItemFromBag = function(itemIdToUse)
     return false
 end
 
+ScootsSpeedrun.action.registerItemForUseFromBag = function(itemId)
+    local texture = select(10, GetItemInfoCustom(itemId))
+    
+    if(ScootsSpeedrun.watchedItems[texture] == nil) then
+        ScootsSpeedrun.watchedItems[texture] = {}
+    end
+    
+    table.insert(ScootsSpeedrun.watchedItems[texture], itemId)
+end
+
 ScootsSpeedrun.action.purchaseItem = function(data)
     local maxShopIndex = GetMerchantNumItems()
     local purchaseIndex = nil
-    local availableStock = nil
+    local availableStock = 0
+    
     for shopIndex = 1, maxShopIndex do
         local itemLink = GetMerchantItemLink(shopIndex)
         local itemId = CustomExtractItemId(itemLink)
@@ -204,8 +215,13 @@ ScootsSpeedrun.action.purchaseItem = function(data)
         return false
     end
     
-    BuyMerchantItem(purchaseIndex, data.count)
-    return true
+    BuyMerchantItem(purchaseIndex, math.min(data.count, availableStock))
+    
+    if(data.continue == nil or data.continue ~= true) then
+        return true
+    end
+    
+    return false
 end
 
 ScootsSpeedrun.action.purchaseItemUpToCount = function(data)

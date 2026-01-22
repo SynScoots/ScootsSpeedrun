@@ -49,6 +49,12 @@ ScootsSpeedrun.map[3703] = {
             ['data'] = 10917, -- The Outcast's Plight
         },
     },
+    [18940] = { -- Nutral
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+        },
+    },
 }
 
 -- Terokkar Forest
