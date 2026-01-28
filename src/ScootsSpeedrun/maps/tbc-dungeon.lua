@@ -87,10 +87,6 @@ ScootsSpeedrun.map[3717] = {
     },
     [56810] = { -- Ice Stone
         {
-            ['action'] = 'use-item',
-            ['data'] = 54536, -- Satchel of Chilled Goods
-        },
-        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
         },

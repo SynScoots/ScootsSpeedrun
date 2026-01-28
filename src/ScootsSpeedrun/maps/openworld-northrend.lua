@@ -14,10 +14,6 @@ ScootsSpeedrun.map[4395] = {
     },
     [28742] = { -- Marcia Chase
         {
-            ['action'] = 'use-item',
-            ['data'] = 46007, -- Bag of Fishing Treasures
-        },
-        {
             ['action'] = 'select-available-quest',
             ['data'] = 13836, -- Disarmed!
         },

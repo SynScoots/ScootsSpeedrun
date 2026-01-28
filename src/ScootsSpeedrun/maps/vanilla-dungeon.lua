@@ -109,10 +109,6 @@ ScootsSpeedrun.map[1584] = {
     },
     [23872] = { -- Coren Direbrew
         {
-            ['action'] = 'use-item',
-            ['data'] = 54535, -- Keg-Shaped Treasure Chest
-        },
-        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
         },
@@ -299,10 +295,6 @@ ScootsSpeedrun.map[209] = {
     },
     [36296] = { -- Apothecary Hummel
         {
-            ['action'] = 'use-item',
-            ['data'] = 54537, -- Heart-Shaped Box
-        },
-        {
             ['action'] = 'dialogue-select',
             ['data'] = 1,
             ['conditions'] = {
@@ -329,8 +321,18 @@ ScootsSpeedrun.map[718] = {
 ScootsSpeedrun.map[796] = {
     [55195] = { -- Pumpkin Shrine
         {
-            ['action'] = 'use-item',
-            ['data'] = 54516, -- Loot-Filled Pumpkin
+            ['action'] = 'select-active-quest',
+            ['data'] = 11135, -- The Headless Horseman
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-handin-ready',
+                    ['data'] = 11135, -- The Headless Horseman
+                },
+            },
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 11135, -- The Headless Horseman
         },
         {
             ['action'] = 'dialogue-select',

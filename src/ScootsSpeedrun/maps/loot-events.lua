@@ -19,6 +19,12 @@ ScootsSpeedrun.onLootEvent = {
             ['data'] = 29569, -- Strong Junkbox
         },
     },
+    ['Interface\\Icons\\INV_Cask_02'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 54535, -- Keg-Shaped Treasure Chest
+        },
+    },
     ['Interface\\Icons\\INV_Crate_03'] = {
         {
             ['action'] = 'register-item-for-use',
@@ -37,16 +43,40 @@ ScootsSpeedrun.onLootEvent = {
             ['data'] = 45072, -- Brightly Colored Egg
         },
     },
+    ['Interface\\Icons\\INV_Gauntlets_06'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 37586, -- Handful of Candy
+        },
+    },
     ['Interface\\Icons\\INV_Misc_Fish_29'] = {
         {
             ['action'] = 'register-item-for-use',
             ['data'] = 6647, -- Bloated Catfish
         },
     },
+    ['Interface\\Icons\\INV_Misc_Bag_07_Blue'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 46007, -- Bag of Fishing Treasures
+        },
+    },
     ['Interface\\Icons\\INV_Misc_Bag_10_Black'] = {
         {
             ['action'] = 'register-item-for-use',
             ['data'] = 49294, -- Ashen Sack of Gems
+        },
+    },
+    ['Interface\\Icons\\INV_Misc_Bag_10_Green'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 34863, -- Bag of Fishing Treasures
+        },
+    },
+    ['Interface\\Icons\\INV_Misc_Bag_11'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 20393, -- Treat Bag
         },
     },
     ['Interface\\Icons\\INV_Misc_Bag_17'] = {
@@ -57,6 +87,28 @@ ScootsSpeedrun.onLootEvent = {
         {
             ['action'] = 'register-item-for-use',
             ['data'] = 43347, -- Satchel of Spoils
+        },
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 54536, -- Satchel of Chilled Goods
+        },
+    },
+    ['Interface\\Icons\\inv_misc_bag_28_halloween'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 54516, -- Loot-Filled Pumpkin
+        },
+    },
+    ['Interface\\Icons\\INV_Misc_Gift_05'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 34077, -- Crudely Wrapped Gift
+        },
+    },
+    ['Interface\\Icons\\INV_ValentinesBoxOfChocolates02'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 54537, -- Heart-Shaped Box
         },
     },
 }

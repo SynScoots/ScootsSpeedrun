@@ -23,6 +23,7 @@ ScootsSpeedrun = {
         [23247] = true, -- Burning Blossom
         [26044] = true, -- Halaa Research Token
         [32569] = true, -- Apexis Shard
+        [37586] = true, -- Handful of Candy
         [37836] = true, -- Venture Coin
         [43228] = true, -- Stone Keeper's Shard
         [49927] = true, -- Love Token
