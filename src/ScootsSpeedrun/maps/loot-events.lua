@@ -64,6 +64,10 @@ ScootsSpeedrun.onLootEvent = {
     ['Interface\\Icons\\INV_Misc_Bag_10_Black'] = {
         {
             ['action'] = 'register-item-for-use',
+            ['data'] = 34846, -- Black Sack of Gems
+        },
+        {
+            ['action'] = 'register-item-for-use',
             ['data'] = 49294, -- Ashen Sack of Gems
         },
     },
@@ -77,6 +81,12 @@ ScootsSpeedrun.onLootEvent = {
         {
             ['action'] = 'register-item-for-use',
             ['data'] = 20393, -- Treat Bag
+        },
+    },
+    ['Interface\\Icons\\INV_Misc_Bag_15'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 44663, -- Abandoned Adventurer's Satchel
         },
     },
     ['Interface\\Icons\\INV_Misc_Bag_17'] = {

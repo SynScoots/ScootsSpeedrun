@@ -8,6 +8,11 @@ ScootsSpeedrun.action.closeGossip = function()
     return true
 end
 
+ScootsSpeedrun.action.closeMerchant = function()
+    CloseMerchant()
+    return true
+end
+
 ScootsSpeedrun.action.selectAvailableQuest = function(selectQuestId)
     local questList = Custom_GetGossipQuests(1)
     if(questList == nil) then
@@ -293,6 +298,62 @@ ScootsSpeedrun.action.dismount = function()
     end
 
     Dismount()
+    
+    return false
+end
+
+ScootsSpeedrun.action.withdrawFromResourceBank = function(itemId)
+    local frame = _G['RBankFrame']
+    local line = _G['RBankFrame-ILine-1']
+    local button = _G['RBankFrame-Withdraw']
+    
+    if(frame and not line) then
+        local oldOnUpdate = frame:GetScript('OnUpdate')
+        
+        frame:SetScript('OnUpdate', function(...)
+            if(frame:IsVisible()) then
+                frame:Click()
+                line = _G['RBankFrame-ILine-1']
+                
+                if(line) then
+                    frame:Hide()
+                    frame:SetScript('OnUpdate', oldOnUpdate)
+                    
+                    line.ItemId = itemId
+                    line:Click()
+                    button:Click()
+                end
+            end
+            
+            if(oldOnUpdate) then
+                oldOnUpdate(...)
+            end
+        end)
+        
+        frame:Show()
+    elseif(frame and line and button) then
+        line.ItemId = itemId
+        line:Click()
+        button:Click()
+    end
+    
+    return false
+end
+
+ScootsSpeedrun.action.depositToResourceBank = function()
+    local button = _G['RBankFrame-DepositAll']
+    
+    if(button) then
+        button:Click()
+    end
+    
+    return false
+end
+
+ScootsSpeedrun.action.registerCallbackOnEvent = function(data)
+    ScootsSpeedrun.registeredEvents[data.event] = ScootsSpeedrun.registeredEvents[data.event] or {}
+    
+    table.insert(ScootsSpeedrun.registeredEvents[data.event], data.callback)
     
     return false
 end

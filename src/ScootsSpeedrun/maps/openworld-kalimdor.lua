@@ -543,3 +543,55 @@ ScootsSpeedrun.map[440] = {
         },
     },
 }
+
+-- Dustwallow Marsh
+ScootsSpeedrun.map[15] = {
+    [6546] = { -- Tabetha
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27087, -- Gundrak: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27087, -- Gundrak: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27087, -- Gundrak: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27087, -- Gundrak: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27087, -- Gundrak: Reward
+        },
+    },
+}
+
+-- Azshara
+ScootsSpeedrun.map[16] = {
+    [8379] = { -- Archmage Xylem
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27017, -- The Violet Hold: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27017, -- The Violet Hold: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27017, -- The Violet Hold: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27017, -- The Violet Hold: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27017, -- The Violet Hold: Reward
+        },
+    },
+}

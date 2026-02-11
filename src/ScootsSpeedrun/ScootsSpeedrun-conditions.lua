@@ -186,3 +186,21 @@ ScootsSpeedrun.condition.itemInBagsAndResourceBank = function(data)
     
     return false
 end
+
+ScootsSpeedrun.condition.itemNotAttuned = function(data)
+    if(type(data) ~= 'table') then
+        data = {data}
+    end
+    
+    if(not GetItemAttuneForge or not CanAttuneItemHelper) then
+        return true
+    end
+    
+    for _, itemId in pairs(data) do
+        if(GetItemAttuneForge(itemId) == -1 and CanAttuneItemHelper(itemId) > 0) then
+            return true
+        end
+    end
+    
+    return false
+end

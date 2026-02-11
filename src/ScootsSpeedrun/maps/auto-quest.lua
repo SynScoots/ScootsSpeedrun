@@ -34,7 +34,6 @@ ScootsSpeedrun.extraQuests = {
     [8772] = true, -- Target: Hive'Zora Waywatchers
     
     -- TBC
-    [9716] = true, -- Disturbance at Umbrafen Lake
     [9718] = true, -- As the Crow Flies
     [9720] = true, -- Balance Must Be Preserved
     [9971] = true, -- Clues in the Thicket

@@ -124,3 +124,77 @@ ScootsSpeedrun.map[4395] = {
         },
     },
 }
+
+-- Borean Tundra
+ScootsSpeedrun.map[3537] = {
+    [26117] = { -- Raelorasz
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27067, -- Ahn'kahet: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27067, -- Ahn'kahet: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27067, -- Ahn'kahet: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27067, -- Ahn'kahet: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27067, -- Ahn'kahet: Reward
+        },
+    },
+}
+
+-- Dragonblight
+ScootsSpeedrun.map[65] = {
+    [27765] = { -- Nalice
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27057, -- The Nexus: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27057, -- The Nexus: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27057, -- The Nexus: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27057, -- The Nexus: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27057, -- The Nexus: Reward
+        },
+    },
+    [27856] = { -- Chromie
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27007, -- The Culling of Stratholme: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27007, -- The Culling of Stratholme: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27007, -- The Culling of Stratholme: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27007, -- The Culling of Stratholme: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27007, -- The Culling of Stratholme: Reward
+        },
+    },
+}

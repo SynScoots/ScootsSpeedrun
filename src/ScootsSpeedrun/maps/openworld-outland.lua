@@ -339,6 +339,28 @@ ScootsSpeedrun.map[3519] = {
             },
         },
     },
+    [21465] = { -- David Wayne
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27097, -- Trial of the Champion: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27097, -- Trial of the Champion: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27097, -- Trial of the Champion: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27097, -- Trial of the Champion: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27097, -- Trial of the Champion: Reward
+        },
+    },
 }
 
 -- Nagrand
@@ -481,6 +503,62 @@ ScootsSpeedrun.map[3518] = {
         {
             ['action'] = 'complete-quest',
             ['data'] = 10076, -- Oshu'gun Crystal Powder
+        },
+    },
+}
+
+-- Zangarmarsh
+ScootsSpeedrun.map[3521] = {
+    [17841] = { -- Ysiel Windsinger
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27037, -- Halls of Lightning: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27037, -- Halls of Lightning: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27037, -- Halls of Lightning: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27037, -- Halls of Lightning: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27037, -- Halls of Lightning: Reward
+        },
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 9716, -- Disturbance at Umbrafen Lake
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-not-attuned',
+                    ['data'] = {
+                        27734, -- Expedition Caster's Band
+                        27735, -- Pendant of the Marsh
+                        27733, -- Warden's Ring of Precision
+                        27730, -- Watcher's Cloak of Vigilance
+                    },
+                },
+            },
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 9716, -- Disturbance at Umbrafen Lake
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-not-attuned',
+                    ['data'] = {
+                        27734, -- Expedition Caster's Band
+                        27735, -- Pendant of the Marsh
+                        27733, -- Warden's Ring of Precision
+                        27730, -- Watcher's Cloak of Vigilance
+                    },
+                },
+            },
         },
     },
 }

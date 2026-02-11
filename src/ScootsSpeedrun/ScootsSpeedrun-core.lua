@@ -44,6 +44,7 @@ ScootsSpeedrun = {
     ['queueTimer'] = 0,
     ['watchedItems'] = {},
     ['doBagUpdateAt'] = nil,
+    ['registeredEvents'] = {},
 }
 
 -- ########### --
@@ -93,7 +94,19 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
             npc = UnitName('target')
         end
         
-        ScootsSpeedrun.printDebug(event .. '\n' .. location .. ': ' .. locationId .. '\n' .. npc .. ': ' .. npcId)
+        local debugString = event .. '\n' .. location .. ': ' .. locationId .. '\n' .. npc .. ': ' .. npcId
+        
+        local availableQuests = Custom_GetGossipQuests(1) or {}
+        if(#availableQuests > 0) then
+            debugString = debugString .. '\nAvailable quests: ' .. table.concat(availableQuests, ', ')
+        end
+        
+        local activeQuests = Custom_GetGossipQuests(2) or {}
+        if(#activeQuests > 0) then
+            debugString = debugString .. '\nActive quests: ' .. table.concat(activeQuests, ', ')
+        end
+        
+        ScootsSpeedrun.printDebug(debugString)
     end
     
     if(event == 'SCOOTSSPEEDRUN_POPUP_SHOW') then
@@ -138,6 +151,8 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     elseif(event == 'BAG_UPDATE') then
         ScootsSpeedrun.doBagUpdateAt = ScootsSpeedrun.queueTimer + 0.25
     end
+    
+    ScootsSpeedrun.processRegisteredEvents(event)
 end
 
 ScootsSpeedrun.printDebug = function(message, force)
@@ -312,6 +327,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['item-not-in-bags'] = ScootsSpeedrun.condition.itemNotInBags,
                     ['own-fewest-in-set'] = ScootsSpeedrun.condition.ownFewestInSet,
                     ['item-in-bags-and-resource-bank'] = ScootsSpeedrun.condition.itemInBagsAndResourceBank,
+                    ['item-not-attuned'] = ScootsSpeedrun.condition.itemNotAttuned,
                 }
                 
                 local conditionIndex
@@ -344,6 +360,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                 local actions = {
                     ['dialogue-select'] = ScootsSpeedrun.action.dialogueSelect,
                     ['close-gossip'] = ScootsSpeedrun.action.closeGossip,
+                    ['close-merchant'] = ScootsSpeedrun.action.closeMerchant,
                     ['select-available-quest'] = ScootsSpeedrun.action.selectAvailableQuest,
                     ['select-attuneable-reward-or-complete-quest'] = ScootsSpeedrun.action.selectAttuneableRewardOrCompleteQuest,
                     ['select-fewest-owned-reward-in-set'] = ScootsSpeedrun.action.selectFewestOwnedRewardInSet,
@@ -359,6 +376,9 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['auto-confirm'] = ScootsSpeedrun.action.autoConfirm,
                     ['dismount'] = ScootsSpeedrun.action.dismount,
                     ['do-nothing'] = ScootsSpeedrun.action.doNothing,
+                    ['withdraw-from-resource-bank'] = ScootsSpeedrun.action.withdrawFromResourceBank,
+                    ['deposit-to-resource-bank'] = ScootsSpeedrun.action.depositToResourceBank,
+                    ['register-callback-on-event'] = ScootsSpeedrun.action.registerCallbackOnEvent,
                 }
                 
                 local actionType = map[mapIndex].action
@@ -454,7 +474,19 @@ ScootsSpeedrun.handlePopup = function(popup, locationId)
     return false
 end
 
--- ########### --#
+ScootsSpeedrun.processRegisteredEvents = function(event)
+    if(ScootsSpeedrun.registeredEvents[event] and #ScootsSpeedrun.registeredEvents[event] > 0) then
+        ScootsSpeedrun.printDebug('Processing ' .. tostring(#ScootsSpeedrun.registeredEvents[event]) .. ' callbacks for event ' .. event)
+        
+        for _, callback in ipairs(ScootsSpeedrun.registeredEvents[event]) do
+            callback()
+        end
+        
+        ScootsSpeedrun.registeredEvents[event] = nil
+    end
+end
+
+-- ########### --
 
 ScootsSpeedrun.handleChatCommand = function(params)
     local header = '\124cff' .. '98fb98' .. ScootsSpeedrun.title .. ' ' .. ScootsSpeedrun.version .. '\124r'
@@ -462,6 +494,8 @@ ScootsSpeedrun.handleChatCommand = function(params)
     
     if(params ~= nil and params == 'auto-release') then
         ScootsSpeedrun.options.autoRelease = not ScootsSpeedrun.options.autoRelease
+        _G['SCOOTS_SPEED_RUN_OPTIONS'] = ScootsSpeedrun.options
+        
         table.insert(output, header)
         table.insert(output, table.concat({
             'Auto-release toggled ',
@@ -472,6 +506,8 @@ ScootsSpeedrun.handleChatCommand = function(params)
         }))
     elseif(params ~= nil and params == 'debug') then
         ScootsSpeedrun.options.debug = not ScootsSpeedrun.options.debug
+        _G['SCOOTS_SPEED_RUN_OPTIONS'] = ScootsSpeedrun.options
+        
         table.insert(output, header)
         table.insert(output, table.concat({
             'Debug mode toggled ',
@@ -531,6 +567,7 @@ ScootsSpeedrun.frames.events:RegisterEvent('QUEST_DETAIL')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_PROGRESS')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_COMPLETE')
 ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_SHOW')
+ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_CLOSED')
 ScootsSpeedrun.frames.events:RegisterEvent('ITEM_PUSH')
 ScootsSpeedrun.frames.events:RegisterEvent('BAG_UPDATE')
 ScootsSpeedrun.frames.events:RegisterEvent('ADDON_LOADED')

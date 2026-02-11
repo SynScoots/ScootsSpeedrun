@@ -433,4 +433,95 @@ ScootsSpeedrun.map[139] = {
             ['data'] = 9136, -- Savage Flora
         },
     },
+    [1855] = { -- Tirion Fordring
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27047, -- Halls of Reflection: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27047, -- Halls of Reflection: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27047, -- Halls of Reflection: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27047, -- Halls of Reflection: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27047, -- Halls of Reflection: Reward
+        },
+    },
+}
+
+-- Swamp of Sorrows
+ScootsSpeedrun.map[8] = {
+    [7572] = { -- Fallen Hero of the Horde
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27027, -- Drak'Tharon Keep: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27027, -- Drak'Tharon Keep: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27027, -- Drak'Tharon Keep: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27027, -- Drak'Tharon Keep: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27027, -- Drak'Tharon Keep: Reward
+        },
+    },
+}
+
+-- Alterac Mountains
+ScootsSpeedrun.map[36] = {
+    [6768] = { -- Lord Jorach Ravenholdt
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 27077, -- Utgarde Keep: Reward
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 27077, -- Utgarde Keep: Reward
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 27077, -- Utgarde Keep: Reward
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 27077, -- Utgarde Keep: Reward
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 27077, -- Utgarde Keep: Reward
+        },
+    },
+}
+
+-- Isle of Quel'Danas
+ScootsSpeedrun.map[4080] = {
+    [25977] = { -- Yrma
+        {
+            ['action'] = 'withdraw-from-resource-bank',
+            ['data'] = 34664, -- Sunmote
+        },
+        {
+            ['action'] = 'register-callback-on-event',
+            ['data'] = {
+                ['event'] = 'MERCHANT_CLOSED',
+                ['callback'] = ScootsSpeedrun.action.depositToResourceBank,
+            },
+        },
+    },
 }
