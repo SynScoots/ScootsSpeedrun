@@ -379,6 +379,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['withdraw-from-resource-bank'] = ScootsSpeedrun.action.withdrawFromResourceBank,
                     ['deposit-to-resource-bank'] = ScootsSpeedrun.action.depositToResourceBank,
                     ['register-callback-on-event'] = ScootsSpeedrun.action.registerCallbackOnEvent,
+                    ['set-perk-option'] = ScootsSpeedrun.action.setPerkOption,
                 }
                 
                 local actionType = map[mapIndex].action

@@ -302,6 +302,10 @@ ScootsSpeedrun.action.dismount = function()
     return false
 end
 
+ScootsSpeedrun.action.setPerkOption = function(data)
+    ChangePerkOption(data.perk, data.option, data.value, true)
+end
+
 ScootsSpeedrun.action.withdrawFromResourceBank = function(itemId)
     local frame = _G['RBankFrame']
     local line = _G['RBankFrame-ILine-1']
