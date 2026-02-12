@@ -204,3 +204,7 @@ ScootsSpeedrun.condition.itemNotAttuned = function(data)
     
     return false
 end
+
+ScootsSpeedrun.condition.bankIsOpen = function()
+    return ScootsSpeedrun.bankOpen
+end

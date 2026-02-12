@@ -45,6 +45,7 @@ ScootsSpeedrun = {
     ['watchedItems'] = {},
     ['doBagUpdateAt'] = nil,
     ['registeredEvents'] = {},
+    ['bankOpen'] = false,
 }
 
 -- ########### --
@@ -62,6 +63,13 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
         return nil
     elseif(event == 'PLAYER_LOGOUT') then
         _G['SCOOTS_SPEED_RUN_OPTIONS'] = ScootsSpeedrun.options
+        return nil
+    end
+    
+    if(event == 'BANKFRAME_OPENED') then
+        ScootsSpeedrun.bankOpen = true
+    elseif(event == 'BANKFRAME_CLOSED') then
+        ScootsSpeedrun.bankOpen = false
         return nil
     end
 
@@ -328,6 +336,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['own-fewest-in-set'] = ScootsSpeedrun.condition.ownFewestInSet,
                     ['item-in-bags-and-resource-bank'] = ScootsSpeedrun.condition.itemInBagsAndResourceBank,
                     ['item-not-attuned'] = ScootsSpeedrun.condition.itemNotAttuned,
+                    ['bank-is-open'] = ScootsSpeedrun.condition.bankIsOpen,
                 }
                 
                 local conditionIndex
@@ -571,6 +580,8 @@ ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_SHOW')
 ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_CLOSED')
 ScootsSpeedrun.frames.events:RegisterEvent('ITEM_PUSH')
 ScootsSpeedrun.frames.events:RegisterEvent('BAG_UPDATE')
+ScootsSpeedrun.frames.events:RegisterEvent('BANKFRAME_OPENED')
+ScootsSpeedrun.frames.events:RegisterEvent('BANKFRAME_CLOSED')
 ScootsSpeedrun.frames.events:RegisterEvent('ADDON_LOADED')
 ScootsSpeedrun.frames.events:RegisterEvent('PLAYER_LOGOUT')
 

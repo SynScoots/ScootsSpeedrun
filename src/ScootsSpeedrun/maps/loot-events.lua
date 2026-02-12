@@ -115,6 +115,17 @@ ScootsSpeedrun.onLootEvent = {
             ['data'] = 34077, -- Crudely Wrapped Gift
         },
     },
+    ['Interface\\Icons\\inv_stone_05'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 45903, -- Corroded Jewelry,
+            ['conditions'] = {
+                {
+                    ['type'] = 'bank-is-open',
+                },
+            },
+        },
+    },
     ['Interface\\Icons\\INV_ValentinesBoxOfChocolates02'] = {
         {
             ['action'] = 'register-item-for-use',
