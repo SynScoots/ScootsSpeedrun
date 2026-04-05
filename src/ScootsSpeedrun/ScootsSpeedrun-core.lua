@@ -129,7 +129,8 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     or event == 'QUEST_PROGRESS'
     or event == 'QUEST_COMPLETE'
     or event == 'MERCHANT_SHOW'
-    or event == 'SCOOTSSPEEDRUN_POPUP_SHOW') then
+    or event == 'SCOOTSSPEEDRUN_POPUP_SHOW'
+    or event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
         local actionPerformed = false
         ScootsSpeedrun.setCheck = nil
         
@@ -161,6 +162,10 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     end
     
     ScootsSpeedrun.processRegisteredEvents(event)
+end
+
+ScootsSpeedrun.isQuestShowEvent = function(event)
+    return (event == 'GOSSIP_SHOW' or event == 'QUEST_GREETING' or event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
 end
 
 ScootsSpeedrun.printDebug = function(message, force)
@@ -199,11 +204,11 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
                 },
             }
         end
-    elseif(event == 'GOSSIP_SHOW' or event == 'QUEST_GREETING') then
+    elseif(ScootsSpeedrun.isQuestShowEvent(event)) then
         local map = {}
         
-        if(GetNumGossipAvailableQuests() > 0) then
-            local availableQuests = Custom_GetGossipQuests(1)
+        if(GetNumGossipAvailableQuests() > 0 or GetNumAvailableQuests() > 0) then
+            local availableQuests = Custom_GetGossipQuests(1) or {}
             
             for questIndex = 1, #availableQuests do
                 if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] ~= true and ScootsSpeedrun.extraQuests[availableQuests[questIndex]] ~= true) then
@@ -221,7 +226,7 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
                 end
             end
         end
-            
+        
         return map
     end
 end
@@ -269,11 +274,11 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
         local basicConditionsMet = true
         
         if(map[mapIndex].action == 'dialogue-select') then
-            if((event ~= 'GOSSIP_SHOW' and event ~= 'QUEST_GREETING') or GetNumGossipOptions() < map[mapIndex].data) then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipOptions() < map[mapIndex].data) then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-available-quest') then
-            if((event ~= 'GOSSIP_SHOW' and event ~= 'QUEST_GREETING') or GetNumGossipAvailableQuests() == 0) then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipAvailableQuests() == 0) then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'accept-quest') then
@@ -281,7 +286,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-active-quest') then
-            if((event ~= 'GOSSIP_SHOW' and event ~= 'QUEST_GREETING') or GetNumGossipActiveQuests() == 0) then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipActiveQuests() == 0) then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'progress-quest') then
@@ -591,5 +596,14 @@ for popupIndex = 1, 10 do
         popup:HookScript('OnShow', function()
             ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_POPUP_SHOW', popup)
         end)
+    end
+end
+
+local origHook = __itemHuntHook
+__itemHuntHook = function()
+    ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
+    
+    if(origHook) then
+        origHook()
     end
 end

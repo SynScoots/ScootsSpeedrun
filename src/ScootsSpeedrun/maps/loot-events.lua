@@ -61,6 +61,16 @@ ScootsSpeedrun.onLootEvent = {
             ['data'] = 46007, -- Bag of Fishing Treasures
         },
     },
+    ['Interface\\Icons\\INV_Misc_Bag_10'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 11966, -- Small sack of Coins
+        },
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 11937, -- Fat sack of Coins
+        },
+    },
     ['Interface\\Icons\\INV_Misc_Bag_10_Black'] = {
         {
             ['action'] = 'register-item-for-use',
@@ -75,6 +85,12 @@ ScootsSpeedrun.onLootEvent = {
         {
             ['action'] = 'register-item-for-use',
             ['data'] = 34863, -- Bag of Fishing Treasures
+        },
+    },
+    ['Interface\\Icons\\INV_Misc_Bag_10_Red'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 11938, -- Sack of Gems
         },
     },
     ['Interface\\Icons\\INV_Misc_Bag_11'] = {
