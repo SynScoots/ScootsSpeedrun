@@ -46,6 +46,7 @@ ScootsSpeedrun = {
     ['doBagUpdateAt'] = nil,
     ['registeredEvents'] = {},
     ['bankOpen'] = false,
+	['lastQuestEvent'] = '',
 }
 
 -- ########### --
@@ -72,6 +73,14 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
         ScootsSpeedrun.bankOpen = false
         return nil
     end
+	
+	if(event == 'GOSSIP_SHOW'
+	or event == 'QUEST_GREETING'
+	or event == 'QUEST_DETAIL'
+	or event == 'QUEST_PROGRESS'
+    or event == 'QUEST_COMPLETE') then
+		ScootsSpeedrun.lastQuestEvent = event
+	end
 
     if(IsAltKeyDown()) then
         return nil
@@ -129,7 +138,8 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     or event == 'QUEST_PROGRESS'
     or event == 'QUEST_COMPLETE'
     or event == 'MERCHANT_SHOW'
-    or event == 'SCOOTSSPEEDRUN_POPUP_SHOW') then
+    or event == 'SCOOTSSPEEDRUN_POPUP_SHOW'
+    or event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
         local actionPerformed = false
         ScootsSpeedrun.setCheck = nil
         
@@ -163,6 +173,10 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     ScootsSpeedrun.processRegisteredEvents(event)
 end
 
+ScootsSpeedrun.isQuestShowEvent = function(event)
+    return (event == 'GOSSIP_SHOW' or event == 'QUEST_GREETING' or event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
+end
+
 ScootsSpeedrun.printDebug = function(message, force)
     if(ScootsSpeedrun.options.debug or force) then
         print('\124cff' .. '98fb98' .. ScootsSpeedrun.title .. '\124r' .. ' DEBUG: \n' .. message)
@@ -174,8 +188,15 @@ ScootsSpeedrun.printError = function(message)
 end
 
 ScootsSpeedrun.buildMapFromTracker = function(event)
-    if(event == 'QUEST_PROGRESS' or event == 'QUEST_COMPLETE') then
+	local eventLast = ''
+    
+	if(event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
+		eventLast = ScootsSpeedrun.lastQuestEvent
+	end
+    
+    if(event == 'QUEST_PROGRESS' or event == 'QUEST_COMPLETE' or eventLast == 'QUEST_PROGRESS' or eventLast == 'QUEST_COMPLETE') then
         local questId = Custom_GetGossipQuests(3)
+        
         return {
             {
                 ['action'] = 'progress-quest',
@@ -186,12 +207,10 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
                 ['data'] = questId,
             },
         }
-    elseif(event == 'QUEST_DETAIL') then
+    elseif(event == 'QUEST_DETAIL' or eventLast == 'QUEST_DETAIL') then
         local questId = Custom_GetGossipQuests(3)
         
-        if(ScootsSpeedrun.questsFromTracker[questId] ~= true and ScootsSpeedrun.extraQuests[questId] ~= true) then
-            ScootsSpeedrun.updateTrackerQuestCache()
-        else
+        if(ScootsSpeedrun.questsFromTracker[questId] == true or ScootsSpeedrun.extraQuests[questId] == true) then
             return {
                 {
                     ['action'] = 'accept-quest',
@@ -199,18 +218,11 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
                 },
             }
         end
-    elseif(event == 'GOSSIP_SHOW' or event == 'QUEST_GREETING') then
+    elseif(ScootsSpeedrun.isQuestShowEvent(event)) then
         local map = {}
         
-        if(GetNumGossipAvailableQuests() > 0) then
-            local availableQuests = Custom_GetGossipQuests(1)
-            
-            for questIndex = 1, #availableQuests do
-                if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] ~= true and ScootsSpeedrun.extraQuests[availableQuests[questIndex]] ~= true) then
-                    ScootsSpeedrun.updateTrackerQuestCache()
-                    break
-                end
-            end
+        if(GetNumGossipAvailableQuests() > 0 or GetNumAvailableQuests() > 0) then
+            local availableQuests = Custom_GetGossipQuests(1) or {}
             
             for questIndex = 1, #availableQuests do
                 if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] == true or ScootsSpeedrun.extraQuests[availableQuests[questIndex]] == true) then
@@ -221,7 +233,7 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
                 end
             end
         end
-            
+        
         return map
     end
 end
@@ -264,44 +276,51 @@ ScootsSpeedrun.updateTrackerQuestCache = function()
 end
 
 ScootsSpeedrun.handleCharacterMap = function(event, map)
+	local eventLast = ''
+    
+	if(event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
+		eventLast = ScootsSpeedrun.lastQuestEvent
+	end
+    
     local mapIndex
+    
     for mapIndex = 1, #map do
         local basicConditionsMet = true
         
         if(map[mapIndex].action == 'dialogue-select') then
-            if((event ~= 'GOSSIP_SHOW' and event ~= 'QUEST_GREETING') or GetNumGossipOptions() < map[mapIndex].data) then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipOptions() < map[mapIndex].data) then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-available-quest') then
-            if((event ~= 'GOSSIP_SHOW' and event ~= 'QUEST_GREETING') or GetNumGossipAvailableQuests() == 0) then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipAvailableQuests() == 0) then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'accept-quest') then
-            if(event ~= 'QUEST_DETAIL') then
+            if(event ~= 'QUEST_DETAIL' and eventLast ~= 'QUEST_DETAIL') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-active-quest') then
-            if((event ~= 'GOSSIP_SHOW' and event ~= 'QUEST_GREETING') or GetNumGossipActiveQuests() == 0) then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipActiveQuests() == 0) then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'progress-quest') then
-            if(event ~= 'QUEST_PROGRESS') then
+            if(event ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_PROGRESS') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'complete-quest') then
-            if(event ~= 'QUEST_COMPLETE') then
+            if(event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-attuneable-reward-or-complete-quest') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-fewest-owned-reward-in-set') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-attuneable-reward') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'purchase-item' or map[mapIndex].action == 'purchase-item-to-count') then
@@ -593,3 +612,22 @@ for popupIndex = 1, 10 do
         end)
     end
 end
+
+function ScootsSpeedrunSynastriaInit()
+    if(ITEMHUNT_UPDATE_INTERVAL and ITEMHUNT_UPDATE_INTERVAL > 0.2) then
+        ITEMHUNT_UPDATE_INTERVAL = 0.2
+    end
+
+    local original_itemHuntHook = __itemHuntHook
+    
+    __itemHuntHook = function()
+        ScootsSpeedrun.updateTrackerQuestCache()
+        ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
+        
+        if(original_itemHuntHook) then
+            original_itemHuntHook()
+        end
+    end
+end
+
+SynastriaSafeInvoke('ScootsSpeedrunSynastriaInit')
