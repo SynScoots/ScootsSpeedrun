@@ -46,6 +46,7 @@ ScootsSpeedrun = {
     ['doBagUpdateAt'] = nil,
     ['registeredEvents'] = {},
     ['bankOpen'] = false,
+	['lastQuestEvent'] = '',
 }
 
 -- ########### --
@@ -72,6 +73,14 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
         ScootsSpeedrun.bankOpen = false
         return nil
     end
+	
+	if(event == 'GOSSIP_SHOW'
+	or event == 'QUEST_GREETING'
+	or event == 'QUEST_DETAIL'
+	or event == 'QUEST_PROGRESS'
+    or event == 'QUEST_COMPLETE') then
+		ScootsSpeedrun.lastQuestEvent = event
+	end
 
     if(IsAltKeyDown()) then
         return nil
@@ -179,8 +188,15 @@ ScootsSpeedrun.printError = function(message)
 end
 
 ScootsSpeedrun.buildMapFromTracker = function(event)
-    if(event == 'QUEST_PROGRESS' or event == 'QUEST_COMPLETE') then
+	local eventLast = ''
+    
+	if(event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
+		eventLast = ScootsSpeedrun.lastQuestEvent
+	end
+    
+    if(event == 'QUEST_PROGRESS' or event == 'QUEST_COMPLETE' or eventLast == 'QUEST_PROGRESS' or eventLast == 'QUEST_COMPLETE') then
         local questId = Custom_GetGossipQuests(3)
+        
         return {
             {
                 ['action'] = 'progress-quest',
@@ -191,12 +207,10 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
                 ['data'] = questId,
             },
         }
-    elseif(event == 'QUEST_DETAIL') then
+    elseif(event == 'QUEST_DETAIL' or eventLast == 'QUEST_DETAIL') then
         local questId = Custom_GetGossipQuests(3)
         
-        if(ScootsSpeedrun.questsFromTracker[questId] ~= true and ScootsSpeedrun.extraQuests[questId] ~= true) then
-            ScootsSpeedrun.updateTrackerQuestCache()
-        else
+        if(ScootsSpeedrun.questsFromTracker[questId] == true or ScootsSpeedrun.extraQuests[questId] == true) then
             return {
                 {
                     ['action'] = 'accept-quest',
@@ -209,13 +223,6 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
         
         if(GetNumGossipAvailableQuests() > 0 or GetNumAvailableQuests() > 0) then
             local availableQuests = Custom_GetGossipQuests(1) or {}
-            
-            for questIndex = 1, #availableQuests do
-                if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] ~= true and ScootsSpeedrun.extraQuests[availableQuests[questIndex]] ~= true) then
-                    ScootsSpeedrun.updateTrackerQuestCache()
-                    break
-                end
-            end
             
             for questIndex = 1, #availableQuests do
                 if(ScootsSpeedrun.questsFromTracker[availableQuests[questIndex]] == true or ScootsSpeedrun.extraQuests[availableQuests[questIndex]] == true) then
@@ -269,7 +276,14 @@ ScootsSpeedrun.updateTrackerQuestCache = function()
 end
 
 ScootsSpeedrun.handleCharacterMap = function(event, map)
+	local eventLast = ''
+    
+	if(event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
+		eventLast = ScootsSpeedrun.lastQuestEvent
+	end
+    
     local mapIndex
+    
     for mapIndex = 1, #map do
         local basicConditionsMet = true
         
@@ -282,7 +296,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'accept-quest') then
-            if(event ~= 'QUEST_DETAIL') then
+            if(event ~= 'QUEST_DETAIL' and eventLast ~= 'QUEST_DETAIL') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-active-quest') then
@@ -290,23 +304,23 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'progress-quest') then
-            if(event ~= 'QUEST_PROGRESS') then
+            if(event ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_PROGRESS') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'complete-quest') then
-            if(event ~= 'QUEST_COMPLETE') then
+            if(event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-attuneable-reward-or-complete-quest') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-fewest-owned-reward-in-set') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'select-attuneable-reward') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
                 basicConditionsMet = false
             end
         elseif(map[mapIndex].action == 'purchase-item' or map[mapIndex].action == 'purchase-item-to-count') then
@@ -599,11 +613,21 @@ for popupIndex = 1, 10 do
     end
 end
 
-local origHook = __itemHuntHook
-__itemHuntHook = function()
-    ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
+function ScootsSpeedrunSynastriaInit()
+    if(ITEMHUNT_UPDATE_INTERVAL and ITEMHUNT_UPDATE_INTERVAL > 0.2) then
+        ITEMHUNT_UPDATE_INTERVAL = 0.2
+    end
+
+    local original_itemHuntHook = __itemHuntHook
     
-    if(origHook) then
-        origHook()
+    __itemHuntHook = function()
+        ScootsSpeedrun.updateTrackerQuestCache()
+        ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
+        
+        if(original_itemHuntHook) then
+            original_itemHuntHook()
+        end
     end
 end
+
+SynastriaSafeInvoke('ScootsSpeedrunSynastriaInit')
