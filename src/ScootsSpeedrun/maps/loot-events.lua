@@ -119,6 +119,12 @@ ScootsSpeedrun.onLootEvent = {
             ['data'] = 54536, -- Satchel of Chilled Goods
         },
     },
+    ['Interface\\Icons\\inv_misc_bag_17'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 54536, -- Satchel of Chilled Goods
+        },
+    },
     ['Interface\\Icons\\inv_misc_bag_28_halloween'] = {
         {
             ['action'] = 'register-item-for-use',
