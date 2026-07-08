@@ -19,3 +19,11 @@ Download this repository, then extract the `ScootsSpeedrun` subdirectory from th
 Speak to an applicable NPC to automatically choose dialogue options.\
 Hold alt when speaking to an NPC to suppress this behaviour.
 Control options with `/scootsspeedrun`
+
+## Support ##
+
+If you'd like to show support for my addons you can use the button below.
+
+Please do not feel obligated to do so - especially if you are not in a financially secure position - and please don't give beyond your means.
+
+<a href="https://www.buymeacoffee.com/Scoots"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-blue.png" style="height:30px;" /></a>
