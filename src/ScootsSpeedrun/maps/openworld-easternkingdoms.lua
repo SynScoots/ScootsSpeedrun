@@ -515,6 +515,12 @@ ScootsSpeedrun.map[4080] = {
         {
             ['action'] = 'withdraw-from-resource-bank',
             ['data'] = 34664, -- Sunmote
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-not-in-bags',
+                    ['data'] = 34664, -- Sunmote
+                },
+            },
         },
         {
             ['action'] = 'register-callback-on-event',
