@@ -173,6 +173,10 @@ ScootsSpeedrun.action.selectFewestOwnedRewardInSet = function(data)
 end
 
 ScootsSpeedrun.action.useItemFromBag = function(itemIdToUse, returnTrueOnSuccess)
+    if(not ScootsSpeedrun.options.get('auto-use-items')) then
+        return true
+    end
+
     for bagIndex = 0, 4 do
         local bagSlots = GetContainerNumSlots(bagIndex)
         
@@ -191,6 +195,10 @@ ScootsSpeedrun.action.useItemFromBag = function(itemIdToUse, returnTrueOnSuccess
 end
 
 ScootsSpeedrun.action.registerItemForUseFromBag = function(itemId)
+    if(not ScootsSpeedrun.options.get('auto-use-items')) then
+        return nil
+    end
+    
     local texture = select(10, GetItemInfoCustom(itemId))
     
     if(ScootsSpeedrun.watchedItems[texture] == nil) then
@@ -364,4 +372,17 @@ end
 
 ScootsSpeedrun.action.doNothing = function()
     return true
+end
+
+ScootsSpeedrun.action.showInfoDialogue = function(data)
+    StaticPopupDialogs['SCOOTSSPEEDRUN_INFO'] = {
+        ['text'] = data.text,
+        ['button1'] = data.button,
+        ['timeout'] = 0,
+        ['whileDead'] = 1,
+        ['hideOnEscape'] = 1,
+    }
+    StaticPopup_Show('SCOOTSSPEEDRUN_INFO')
+    
+    return (data.stop == true)
 end

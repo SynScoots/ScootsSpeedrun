@@ -208,3 +208,23 @@ end
 ScootsSpeedrun.condition.bankIsOpen = function()
     return ScootsSpeedrun.bankOpen
 end
+
+ScootsSpeedrun.condition.unitHasBuff = function(data)
+    for buffIndex = 1, 40 do
+        local name, _, _, _, _, _, _, _, _, _, buffId = UnitAura(data.unit, buffIndex)
+        
+        if(not name) then
+            return false
+        end
+        
+        if(buffId == data.id) then
+            return true
+        end
+    end
+    
+    return false
+end
+
+ScootsSpeedrun.condition.unitDoesNotHaveBuff = function(data)
+    return not ScootsSpeedrun.condition.unitHasBuff(data)
+end

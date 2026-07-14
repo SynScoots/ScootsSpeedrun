@@ -1,69 +1,16 @@
-ScootsSpeedrun = {
-    ['version'] = '2.14.0',
-    ['title'] = 'ScootsSpeedrun',
-    ['debug'] = false,
-    ['frames'] = {
-        ['events'] = CreateFrame('Frame', 'ScootsSpeedrun-Events', UIParent),
-    },
-    ['action'] = {},
-    ['condition'] = {},
-    ['map'] = {
-        -- ['zoneId'] = { ['npcId'] = { ... } }
-    },
-    ['autoCompleteIgnoreLootItems'] = {
-        [19182] = true, -- Darkmoon Faire Prize Ticket
-        [20800] = true, -- Cenarion Logistics Badge
-        [20801] = true, -- Cenarion Tactical Badge
-        [20802] = true, -- Cenarion Combat Badge
-        [20805] = true, -- Followup Logistics Assignment
-        [20809] = true, -- Tactical Assignment
-        [21132] = true, -- Logistics Assignment
-        [21133] = true, -- Followup Tactical Assignment
-        [21100] = true, -- Coin of Ancestry
-        [23247] = true, -- Burning Blossom
-        [26044] = true, -- Halaa Research Token
-        [32569] = true, -- Apexis Shard
-        [37586] = true, -- Handful of Candy
-        [37836] = true, -- Venture Coin
-        [43228] = true, -- Stone Keeper's Shard
-        [49927] = true, -- Love Token
-        [49936] = true, -- Lovely Stormwind Card
-        [49940] = true, -- Lovely Ironforge Card
-        [49938] = true, -- Lovely Darnassus Card
-        [49942] = true, -- Lovely Exodar Card
-        [49939] = true, -- Lovely Orgrimmar Card
-        [49941] = true, -- Lovely Thunder Bluff Card
-        [49937] = true, -- Lovely Undercity Card
-        [49943] = true, -- Lovely Silvermoon City Card
-    },
-    ['questsFromTracker'] = {},
-    ['options'] = {
-        ['autoRelease'] = false,
-    },
-    ['queuedEvents'] = {},
-    ['queueTimer'] = 0,
-    ['watchedItems'] = {},
-    ['doBagUpdateAt'] = nil,
-    ['registeredEvents'] = {},
-    ['bankOpen'] = false,
-	['lastQuestEvent'] = '',
-}
-
--- ########### --
-
 ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     if(event == 'ADDON_LOADED') then
-        if(_G['SCOOTS_SPEED_RUN_OPTIONS'] ~= nil) then
-            for key, _ in pairs(ScootsSpeedrun.options) do
-                if(_G['SCOOTS_SPEED_RUN_OPTIONS'][key] ~= nil) then
-                    ScootsSpeedrun.options[key] = _G['SCOOTS_SPEED_RUN_OPTIONS'][key]
-                end
-            end
+        local storage = _G['SCOOTS_SPEED_RUN_OPTIONS']
+        
+        if(storage ~= nil) then
+            ScootsSpeedrun.storage = storage
         end
         
+        ScootsSpeedrun.options.load()
+        ScootsSpeedrun.options.build()
         return nil
     elseif(event == 'PLAYER_LOGOUT') then
-        _G['SCOOTS_SPEED_RUN_OPTIONS'] = ScootsSpeedrun.options
+        _G['SCOOTS_SPEED_RUN_OPTIONS'] = ScootsSpeedrun.storage
         return nil
     end
     
@@ -103,7 +50,7 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     
     local locationId = Custom_GetCurrentZone()
     
-    if(npcId and ScootsSpeedrun.options.debug) then
+    if(npcId and ScootsSpeedrun.options.get('debug')) then
         local location = GetZoneText()
         
         local npc = UnitName('npc')
@@ -178,7 +125,7 @@ ScootsSpeedrun.isQuestShowEvent = function(event)
 end
 
 ScootsSpeedrun.printDebug = function(message, force)
-    if(ScootsSpeedrun.options.debug or force) then
+    if(ScootsSpeedrun.options.get('debug') or force) then
         print('\124cff' .. '98fb98' .. ScootsSpeedrun.title .. '\124r' .. ' DEBUG: \n' .. message)
     end
 end
@@ -194,16 +141,60 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
 		eventLast = ScootsSpeedrun.lastQuestEvent
 	end
     
-    if(event == 'QUEST_PROGRESS' or event == 'QUEST_COMPLETE' or eventLast == 'QUEST_PROGRESS' or eventLast == 'QUEST_COMPLETE') then
+    if(event == 'QUEST_PROGRESS' or eventLast == 'QUEST_PROGRESS') then
         local questId = Custom_GetGossipQuests(3)
         
         return {
             {
                 ['action'] = 'progress-quest',
                 ['data'] = questId,
+                ['conditions'] = {
+                    {
+                        ['type'] = 'unit-does-not-have-buff',
+                        ['data'] = {
+                            ['unit'] = 'Player',
+                            ['id'] = 80795, -- Quest Auto Complete Token
+                        },
+                    },
+                },
             },
+        }
+    elseif(event == 'QUEST_COMPLETE' or eventLast == 'QUEST_COMPLETE') then
+        local questId = Custom_GetGossipQuests(3)
+        
+        return {
             {
                 ['action'] = 'select-attuneable-reward-or-complete-quest',
+                ['data'] = questId,
+                ['conditions'] = {
+                    {
+                        ['type'] = 'unit-does-not-have-buff',
+                        ['data'] = {
+                            ['unit'] = 'Player',
+                            ['id'] = 80795, -- Quest Auto Complete Token
+                        },
+                    },
+                },
+            },
+            {
+                ['action'] = 'show-info-dialogue',
+                ['data'] = {
+                    ['text'] = 'WARNING\n\nHanding in this quest will consume a Quest Auto-Complete Token!',
+                    ['button'] = 'Okay',
+                    ['stop'] = false,
+                },
+                ['conditions'] = {
+                    {
+                        ['type'] = 'unit-has-buff',
+                        ['data'] = {
+                            ['unit'] = 'Player',
+                            ['id'] = 80795, -- Quest Auto Complete Token
+                        },
+                    },
+                },
+            },
+            {
+                ['action'] = 'select-attuneable-reward',
                 ['data'] = questId,
             },
         }
@@ -215,6 +206,15 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
                 {
                     ['action'] = 'accept-quest',
                     ['data'] = questId,
+                    ['conditions'] = {
+                        {
+                            ['type'] = 'unit-does-not-have-buff',
+                            ['data'] = {
+                                ['unit'] = 'Player',
+                                ['id'] = 80795, -- Quest Auto Complete Token
+                            },
+                        },
+                    },
                 },
             }
         end
@@ -229,6 +229,15 @@ ScootsSpeedrun.buildMapFromTracker = function(event)
                     table.insert(map, {
                         ['action'] = 'select-available-quest',
                         ['data'] = availableQuests[questIndex],
+                        ['conditions'] = {
+                            {
+                                ['type'] = 'unit-does-not-have-buff',
+                                ['data'] = {
+                                    ['unit'] = 'Player',
+                                    ['id'] = 80795, -- Quest Auto Complete Token
+                                },
+                            },
+                        },
                     })
                 end
             end
@@ -356,6 +365,8 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['item-in-bags-and-resource-bank'] = ScootsSpeedrun.condition.itemInBagsAndResourceBank,
                     ['item-not-attuned'] = ScootsSpeedrun.condition.itemNotAttuned,
                     ['bank-is-open'] = ScootsSpeedrun.condition.bankIsOpen,
+                    ['unit-has-buff'] = ScootsSpeedrun.condition.unitHasBuff,
+                    ['unit-does-not-have-buff'] = ScootsSpeedrun.condition.unitDoesNotHaveBuff,
                 }
                 
                 local conditionIndex
@@ -376,7 +387,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                         if(thisConditionMet == false) then
                             conditionsMet = false
                             
-                            if(ScootsSpeedrun.options.debug ~= true) then
+                            if(ScootsSpeedrun.options.get('debug') ~= true) then
                                 break
                             end
                         end
@@ -408,6 +419,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['deposit-to-resource-bank'] = ScootsSpeedrun.action.depositToResourceBank,
                     ['register-callback-on-event'] = ScootsSpeedrun.action.registerCallbackOnEvent,
                     ['set-perk-option'] = ScootsSpeedrun.action.setPerkOption,
+                    ['show-info-dialogue'] = ScootsSpeedrun.action.showInfoDialogue,
                 }
                 
                 local actionType = map[mapIndex].action
@@ -490,7 +502,7 @@ end
 
 ScootsSpeedrun.handlePopup = function(popup, locationId)
     if(popup.which == 'DEATH') then
-        if(ScootsSpeedrun.options.autoRelease and locationId ~= 4812) then -- 4812 = Icecrown Citadel
+        if(ScootsSpeedrun.options.get('auto-release') and locationId ~= 4812) then -- 4812 = Icecrown Citadel
             RepopMe()
         end
         
@@ -517,65 +529,8 @@ end
 
 -- ########### --
 
-ScootsSpeedrun.handleChatCommand = function(params)
-    local header = '\124cff' .. '98fb98' .. ScootsSpeedrun.title .. ' ' .. ScootsSpeedrun.version .. '\124r'
-    local output = {}
-    
-    if(params ~= nil and params == 'auto-release') then
-        ScootsSpeedrun.options.autoRelease = not ScootsSpeedrun.options.autoRelease
-        _G['SCOOTS_SPEED_RUN_OPTIONS'] = ScootsSpeedrun.options
-        
-        table.insert(output, header)
-        table.insert(output, table.concat({
-            'Auto-release toggled ',
-            '\124cff',
-            '9898fb',
-            ((ScootsSpeedrun.options.autoRelease and 'on') or 'off'),
-            '\124r',
-        }))
-    elseif(params ~= nil and params == 'debug') then
-        ScootsSpeedrun.options.debug = not ScootsSpeedrun.options.debug
-        _G['SCOOTS_SPEED_RUN_OPTIONS'] = ScootsSpeedrun.options
-        
-        table.insert(output, header)
-        table.insert(output, table.concat({
-            'Debug mode toggled ',
-            '\124cff',
-            '9898fb',
-            ((ScootsSpeedrun.options.debug and 'on') or 'off'),
-            '\124r',
-        }))
-    else
-        table.insert(output, header .. ' usage:\n')
-        table.insert(output, table.concat({
-            '\124cff',
-            '98fb98',
-            '/scootsspeedrun auto-release',
-            '\124r',
-            ' - Auto-release spirit on death (except in Icecrown Citadel) - currently ',
-            '\124cff',
-            '9898fb',
-            ((ScootsSpeedrun.options.autoRelease and 'on') or 'off'),
-            '\124r',
-        }, ''))
-        table.insert(output, table.concat({
-            '\124cff',
-            '98fb98',
-            '/scootsspeedrun debug',
-            '\124r',
-            ' - Display debug when relevant operations performed - currently ',
-            '\124cff',
-            '9898fb',
-            ((ScootsSpeedrun.options.debug and 'on') or 'off'),
-            '\124r',
-        }, ''))
-    end
-    
-    print(table.concat(output, '\n'))
-end
-
 SLASH_SCOOTSSPEEDRUN1 = '/scootsspeedrun'
-SlashCmdList['SCOOTSSPEEDRUN'] = ScootsSpeedrun.handleChatCommand
+SlashCmdList['SCOOTSSPEEDRUN'] = ScootsSpeedrun.options.open
 
 -- ########### --
 
@@ -613,7 +568,7 @@ for popupIndex = 1, 10 do
     end
 end
 
-function ScootsSpeedrunSynastriaInit()
+function ScootsSpeedrun__init()
     if(ITEMHUNT_UPDATE_INTERVAL and ITEMHUNT_UPDATE_INTERVAL > 0.2) then
         ITEMHUNT_UPDATE_INTERVAL = 0.2
     end
@@ -630,4 +585,4 @@ function ScootsSpeedrunSynastriaInit()
     end
 end
 
-SynastriaSafeInvoke('ScootsSpeedrunSynastriaInit')
+SynastriaSafeInvoke('ScootsSpeedrun__init')
