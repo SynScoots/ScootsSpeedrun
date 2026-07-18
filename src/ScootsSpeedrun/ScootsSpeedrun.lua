@@ -1,5 +1,5 @@
 ScootsSpeedrun = {
-    ['version'] = '2.24.1',
+    ['version'] = '2.25.0',
     ['title'] = 'ScootsSpeedrun',
     ['frames'] = {
         ['events'] = CreateFrame('Frame', 'ScootsSpeedrun-Events', UIParent),

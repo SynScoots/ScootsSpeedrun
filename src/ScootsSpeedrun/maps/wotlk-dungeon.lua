@@ -39,6 +39,15 @@ ScootsSpeedrun.map[4264] = {
 ScootsSpeedrun.map[4723] = {
     [35004] = { -- Arelas Brightstar / Jaeren Sunsworn
         {
+            ['action'] = 'do-nothing',
+            ['conditions'] = {
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 3,
+                },
+            },
+        },
+        {
             ['action'] = 'dialogue-select',
             ['data'] = 2,
         },
@@ -47,7 +56,16 @@ ScootsSpeedrun.map[4723] = {
             ['data'] = 1,
         },
     },
-    [14701] = { -- Arelas Brightstar / Jaeren Sunsworn (after 18/07/2026 change for some reason?)
+    [14701] = { -- Arelas Brightstar / Jaeren Sunsworn (NPC ID changed due to new feature)
+        {
+            ['action'] = 'do-nothing',
+            ['conditions'] = {
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 3,
+                },
+            },
+        },
         {
             ['action'] = 'dialogue-select',
             ['data'] = 2,
