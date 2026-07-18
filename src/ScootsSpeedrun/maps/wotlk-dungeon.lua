@@ -47,6 +47,16 @@ ScootsSpeedrun.map[4723] = {
             ['data'] = 1,
         },
     },
+    [14701] = { -- Arelas Brightstar / Jaeren Sunsworn (after 18/07/2026 change for some reason?)
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 2,
+        },
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+        },
+    },
 }
 
 -- The Culling of Stratholme
