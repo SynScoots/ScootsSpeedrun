@@ -1,15 +1,175 @@
-ScootsSpeedrun.extraQuests = {
+ScootsSpeedrun.extraQuestsAttuneables = {
     -- Vanilla
+    {
+        ['quests'] = {
+            642, -- The Princess Trapped
+        },
+        ['items'] = {
+            4743, -- Pulsating Crystalline Shard
+        },
+    },
+    {
+        ['quests'] = {
+            713, -- Coolant Heads Prevail
+            714, -- Gyro... What?
+        },
+        ['items'] = {
+            4979, -- Enchanted Stonecloth Bracers
+        },
+    },
+    {
+        ['quests'] = {
+            4324, -- Yuka Screwspigot
+        },
+        ['items'] = {
+            11865, -- Rancor Boots
+            11963, -- Penance Spaulders
+            12049, -- Splintsteel Armor
+        },
+    },
+    {
+        ['quests'] = {
+            4766, -- Mayara Brightwing
+        },
+        ['items'] = {
+            15860, -- Blinkstrike Armguards
+            15861, -- Swiftfoot Treads
+        },
+    },
+    {
+        ['quests'] = {
+            4901, -- Guardians of the Altar
+        },
+        ['items'] = {
+            16623, -- Opaline Medallion
+        },
+    },
+    {
+        ['quests'] = {
+            5001, -- Bijou's Belongings
+            5002, -- Message to Maxwell
+        },
+        ['items'] = {
+            13958, -- Wyrmthalak's Shackles
+            13959, -- Omokk's Girth Restrainer
+            13961, -- Halycon's Muzzle
+            13962, -- Vosh'gajin's Strand
+            13963, -- Voone's Vice Grips
+        },
+    },
+    {
+        ['quests'] = {
+            5047, -- Finkle Einhorn, At Your Service!
+        },
+        ['items'] = {
+            12752, -- Cap of the Scarlet Savant
+            12756, -- Leggings of Arcana
+            12757, -- Breastplate of Bloodthirst
+        },
+    },
+    
+    -- TBC
+    {
+        ['quests'] = {
+            9716, -- Disturbance at Umbrafen Lake
+            9718, -- As the Crow Flies
+            9720, -- Balance Must Be Preserved
+        },
+        ['items'] = {
+            27734, -- Expedition Caster's Band
+            27735, -- Pendant of the Marsh
+            27733, -- Warden's Ring of Precision
+            27730, -- Watcher's Cloak of Vigilance
+        },
+    },
+    {
+        ['quests'] = {
+            9971, -- Clues in the Thicket
+        },
+        ['items'] = {
+            25926, -- Nexus-Stalker's Band
+            25927, -- Consortium Cloak of the Quick
+            25928, -- Ethereal Healing Pendant
+            31724, -- Arakkoa Divining Rod
+        },
+    },
+    {
+        ['quests'] = {
+            9971, -- Clues in the Thicket
+            9990, -- Investigate Tuurem
+        },
+        ['items'] = {
+            31782, -- Warpstalker Breastplate
+            31783, -- Bloodfire Leggings
+            31784, -- Ancient Terokkar Hood
+            31785, -- Edge of Inevitability
+        },
+    },
+    {
+        ['quests'] = {
+            10228, -- Ezekiel
+            10231, -- What Book? I Don't See Any Book.
+            10251, -- The Master's Grand Design?
+            10252, -- Vision of the Dead
+        },
+        ['items'] = {
+            29312, -- Cover of Righteous Fury
+            29313, -- Earthbreaker's Greaves
+            29314, -- Leggings of the Third Coin
+            29315, -- Gloves of Penitence
+        },
+    },
+    {
+        ['quests'] = {
+            10009, -- Crackin' Some Skulls
+        },
+        ['items'] = {
+            25819, -- Breastplate of the Warbringer
+            25820, -- Metallic Headband of Simm'onz
+            25821, -- Leggings of Unending Assault
+            25822, -- Watcher's Tunic
+        },
+    },
+    {
+        ['quests'] = {
+            10642, -- A Ghost in the Machine
+            10643, -- Harbingers of Shadowmoon
+            10644, -- Teron Gorefiend - Lore and Legend
+            10634, -- Divination: Gorefiend's Armor
+            10635, -- Divination: Gorefiend's Cloak
+            10636, -- Divination: Gorefiend's Truncheon
+        },
+        ['items'] = {
+            31104, -- Evoker's Helmet of Second Sight
+            31105, -- Overlord's Helmet of Second Sight
+            31106, -- Stalker's Helmet of Second Sight
+            31107, -- Shamanistic Helmet of Second Sight
+            31109, -- Stealther's Helmet of Second Sight
+            31110, -- Druidic Helmet of Second Sight
+        },
+    },
+    {
+        ['quests'] = {
+            10662, -- The Hermit Smith (A)
+            10663, -- The Hermit Smith (H)
+        },
+        ['items'] = {
+            30788, -- Illidari-Bane Broadsword
+            30789, -- Illidari-Bane Claymore
+            30787, -- Illidari-Bane Mageblade
+            31745, -- Illidari-Bane Dagger
+        },
+    },
+}
+
+ScootsSpeedrun.extraQuests = {
+    -- Misc
     [3421] = true, -- Return Trip
     [3503] = true, -- Meeting with the Master
-    [4324] = true, -- Yuka Screwspigot
-    [4766] = true, -- Mayara Brightwing
-    [4901] = true, -- Guardians of the Altar
-    [5001] = true, -- Bijou's Belongings
-    [5002] = true, -- Message to Maxwell
-    [5047] = true, -- Finkle Einhorn, At Your Service!
+    [13148] = true, -- Necklace Repair
+    [14203] = true, -- Waterlogged Recipe
     
-    -- Vanilla: Silithus
+    -- Silithus
     [8534] = true, -- Hive'Zora Scout Report
     [8738] = true, -- Hive'Regal Scout Report
     [8739] = true, -- Hive'Ashi Scout Report
@@ -19,7 +179,6 @@ ScootsSpeedrun.extraQuests = {
     [8737] = true, -- Azure Templar
     [8498] = true, -- Twilight Battle Orders
     [8740] = true, -- Twilight Marauders
-    
     [8770] = true, -- Target: Hive'Ashi Defenders
     [8771] = true, -- Target: Hive'Ashi Sandstalkers
     [8501] = true, -- Target: Hive'Ashi Stingers
@@ -32,43 +191,6 @@ ScootsSpeedrun.extraQuests = {
     [8773] = true, -- Target: Hive'Zora Reavers
     [8687] = true, -- Target: Hive'Zora Tunnelers
     [8772] = true, -- Target: Hive'Zora Waywatchers
-    
-    -- TBC
-    [9718] = true, -- As the Crow Flies
-    [9720] = true, -- Balance Must Be Preserved
-    [9971] = true, -- Clues in the Thicket
-    [9990] = true, -- Investigate Tuurem
-    [10228] = true, -- Ezekiel
-    [10231] = true, -- What Book? I Don't See Any Book.
-    [10251] = true, -- The Master's Grand Design?
-    [10252] = true, -- Vision of the Dead
-    [10009] = true, -- Crackin' Some Skulls
-    [10642] = true, -- A Ghost in the Machine
-    [10643] = true, -- Harbingers of Shadowmoon
-    [10644] = true, -- Teron Gorefiend - Lore and Legend
-    [10634] = true, -- Divination: Gorefiend's Armor
-    [10635] = true, -- Divination: Gorefiend's Cloak
-    [10636] = true, -- Divination: Gorefiend's Truncheon
-    [10662] = true, -- The Hermit Smith
-    
-    -- WotLK
-    [12557] = true, -- Lab Work
-    [12597] = true, -- Something for the Pain
-    [12599] = true, -- Creature Comforts
-    [12606] = true, -- Cocooned!
-    [12630] = true, -- Kickin' Nass and Takin' Manes
-    [12673] = true, -- It Rolls Downhill
-    [12686] = true, -- Zero Tolerance
-    [12915] = true, -- Mending Fences
-    [12966] = true, -- You Can't Miss Him
-    [12967] = true, -- Battling the Elements
-    [12975] = true, -- In Memoriam
-    [12976] = true, -- A Monument to the Fallen
-    [12979] = true, -- Loken's Lackeys
-    [12991] = true, -- Hit Them Where it Hurts
-    [13009] = true, -- A New Beginning
-    [13148] = true, -- Necklace Repair
-    [14203] = true, -- Waterlogged Recipe
     
     -- Midsummer Festival
     [11580] = true, -- Desecrate this Fire!

@@ -120,19 +120,167 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
     ScootsSpeedrun.processRegisteredEvents(event)
 end
 
-ScootsSpeedrun.isQuestShowEvent = function(event)
-    return (event == 'GOSSIP_SHOW' or event == 'QUEST_GREETING' or event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
-end
-
-ScootsSpeedrun.printDebug = function(message, force)
-    if(ScootsSpeedrun.options.get('debug') or force) then
-        print('\124cff' .. '98fb98' .. ScootsSpeedrun.title .. '\124r' .. ' DEBUG: \n' .. message)
+ScootsSpeedrun.handleCharacterMap = function(event, map)
+	local eventLast = ''
+    
+	if(event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
+		eventLast = ScootsSpeedrun.lastQuestEvent
+	end
+    
+    local mapIndex
+    
+    for mapIndex = 1, #map do
+        local basicConditionsMet = true
+        
+        if(map[mapIndex].action == 'dialogue-select') then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipOptions() < map[mapIndex].data) then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'select-available-quest') then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipAvailableQuests() == 0) then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'accept-quest') then
+            if(event ~= 'QUEST_DETAIL' and eventLast ~= 'QUEST_DETAIL') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'select-active-quest') then
+            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipActiveQuests() == 0) then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'progress-quest') then
+            if(event ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_PROGRESS') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'complete-quest') then
+            if(event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_COMPLETE') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'select-attuneable-reward-or-complete-quest') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'select-fewest-owned-reward-in-set') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'select-attuneable-reward') then
+            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'purchase-item' or map[mapIndex].action == 'purchase-item-to-count') then
+            if(event ~= 'MERCHANT_SHOW') then
+                basicConditionsMet = false
+            end
+        elseif(map[mapIndex].action == 'auto-confirm') then
+            if(event ~= 'SCOOTSSPEEDRUN_POPUP_SHOW') then
+                basicConditionsMet = false
+            end
+        end
+        
+        ScootsSpeedrun.printDebug('basic condition : ' .. map[mapIndex].action .. ' : ' .. tostring(basicConditionsMet))
+        
+        if(basicConditionsMet) then
+            local conditionsMet = true
+            
+            if(map[mapIndex].conditions == nil) then
+                ScootsSpeedrun.printDebug('No extra conditions')
+            else
+                local conditionChecks = {
+                    ['gossip-choice-count'] = ScootsSpeedrun.condition.gossipChoiceCount,
+                    ['quest-handin-ready'] = ScootsSpeedrun.condition.questHandinReady,
+                    ['quest-not-in-log'] = ScootsSpeedrun.condition.questNotInLog,
+                    ['quest-complete'] = ScootsSpeedrun.condition.questComplete,
+                    ['quest-complete-any'] = ScootsSpeedrun.condition.questCompleteAny,
+                    ['available-quest-count'] = ScootsSpeedrun.condition.availableQuestCount,
+                    ['active-quest-count'] = ScootsSpeedrun.condition.activeQuestCount,
+                    ['completeable-quest-count'] = ScootsSpeedrun.condition.completableQuestCount,
+                    ['item-in-bags'] = ScootsSpeedrun.condition.itemInBags,
+                    ['item-not-in-bags'] = ScootsSpeedrun.condition.itemNotInBags,
+                    ['own-fewest-in-set'] = ScootsSpeedrun.condition.ownFewestInSet,
+                    ['item-in-bags-and-resource-bank'] = ScootsSpeedrun.condition.itemInBagsAndResourceBank,
+                    ['item-not-attuned'] = ScootsSpeedrun.condition.itemNotAttuned,
+                    ['bank-is-open'] = ScootsSpeedrun.condition.bankIsOpen,
+                    ['unit-has-buff'] = ScootsSpeedrun.condition.unitHasBuff,
+                    ['unit-does-not-have-buff'] = ScootsSpeedrun.condition.unitDoesNotHaveBuff,
+                }
+                
+                local conditionIndex
+                for conditionIndex = 1, #map[mapIndex].conditions do
+                    local thisConditionMet = true
+                    local conditionType = map[mapIndex].conditions[conditionIndex].type
+                    local conditionData = map[mapIndex].conditions[conditionIndex].data
+                
+                    if(conditionChecks[conditionType] == nil) then
+                        ScootsSpeedrun.printError('condition : ' .. conditionType .. ' : HANDLER MISSING')
+                    else
+                        if(conditionChecks[conditionType](conditionData) ~= true) then
+                            thisConditionMet = false
+                        end
+                    
+                        ScootsSpeedrun.printDebug('condition : ' .. conditionType .. '(' .. tostring(conditionData) .. ') : ' .. tostring(thisConditionMet))
+                    
+                        if(thisConditionMet == false) then
+                            conditionsMet = false
+                            
+                            if(ScootsSpeedrun.options.get('debug') ~= true) then
+                                break
+                            end
+                        end
+                    end
+                end
+            end
+            
+            if(conditionsMet) then
+                local actions = {
+                    ['dialogue-select'] = ScootsSpeedrun.action.dialogueSelect,
+                    ['dynamic-option-dialogue-select'] = ScootsSpeedrun.action.dynamicOptionDialogueSelect,
+                    ['close-gossip'] = ScootsSpeedrun.action.closeGossip,
+                    ['close-merchant'] = ScootsSpeedrun.action.closeMerchant,
+                    ['select-available-quest'] = ScootsSpeedrun.action.selectAvailableQuest,
+                    ['select-attuneable-reward-or-complete-quest'] = ScootsSpeedrun.action.selectAttuneableRewardOrCompleteQuest,
+                    ['select-fewest-owned-reward-in-set'] = ScootsSpeedrun.action.selectFewestOwnedRewardInSet,
+                    ['accept-quest'] = ScootsSpeedrun.action.acceptQuest,
+                    ['select-active-quest'] = ScootsSpeedrun.action.selectActiveQuest,
+                    ['progress-quest'] = ScootsSpeedrun.action.progressQuest,
+                    ['complete-quest'] = ScootsSpeedrun.action.completeQuest,
+                    ['select-attuneable-reward'] = ScootsSpeedrun.action.selectAttuneableReward,
+                    ['use-item'] = ScootsSpeedrun.action.useItemFromBag,
+                    ['register-item-for-use'] = ScootsSpeedrun.action.registerItemForUseFromBag,
+                    ['purchase-item'] = ScootsSpeedrun.action.purchaseItem,
+                    ['purchase-item-to-count'] = ScootsSpeedrun.action.purchaseItemUpToCount,
+                    ['auto-confirm'] = ScootsSpeedrun.action.autoConfirm,
+                    ['dismount'] = ScootsSpeedrun.action.dismount,
+                    ['withdraw-from-resource-bank'] = ScootsSpeedrun.action.withdrawFromResourceBank,
+                    ['deposit-to-resource-bank'] = ScootsSpeedrun.action.depositToResourceBank,
+                    ['register-callback-on-event'] = ScootsSpeedrun.action.registerCallbackOnEvent,
+                    ['set-perk-option'] = ScootsSpeedrun.action.setPerkOption,
+                    ['show-info-dialogue'] = ScootsSpeedrun.action.showInfoDialogue,
+                    ['do-nothing'] = ScootsSpeedrun.action.doNothing,
+                }
+                
+                local actionType = map[mapIndex].action
+                local actionData = map[mapIndex].data
+                local actionExecuted = false
+                
+                if(actions[actionType]) then
+                    actionExecuted = actions[actionType](actionData)
+                    ScootsSpeedrun.printDebug('action : ' .. actionType .. '(' .. tostring(actionData) .. ') : ' .. tostring(actionExecuted))
+                else
+                    ScootsSpeedrun.printError('action : ' .. actionType .. ' : HANDLER MISSING')
+                end
+                
+                if(actionExecuted) then
+                    return true
+                end
+            end
+        end
     end
+    
+    return false
 end
 
-ScootsSpeedrun.printError = function(message)
-    print('\124cff' .. '98fb98' .. ScootsSpeedrun.title .. '\124r' .. '\124cff' .. 'fc4903' .. ' ERROR: \n' .. message .. '\124r')
-end
+-- ########### --
 
 ScootsSpeedrun.buildMapFromTracker = function(event)
 	local eventLast = ''
@@ -284,163 +432,18 @@ ScootsSpeedrun.updateTrackerQuestCache = function()
     end
 end
 
-ScootsSpeedrun.handleCharacterMap = function(event, map)
-	local eventLast = ''
-    
-	if(event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
-		eventLast = ScootsSpeedrun.lastQuestEvent
-	end
-    
-    local mapIndex
-    
-    for mapIndex = 1, #map do
-        local basicConditionsMet = true
-        
-        if(map[mapIndex].action == 'dialogue-select') then
-            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipOptions() < map[mapIndex].data) then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'select-available-quest') then
-            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipAvailableQuests() == 0) then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'accept-quest') then
-            if(event ~= 'QUEST_DETAIL' and eventLast ~= 'QUEST_DETAIL') then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'select-active-quest') then
-            if(not ScootsSpeedrun.isQuestShowEvent(event) or GetNumGossipActiveQuests() == 0) then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'progress-quest') then
-            if(event ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_PROGRESS') then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'complete-quest') then
-            if(event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_COMPLETE') then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'select-attuneable-reward-or-complete-quest') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'select-fewest-owned-reward-in-set') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'select-attuneable-reward') then
-            if(event ~= 'QUEST_PROGRESS' and event ~= 'QUEST_COMPLETE' and eventLast ~= 'QUEST_PROGRESS' and eventLast ~= 'QUEST_COMPLETE') then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'purchase-item' or map[mapIndex].action == 'purchase-item-to-count') then
-            if(event ~= 'MERCHANT_SHOW') then
-                basicConditionsMet = false
-            end
-        elseif(map[mapIndex].action == 'auto-confirm') then
-            if(event ~= 'SCOOTSSPEEDRUN_POPUP_SHOW') then
-                basicConditionsMet = false
-            end
-        end
-        
-        ScootsSpeedrun.printDebug('basic condition : ' .. map[mapIndex].action .. ' : ' .. tostring(basicConditionsMet))
-        
-        if(basicConditionsMet) then
-            local conditionsMet = true
-            
-            if(map[mapIndex].conditions == nil) then
-                ScootsSpeedrun.printDebug('No extra conditions')
-            else
-                local conditionChecks = {
-                    ['gossip-choice-count'] = ScootsSpeedrun.condition.gossipChoiceCount,
-                    ['quest-handin-ready'] = ScootsSpeedrun.condition.questHandinReady,
-                    ['quest-not-in-log'] = ScootsSpeedrun.condition.questNotInLog,
-                    ['quest-complete'] = ScootsSpeedrun.condition.questComplete,
-                    ['quest-complete-any'] = ScootsSpeedrun.condition.questCompleteAny,
-                    ['available-quest-count'] = ScootsSpeedrun.condition.availableQuestCount,
-                    ['active-quest-count'] = ScootsSpeedrun.condition.activeQuestCount,
-                    ['completeable-quest-count'] = ScootsSpeedrun.condition.completableQuestCount,
-                    ['item-in-bags'] = ScootsSpeedrun.condition.itemInBags,
-                    ['item-not-in-bags'] = ScootsSpeedrun.condition.itemNotInBags,
-                    ['own-fewest-in-set'] = ScootsSpeedrun.condition.ownFewestInSet,
-                    ['item-in-bags-and-resource-bank'] = ScootsSpeedrun.condition.itemInBagsAndResourceBank,
-                    ['item-not-attuned'] = ScootsSpeedrun.condition.itemNotAttuned,
-                    ['bank-is-open'] = ScootsSpeedrun.condition.bankIsOpen,
-                    ['unit-has-buff'] = ScootsSpeedrun.condition.unitHasBuff,
-                    ['unit-does-not-have-buff'] = ScootsSpeedrun.condition.unitDoesNotHaveBuff,
-                }
-                
-                local conditionIndex
-                for conditionIndex = 1, #map[mapIndex].conditions do
-                    local thisConditionMet = true
-                    local conditionType = map[mapIndex].conditions[conditionIndex].type
-                    local conditionData = map[mapIndex].conditions[conditionIndex].data
-                
-                    if(conditionChecks[conditionType] == nil) then
-                        ScootsSpeedrun.printError('condition : ' .. conditionType .. ' : HANDLER MISSING')
-                    else
-                        if(conditionChecks[conditionType](conditionData) ~= true) then
-                            thisConditionMet = false
-                        end
-                    
-                        ScootsSpeedrun.printDebug('condition : ' .. conditionType .. '(' .. tostring(conditionData) .. ') : ' .. tostring(thisConditionMet))
-                    
-                        if(thisConditionMet == false) then
-                            conditionsMet = false
-                            
-                            if(ScootsSpeedrun.options.get('debug') ~= true) then
-                                break
-                            end
-                        end
-                    end
-                end
-            end
-            
-            if(conditionsMet) then
-                local actions = {
-                    ['dialogue-select'] = ScootsSpeedrun.action.dialogueSelect,
-                    ['close-gossip'] = ScootsSpeedrun.action.closeGossip,
-                    ['close-merchant'] = ScootsSpeedrun.action.closeMerchant,
-                    ['select-available-quest'] = ScootsSpeedrun.action.selectAvailableQuest,
-                    ['select-attuneable-reward-or-complete-quest'] = ScootsSpeedrun.action.selectAttuneableRewardOrCompleteQuest,
-                    ['select-fewest-owned-reward-in-set'] = ScootsSpeedrun.action.selectFewestOwnedRewardInSet,
-                    ['accept-quest'] = ScootsSpeedrun.action.acceptQuest,
-                    ['select-active-quest'] = ScootsSpeedrun.action.selectActiveQuest,
-                    ['progress-quest'] = ScootsSpeedrun.action.progressQuest,
-                    ['complete-quest'] = ScootsSpeedrun.action.completeQuest,
-                    ['select-attuneable-reward'] = ScootsSpeedrun.action.selectAttuneableReward,
-                    ['use-item'] = ScootsSpeedrun.action.useItemFromBag,
-                    ['register-item-for-use'] = ScootsSpeedrun.action.registerItemForUseFromBag,
-                    ['purchase-item'] = ScootsSpeedrun.action.purchaseItem,
-                    ['purchase-item-to-count'] = ScootsSpeedrun.action.purchaseItemUpToCount,
-                    ['auto-confirm'] = ScootsSpeedrun.action.autoConfirm,
-                    ['dismount'] = ScootsSpeedrun.action.dismount,
-                    ['do-nothing'] = ScootsSpeedrun.action.doNothing,
-                    ['withdraw-from-resource-bank'] = ScootsSpeedrun.action.withdrawFromResourceBank,
-                    ['deposit-to-resource-bank'] = ScootsSpeedrun.action.depositToResourceBank,
-                    ['register-callback-on-event'] = ScootsSpeedrun.action.registerCallbackOnEvent,
-                    ['set-perk-option'] = ScootsSpeedrun.action.setPerkOption,
-                    ['show-info-dialogue'] = ScootsSpeedrun.action.showInfoDialogue,
-                }
-                
-                local actionType = map[mapIndex].action
-                local actionData = map[mapIndex].data
-                local actionExecuted = false
-                
-                if(actions[actionType]) then
-                    actionExecuted = actions[actionType](actionData)
-                    ScootsSpeedrun.printDebug('action : ' .. actionType .. '(' .. tostring(actionData) .. ') : ' .. tostring(actionExecuted))
-                else
-                    ScootsSpeedrun.printError('action : ' .. actionType .. ' : HANDLER MISSING')
+ScootsSpeedrun.applyAutoQuestAttuneables = function()
+    for _, data in pairs(ScootsSpeedrun.extraQuestsAttuneables) do
+        for _, itemId in pairs(data.items) do
+            if(CanAttuneItemHelper(itemId) > 0 and GetItemAttuneForge(itemId) < 0) then
+                for _, questId in pairs(data.quests) do
+                    ScootsSpeedrun.extraQuests[questId] = true
                 end
                 
-                if(actionExecuted) then
-                    return true
-                end
+                break
             end
         end
     end
-    
-    return false
 end
 
 -- ########### --
@@ -527,6 +530,20 @@ ScootsSpeedrun.processRegisteredEvents = function(event)
     end
 end
 
+ScootsSpeedrun.isQuestShowEvent = function(event)
+    return (event == 'GOSSIP_SHOW' or event == 'QUEST_GREETING' or event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
+end
+
+ScootsSpeedrun.printDebug = function(message, force)
+    if(ScootsSpeedrun.options.get('debug') or force) then
+        print('\124cff' .. '98fb98' .. ScootsSpeedrun.title .. '\124r' .. ' DEBUG: \n' .. message)
+    end
+end
+
+ScootsSpeedrun.printError = function(message)
+    print('\124cff' .. '98fb98' .. ScootsSpeedrun.title .. '\124r' .. '\124cff' .. 'fc4903' .. ' ERROR: \n' .. message .. '\124r')
+end
+
 -- ########### --
 
 SLASH_SCOOTSSPEEDRUN1 = '/scootsspeedrun'
@@ -569,6 +586,8 @@ for popupIndex = 1, 10 do
 end
 
 function ScootsSpeedrun__init()
+    ScootsSpeedrun.applyAutoQuestAttuneables()
+    
     if(ITEMHUNT_UPDATE_INTERVAL and ITEMHUNT_UPDATE_INTERVAL > 0.2) then
         ITEMHUNT_UPDATE_INTERVAL = 0.2
     end

@@ -530,35 +530,5 @@ ScootsSpeedrun.map[3521] = {
             ['action'] = 'complete-quest',
             ['data'] = 27037, -- Halls of Lightning: Reward
         },
-        {
-            ['action'] = 'select-available-quest',
-            ['data'] = 9716, -- Disturbance at Umbrafen Lake
-            ['conditions'] = {
-                {
-                    ['type'] = 'item-not-attuned',
-                    ['data'] = {
-                        27734, -- Expedition Caster's Band
-                        27735, -- Pendant of the Marsh
-                        27733, -- Warden's Ring of Precision
-                        27730, -- Watcher's Cloak of Vigilance
-                    },
-                },
-            },
-        },
-        {
-            ['action'] = 'accept-quest',
-            ['data'] = 9716, -- Disturbance at Umbrafen Lake
-            ['conditions'] = {
-                {
-                    ['type'] = 'item-not-attuned',
-                    ['data'] = {
-                        27734, -- Expedition Caster's Band
-                        27735, -- Pendant of the Marsh
-                        27733, -- Warden's Ring of Precision
-                        27730, -- Watcher's Cloak of Vigilance
-                    },
-                },
-            },
-        },
     },
 }

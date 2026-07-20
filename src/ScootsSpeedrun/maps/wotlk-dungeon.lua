@@ -39,7 +39,8 @@ ScootsSpeedrun.map[4264] = {
 ScootsSpeedrun.map[4723] = {
     [35004] = { -- Arelas Brightstar / Jaeren Sunsworn
         {
-            ['action'] = 'do-nothing',
+            ['action'] = 'dynamic-option-dialogue-select',
+            ['data'] = 'toc5-3options',
             ['conditions'] = {
                 {
                     ['type'] = 'gossip-choice-count',
@@ -48,27 +49,14 @@ ScootsSpeedrun.map[4723] = {
             },
         },
         {
-            ['action'] = 'dialogue-select',
-            ['data'] = 2,
-        },
-        {
-            ['action'] = 'dialogue-select',
-            ['data'] = 1,
-        },
-    },
-    [14701] = { -- Arelas Brightstar / Jaeren Sunsworn (NPC ID changed due to new feature)
-        {
-            ['action'] = 'do-nothing',
+            ['action'] = 'dynamic-option-dialogue-select',
+            ['data'] = 'toc5-2options',
             ['conditions'] = {
                 {
                     ['type'] = 'gossip-choice-count',
-                    ['data'] = 3,
+                    ['data'] = 2,
                 },
             },
-        },
-        {
-            ['action'] = 'dialogue-select',
-            ['data'] = 2,
         },
         {
             ['action'] = 'dialogue-select',
@@ -76,6 +64,8 @@ ScootsSpeedrun.map[4723] = {
         },
     },
 }
+
+ScootsSpeedrun.map[4723][14701] = ScootsSpeedrun.map[4723][35004] -- Trial of the Champion || Arelas Brightstar / Jaeren Sunsworn (NPC ID changed due to new feature)
 
 -- The Culling of Stratholme
 ScootsSpeedrun.map[4100] = {
@@ -234,14 +224,28 @@ ScootsSpeedrun.map[4228] = {
 ScootsSpeedrun.map[4415] = {
     [30658] = { -- Lieutenant Sinclari
         {
-            ['action'] = 'dialogue-select',
-            ['data'] = 2,
+            ['action'] = 'dynamic-option-dialogue-select',
+            ['data'] = 'vh-8options',
             ['conditions'] = {
                 {
                     ['type'] = 'gossip-choice-count',
-                    ['data'] = 2,
+                    ['data'] = 8,
                 },
             },
+        },
+        {
+            ['action'] = 'dynamic-option-dialogue-select',
+            ['data'] = 'vh-7options',
+            ['conditions'] = {
+                {
+                    ['type'] = 'gossip-choice-count',
+                    ['data'] = 7,
+                },
+            },
+        },
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 2,
         },
     },
 }

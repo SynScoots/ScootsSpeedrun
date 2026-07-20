@@ -3,6 +3,16 @@ ScootsSpeedrun.action.dialogueSelect = function(dialogueIndex)
     return true
 end
 
+ScootsSpeedrun.action.dynamicOptionDialogueSelect = function(optionName)
+    local choice = tostring(ScootsSpeedrun.options.get(optionName)):match('^dialogue%-(%d)$')
+    
+    if(choice ~= nil) then
+        return ScootsSpeedrun.action.dialogueSelect(tonumber(choice))
+    end
+    
+    return ScootsSpeedrun.action.doNothing()
+end
+
 ScootsSpeedrun.action.closeGossip = function()
     CloseGossip()
     return true
@@ -370,10 +380,6 @@ ScootsSpeedrun.action.registerCallbackOnEvent = function(data)
     return false
 end
 
-ScootsSpeedrun.action.doNothing = function()
-    return true
-end
-
 ScootsSpeedrun.action.showInfoDialogue = function(data)
     StaticPopupDialogs['SCOOTSSPEEDRUN_INFO'] = {
         ['text'] = data.text,
@@ -385,4 +391,8 @@ ScootsSpeedrun.action.showInfoDialogue = function(data)
     StaticPopup_Show('SCOOTSSPEEDRUN_INFO')
     
     return (data.stop == true)
+end
+
+ScootsSpeedrun.action.doNothing = function()
+    return true
 end
