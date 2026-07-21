@@ -58,7 +58,7 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
             npc = UnitName('target')
         end
         
-        local debugString = event .. '\n' .. location .. ': ' .. locationId .. '\n' .. npc .. ': ' .. npcId
+        local debugString = event .. '(' .. tostring(arg1) .. ', ' .. tostring(arg2) .. ')\n' .. location .. ': ' .. locationId .. '\n' .. npc .. ': ' .. npcId
         
         local availableQuests = Custom_GetGossipQuests(1) or {}
         if(#availableQuests > 0) then
@@ -77,6 +77,23 @@ ScootsSpeedrun.eventHandler = function(_, event, arg1, arg2)
         if(ScootsSpeedrun.handlePopup(arg1, locationId)) then
             return nil
         end
+    end
+    
+    if(event == 'QUEST_COMPLETE') then
+        ScootsSpeedrun.lastCompleteEventQuestId = Custom_GetGossipQuests(3)
+        ScootsSpeedrun.printDebug('Setting lastCompleteEventQuestId: ' .. tostring(ScootsSpeedrun.lastCompleteEventQuestId))
+    end
+    
+    if(event == 'QUEST_TURNED_IN' or (event == 'UNIT_QUEST_LOG_CHANGED' and arg1 == 'player' and (ScootsSpeedrun.lastQuestEvent == 'QUEST_COMPLETE' or ScootsSpeedrun.lastQuestEvent == 'QUEST_DETAIL'))) then
+        ScootsSpeedrun.printDebug('Performing post-handin check with ID: ' .. tostring(ScootsSpeedrun.lastCompleteEventQuestId))
+        
+        if(ScootsSpeedrun.lastCompleteEventQuestId ~= nil and ScootsSpeedrun.questCompleteEvents[ScootsSpeedrun.lastCompleteEventQuestId] ~= nil) then
+            ScootsSpeedrun.printDebug('Post-handin action found')
+        
+            ScootsSpeedrun.handleCharacterMap(event, {ScootsSpeedrun.questCompleteEvents[ScootsSpeedrun.lastCompleteEventQuestId]})
+        end
+        
+        ScootsSpeedrun.lastCompleteEventQuestId = nil
     end
     
     if(event == 'GOSSIP_SHOW'
@@ -567,6 +584,8 @@ ScootsSpeedrun.frames.events:RegisterEvent('QUEST_GREETING')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_DETAIL')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_PROGRESS')
 ScootsSpeedrun.frames.events:RegisterEvent('QUEST_COMPLETE')
+ScootsSpeedrun.frames.events:RegisterEvent('QUEST_TURNED_IN')
+ScootsSpeedrun.frames.events:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
 ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_SHOW')
 ScootsSpeedrun.frames.events:RegisterEvent('MERCHANT_CLOSED')
 ScootsSpeedrun.frames.events:RegisterEvent('ITEM_PUSH')
