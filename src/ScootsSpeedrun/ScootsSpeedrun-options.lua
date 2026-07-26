@@ -243,7 +243,7 @@ ScootsSpeedrun.options.buildVioletHoldOptions = function()
         ScootsSpeedrun.frames.violetHold8Options, groupHeight = ScootsSpeedrun.options.insertOptionsGroup({
             ['framename'] = 'ScootsSpeedrun-Options-VioletHold8Options',
             ['parent'] = ScootsSpeedrun.frames.violetHoldOptionsScrollChild,
-            ['width'] = 310,
+            ['width'] = 305,
             ['title'] = 'Dialogue choice when there are 8 options',
         })
         
@@ -323,7 +323,7 @@ ScootsSpeedrun.options.buildVioletHoldOptions = function()
         ScootsSpeedrun.frames.violetHoldInfo, groupHeight = ScootsSpeedrun.options.insertOptionsGroup({
             ['framename'] = 'ScootsSpeedrun-Options-VioletHoldInfo',
             ['parent'] = ScootsSpeedrun.frames.violetHoldOptionsScrollChild,
-            ['width'] = 310,
+            ['width'] = 305,
             ['title'] = 'Dialogue choices',
         })
         
@@ -353,9 +353,9 @@ ScootsSpeedrun.options.buildVioletHoldOptions = function()
         ScootsSpeedrun.frames.violetHold7Options, groupHeight = ScootsSpeedrun.options.insertOptionsGroup({
             ['framename'] = 'ScootsSpeedrun-Options-VioletHold7Options',
             ['parent'] = ScootsSpeedrun.frames.violetHoldOptionsScrollChild,
-            ['width'] = 310,
+            ['width'] = 305,
             ['title'] = 'Dialogue choice when there are 7 options',
-            ['subtitle'] = 'After first boss is chosen, choices that come after that boss will move up by 1',
+            ['subtitle'] = 'After first boss is chosen, choices that come after that boss will move up by 1.',
         })
         
         ScootsSpeedrun.frames.violetHold7Options:SetPoint('TOPLEFT', ScootsSpeedrun.frames.violetHold8Options, 'BOTTOMLEFT', 0, -10)
@@ -504,7 +504,7 @@ ScootsSpeedrun.options.buildTocOptions = function()
         ScootsSpeedrun.frames.toc3Options, groupHeight = ScootsSpeedrun.options.insertOptionsGroup({
             ['framename'] = 'ScootsSpeedrun-Options-Toc3Options',
             ['parent'] = ScootsSpeedrun.frames.tocOptionsScrollChild,
-            ['width'] = 310,
+            ['width'] = 305,
             ['title'] = 'Dialogue choice when there are 3 options',
         })
         
@@ -564,7 +564,7 @@ ScootsSpeedrun.options.buildTocOptions = function()
         ScootsSpeedrun.frames.tocInfo, groupHeight = ScootsSpeedrun.options.insertOptionsGroup({
             ['framename'] = 'ScootsSpeedrun-Options-TocInfo',
             ['parent'] = ScootsSpeedrun.frames.tocOptionsScrollChild,
-            ['width'] = 310,
+            ['width'] = 305,
             ['title'] = 'Dialogue choices',
         })
         
@@ -591,7 +591,7 @@ ScootsSpeedrun.options.buildTocOptions = function()
         ScootsSpeedrun.frames.toc2Options, groupHeight = ScootsSpeedrun.options.insertOptionsGroup({
             ['framename'] = 'ScootsSpeedrun-Options-Toc2Options',
             ['parent'] = ScootsSpeedrun.frames.tocOptionsScrollChild,
-            ['width'] = 310,
+            ['width'] = 305,
             ['title'] = 'Dialogue choice when there are 2 options',
         })
         

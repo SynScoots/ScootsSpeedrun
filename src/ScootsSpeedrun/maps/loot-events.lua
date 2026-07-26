@@ -1,4 +1,15 @@
 ScootsSpeedrun.onLootEvent = {
+    ['Interface\\Icons\\Ability_Hunter_Pet_Crocolisk'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 34864, -- Baby Crocolisk
+            ['conditions'] = {
+                {
+                    ['type'] = 'bank-is-open',
+                },
+            },
+        },
+    },
     ['Interface\\Icons\\INV_Box_01'] = {
         {
             ['action'] = 'register-item-for-use',
@@ -123,6 +134,28 @@ ScootsSpeedrun.onLootEvent = {
         {
             ['action'] = 'register-item-for-use',
             ['data'] = 54516, -- Loot-Filled Pumpkin
+        },
+    },
+    ['Interface\\Icons\\INV_Misc_Fish_43'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 34865, -- Blackfin Darter
+            ['conditions'] = {
+                {
+                    ['type'] = 'bank-is-open',
+                },
+            },
+        },
+    },
+    ['Interface\\Icons\\INV_Misc_Fish_45'] = {
+        {
+            ['action'] = 'register-item-for-use',
+            ['data'] = 34868, -- World's Largest Mudfish
+            ['conditions'] = {
+                {
+                    ['type'] = 'bank-is-open',
+                },
+            },
         },
     },
     ['Interface\\Icons\\INV_Misc_Gift_05'] = {

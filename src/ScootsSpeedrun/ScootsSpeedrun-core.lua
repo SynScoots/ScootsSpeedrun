@@ -450,6 +450,10 @@ ScootsSpeedrun.updateTrackerQuestCache = function()
 end
 
 ScootsSpeedrun.applyAutoQuestAttuneables = function()
+    if(ScootsSpeedrun.extraQuestsAttuneables == nil) then
+        return
+    end
+    
     for _, data in pairs(ScootsSpeedrun.extraQuestsAttuneables) do
         for _, itemId in pairs(data.items) do
             if(CanAttuneItemHelper(itemId) > 0 and GetItemAttuneForge(itemId) < 0) then
@@ -461,6 +465,8 @@ ScootsSpeedrun.applyAutoQuestAttuneables = function()
             end
         end
     end
+    
+    ScootsSpeedrun.extraQuestsAttuneables = nil
 end
 
 -- ########### --

@@ -73,13 +73,62 @@ ScootsSpeedrun.extraQuestsAttuneables = {
     },
     {
         ['quests'] = {
+            1140, -- The Tower of Althalaxx
+            1167, -- The Tower of Althalaxx
+        },
+        ['items'] = {
+            5614, -- Seraph's Strike
+            10043, -- Pious Legwraps
+        },
+    },
+    {
+        ['quests'] = {
+            1198, -- In Search of Thaelrid
+        },
+        ['items'] = {
+            7001, -- Gravestone Scepter
+            7002, -- Arctic Buckler
+        },
+    },
+    {
+        ['quests'] = {
             2991, -- Nekrum's Medallion
             2992, -- The Divination
             2993, -- Return to the Hinterlands
         },
         ['items'] = {
-            9652, -- Gryphon Rider's Leggings
             9651, -- Gryphon Rider's Stormhammer
+            9652, -- Gryphon Rider's Leggings
+        },
+    },
+    {
+        ['quests'] = {
+            3371, -- Dwarven Justice
+        },
+        ['items'] = {
+            10739, -- Ring of Fortitude
+            10740, -- Centurion Legplates
+            10741, -- Lordrec Helmet
+        },
+    },
+    {
+        ['quests'] = {
+            3462, -- Squire Maltrake
+            3463, -- Set Them Ablaze!
+        },
+        ['items'] = {
+            10742, -- Dragonflight Leggings
+            10743, -- Drakefire Headguard
+            10744, -- Axe of the Ebon Drake
+        },
+    },
+    {
+        ['quests'] = {
+            3765, -- The Corruption Abroad
+        },
+        ['items'] = {
+            7003, -- Beetle Clasps
+            7004, -- Prelacy Cape
         },
     },
     {
@@ -90,6 +139,18 @@ ScootsSpeedrun.extraQuestsAttuneables = {
             11865, -- Rancor Boots
             11963, -- Penance Spaulders
             12049, -- Splintsteel Armor
+        },
+    },
+    {
+        ['quests'] = {
+            4762, -- Broodling Essence
+            4808, -- Felnok Steelspring
+            4907, -- Tinkee Steamboil
+            4734, -- Egg Freezing
+            5522, -- Leonid Barthalomew
+        },
+        ['items'] = {
+            15854, -- Dancing Sliver
         },
     },
     {
@@ -161,12 +222,40 @@ ScootsSpeedrun.extraQuestsAttuneables = {
     },
     {
         ['quests'] = {
+            5142, -- Little Pamela
+            5152, -- Auntie Marlene
+            5153, -- A Strange Historian
+            5154, -- The Annals of Darrowshire
+            5210, -- Brother Carlin
+            5211, -- Defenders of Darrowshire
+            5241, -- Uncle Carlin
+            5721, -- The Battle of Darrowshire
+        },
+        ['items'] = {
+            15855, -- Ring of Protection
+            15856, -- Archlight Talisman
+            15857, -- Magebane Scion
+        },
+    },
+    {
+        ['quests'] = {
+            5262, -- The Argent Hold
+        },
+        ['items'] = {
+            13243, -- Argent Defender
+            13249, -- Argent Crusader
+        },
+    },
+    {
+        ['quests'] = {
             5464, -- Menethil's Gift
             5465, -- Soulbound Keepsake
         },
         ['items'] = {
             13986, -- Crown of Caer Darrow
             14002, -- Darrowshire Strongguard
+            15805, -- Penelope's Rose
+            15806, -- Mirah's Song
         },
     },
     {
@@ -197,6 +286,27 @@ ScootsSpeedrun.extraQuestsAttuneables = {
             13475, -- Dalson Family Wedding Ring
         },
     },
+    {
+        ['quests'] = {
+            6121, -- Lessons Anew (A)
+            6122, -- The Principal Source (A)
+            6126, -- Lessons Anew (H)
+            6127, -- The Principal Source (H)
+        },
+        ['items'] = {
+            15866, -- Veildust Medicine Bag
+        },
+    },
+    {
+        ['quests'] = {
+            9063, -- Torwa Pathfinder
+        },
+        ['items'] = {
+            22274, -- Grizzled Pelt
+            22272, -- Forest's Embrace
+            22458, -- Moonshadow Stave
+        },
+    },
     
     -- TBC
     {
@@ -210,6 +320,17 @@ ScootsSpeedrun.extraQuestsAttuneables = {
             27735, -- Pendant of the Marsh
             27733, -- Warden's Ring of Precision
             27730, -- Watcher's Cloak of Vigilance
+        },
+    },
+    {
+        ['quests'] = {
+            9904, -- Pursuing Terrorclaw
+        },
+        ['items'] = {
+            25924, -- Swamprunner's Boots
+            25923, -- Fierce Mantle
+            25922, -- Fearless Girdle
+            25925, -- Terrorcloth Mantle
         },
     },
     {
