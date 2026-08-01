@@ -4,6 +4,7 @@ ScootsSpeedrun.options.load = function()
     local defaultOptions = {
         ['auto-use-items'] = true,
         ['auto-release'] = false,
+        ['include-free-quests'] = false,
         ['debug'] = false,
         ['toc5-3options'] = 'do-nothing',
         ['toc5-2options'] = 'dialogue-2',
@@ -149,10 +150,41 @@ ScootsSpeedrun.options.buildGeneralOptions = function()
         
         --
         
+        ScootsSpeedrun.frames.optionIncludeFreeQuests = ScootsSpeedrun.options.insertOptionsCheckbox({
+            ['framename'] = 'ScootsSpeedrun-Options-IncludeFreeQuests',
+            ['parent'] = ScootsSpeedrun.frames.optionsScrollChild,
+            ['prior'] = ScootsSpeedrun.frames.optionAutoRelease,
+            ['offset'] = -5,
+            ['name'] = 'Include "free quests"',
+            ['defaultState'] = ScootsSpeedrun.options.get('include-free-quests'),
+            ['tooltip'] = 'Adds quests which are just "go here, talk to this person" to the auto-quest-pickup function.',
+            ['onClickEvent'] = function(self)
+                local value = (self:GetChecked() and true) or false
+                ScootsSpeedrun.options.set('include-free-quests', value)
+                
+                if(value) then
+                    ScootsSpeedrun.applyAutoQuestFreeQuests()
+                    StaticPopup_Hide('SCOOTSSPEEDRUN_OPTION_INFO')
+                else
+                    ScootsSpeedrun.action.showConfirmDialogue({
+                        ['key'] = 'SCOOTSSPEEDRUN_OPTION_CONFIRM',
+                        ['text'] = 'Disabling this option requires you to reload the UI to take effect.\n\nDo you wish to reload the UI now?',
+                        ['confirmButton'] = 'Yes',
+                        ['cancelButton'] = 'No',
+                        ['onConfirm'] = ReloadUI,
+                    })
+                end
+            end,
+        })
+        
+        height = height + ScootsSpeedrun.frames.optionAutoRelease:GetHeight() + 5
+        
+        --
+        
         ScootsSpeedrun.frames.optionDebug = ScootsSpeedrun.options.insertOptionsCheckbox({
             ['framename'] = 'ScootsSpeedrun-Options-Debug',
             ['parent'] = ScootsSpeedrun.frames.optionsScrollChild,
-            ['prior'] = ScootsSpeedrun.frames.optionAutoRelease,
+            ['prior'] = ScootsSpeedrun.frames.optionIncludeFreeQuests,
             ['offset'] = -5,
             ['name'] = 'Debug mode',
             ['defaultState'] = ScootsSpeedrun.options.get('debug'),

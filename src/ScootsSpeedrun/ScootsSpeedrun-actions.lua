@@ -381,14 +381,46 @@ ScootsSpeedrun.action.registerCallbackOnEvent = function(data)
 end
 
 ScootsSpeedrun.action.showInfoDialogue = function(data)
-    StaticPopupDialogs['SCOOTSSPEEDRUN_INFO'] = {
+    StaticPopupDialogs[data.key or 'SCOOTSSPEEDRUN_INFO'] = {
         ['text'] = data.text,
         ['button1'] = data.button,
         ['timeout'] = 0,
         ['whileDead'] = 1,
         ['hideOnEscape'] = 1,
     }
-    StaticPopup_Show('SCOOTSSPEEDRUN_INFO')
+    StaticPopup_Show(data.key or 'SCOOTSSPEEDRUN_INFO')
+    
+    return (data.stop == true)
+end
+
+ScootsSpeedrun.action.doNothing = function()
+    return true
+end
+
+ScootsSpeedrun.action.showConfirmDialogue = function(data)
+    StaticPopupDialogs[data.key or 'SCOOTSSPEEDRUN_CONFIRM'] = {
+        ['text'] = data.text,
+        ['button1'] = data.confirmButton,
+        ['button2'] = data.cancelButton,
+        ['timeout'] = 0,
+        ['exclusive'] = 1,
+        ['whileDead'] = 1,
+        ['hideOnEscape'] = 1,
+        ['OnAccept'] = data.onConfirm or function() end,
+        ['OnCancel'] = data.onCancel or function() end,
+        ['OnHide'] = data.onCancel or function() end,
+    }
+    
+    local dialogueFrame = StaticPopup_Show(data.key or 'SCOOTSSPEEDRUN_CONFIRM')
+    local dialogueFrameStrata = dialogueFrame:GetFrameStrata()
+    
+    dialogueFrame:SetFrameStrata('TOOLTIP')
+    
+    local hideHook = function()
+        dialogueFrame:SetFrameStrata(dialogueFrameStrata)
+    end
+    
+    dialogueFrame:HookScript('OnHide', hideHook)
     
     return (data.stop == true)
 end

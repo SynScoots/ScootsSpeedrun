@@ -73,6 +73,40 @@ ScootsSpeedrun.extraQuestsAttuneables = {
     },
     {
         ['quests'] = {
+            1070, -- On Guard in Stonetalon
+            1085, -- On Guard in Stonetalon
+            1071, -- A Gnome's Respite
+            1072, -- An Old Colleague
+            1073, -- Ineptitude + Chemicals = Fun
+            1074, -- Ineptitude + Chemicals = Fun
+            1075, -- A Scroll from Mauren
+            1076, -- Devils in Westfall
+            1077, -- Special Delivery for Gaxim
+            1079, -- Covert Ops - Alpha
+            1080, -- Covert Ops - Beta
+            1091, -- Kaela's Update
+            1083, -- Enraged Spirits
+            1084, -- Wounded Ancients
+            1082, -- Update for Sentinel Thenysil
+        },
+        ['items'] = {
+            6678, -- Band of Elven Grace
+            7334, -- Efflorescent Robe
+            7335, -- Grizzly Tunic
+            7336, -- Wildwood Chain
+        },
+    },
+    {
+        ['quests'] = {
+            1095, -- Further Instructions
+        },
+        ['items'] = {
+            6667, -- Engineer's Cloak
+            6668, -- Draftsman Boots
+        },
+    },
+    {
+        ['quests'] = {
             1140, -- The Tower of Althalaxx
             1167, -- The Tower of Althalaxx
         },
@@ -88,6 +122,14 @@ ScootsSpeedrun.extraQuestsAttuneables = {
         ['items'] = {
             7001, -- Gravestone Scepter
             7002, -- Arctic Buckler
+        },
+    },
+    {
+        ['quests'] = {
+            1442, -- Seeking the Kor Gem
+        },
+        ['items'] = {
+            6953, -- Verigan's Fist
         },
     },
     {
@@ -139,6 +181,17 @@ ScootsSpeedrun.extraQuestsAttuneables = {
             11865, -- Rancor Boots
             11963, -- Penance Spaulders
             12049, -- Splintsteel Armor
+        },
+    },
+    {
+        ['quests'] = {
+            4496, -- Bungle in the Jungle
+            4507, -- Pawn Captures Queen
+        },
+        ['items'] = {
+            11870, -- Oblivion Orb
+            11871, -- Snarkshaw Spaulders
+            11872, -- Eschewal Greaves
         },
     },
     {

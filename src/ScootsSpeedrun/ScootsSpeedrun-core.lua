@@ -273,6 +273,7 @@ ScootsSpeedrun.handleCharacterMap = function(event, map)
                     ['register-callback-on-event'] = ScootsSpeedrun.action.registerCallbackOnEvent,
                     ['set-perk-option'] = ScootsSpeedrun.action.setPerkOption,
                     ['show-info-dialogue'] = ScootsSpeedrun.action.showInfoDialogue,
+                    ['show-confirm-dialogue'] = ScootsSpeedrun.action.showConfirmDialogue,
                     ['do-nothing'] = ScootsSpeedrun.action.doNothing,
                 }
                 
@@ -469,6 +470,24 @@ ScootsSpeedrun.applyAutoQuestAttuneables = function()
     ScootsSpeedrun.extraQuestsAttuneables = nil
 end
 
+ScootsSpeedrun.applyAutoQuestFreeQuests = function()
+    if(ScootsSpeedrun.freeQuests == nil) then
+        return
+    end
+    
+    for _, range in pairs(ScootsSpeedrun.freeQuests.ranges) do
+        for questId = range[1], range[2] do
+            ScootsSpeedrun.extraQuests[questId] = true
+        end
+    end
+    
+    for _, questId in pairs(ScootsSpeedrun.freeQuests.singles) do
+        ScootsSpeedrun.extraQuests[questId] = true
+    end
+    
+    ScootsSpeedrun.freeQuests = nil
+end
+
 -- ########### --
 
 ScootsSpeedrun.pushQueuedEvent = function(timeout, callback)
@@ -612,6 +631,10 @@ end
 
 function ScootsSpeedrun__init()
     ScootsSpeedrun.applyAutoQuestAttuneables()
+    
+    if(ScootsSpeedrun.options.get('include-free-quests')) then
+        ScootsSpeedrun.applyAutoQuestFreeQuests()
+    end
     
     if(ITEMHUNT_UPDATE_INTERVAL and ITEMHUNT_UPDATE_INTERVAL > 0.2) then
         ITEMHUNT_UPDATE_INTERVAL = 0.2
