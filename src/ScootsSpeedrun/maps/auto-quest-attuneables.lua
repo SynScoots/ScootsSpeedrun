@@ -352,6 +352,16 @@ ScootsSpeedrun.extraQuestsAttuneables = {
     },
     {
         ['quests'] = {
+            6185, -- The Eastern Plagues
+        },
+        ['items'] = {
+            16996, -- Gorewood Bow
+            16997, -- Stormrager
+            16998, -- Sacred Protector
+        },
+    },
+    {
+        ['quests'] = {
             9063, -- Torwa Pathfinder
         },
         ['items'] = {
@@ -384,6 +394,19 @@ ScootsSpeedrun.extraQuestsAttuneables = {
             25923, -- Fierce Mantle
             25922, -- Fearless Girdle
             25925, -- Terrorcloth Mantle
+        },
+    },
+    {
+        ['quests'] = {
+            9927, -- Ruthless Cunning
+            9928, -- Armaments for Deception
+            9931, -- Returning the Favor
+            9932, -- Body of Evidence
+        },
+        ['items'] = {
+            25603, -- Lantresor's Warblade
+            25605, -- Burning Blade Devotee's Cinch
+            25606, -- Burning Blade Cultist Band
         },
     },
     {

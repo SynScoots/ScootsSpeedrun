@@ -206,13 +206,58 @@ ScootsSpeedrun.map[3519] = {
             ['conditions'] = {
                 {
                     ['type'] = 'quest-handin-ready',
-                    ['data'] = 11885, -- Adversarial Blood,
+                    ['data'] = 11885, -- Adversarial Blood
                 },
             },
         },
         {
             ['action'] = 'complete-quest',
             ['data'] = 11885, -- Adversarial Blood
+        },
+
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 11056, -- Hazzik's Bargain
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 11056, -- Hazzik's Bargain
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 11056, -- Hazzik's Bargain
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-handin-ready',
+                    ['data'] = 11056, -- Hazzik's Bargain
+                },
+            },
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 11056, -- Hazzik's Bargain
+        },
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 11029, -- A Shabby Disguise
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 11029, -- A Shabby Disguise
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 11029, -- A Shabby Disguise
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-handin-ready',
+                    ['data'] = 11029, -- A Shabby Disguise
+                },
+            },
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 11029, -- A Shabby Disguise
         },
     },
     [54841] = { -- Skull Pile
