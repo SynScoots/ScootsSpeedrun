@@ -650,6 +650,10 @@ function ScootsSpeedrun__init()
             original_itemHuntHook()
         end
     end
+    
+    _G['ShouldAutoAcceptQuest'] = function(questId, questList)
+        return questList[questId] or ScootsSpeedrun.extraQuests[questId]
+    end
 end
 
 SynastriaSafeInvoke('ScootsSpeedrun__init')

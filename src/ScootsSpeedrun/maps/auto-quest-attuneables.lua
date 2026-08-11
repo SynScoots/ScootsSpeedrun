@@ -98,7 +98,16 @@ ScootsSpeedrun.extraQuestsAttuneables = {
     },
     {
         ['quests'] = {
-            1095, -- Further Instructions
+            1104, -- Salt Flat Venom
+            1105, -- Hardened Shells
+        },
+        ['items'] = {
+            6732, -- Gnomish Mechanic's Gloves
+        },
+    },
+    {
+        ['quests'] = {
+            1105, -- Further Instructions
         },
         ['items'] = {
             6667, -- Engineer's Cloak
@@ -113,6 +122,18 @@ ScootsSpeedrun.extraQuestsAttuneables = {
         ['items'] = {
             5614, -- Seraph's Strike
             10043, -- Pious Legwraps
+        },
+    },
+    {
+        ['quests'] = {
+            1150, -- Test of Endurance
+            1151, -- Test of Strength
+            1152, -- Test of Lore
+            1154, -- Test of Lore
+            1159, -- Test of Lore
+        },
+        ['items'] = {
+            6804, -- Windstorm Hammer
         },
     },
     {
@@ -171,6 +192,15 @@ ScootsSpeedrun.extraQuestsAttuneables = {
         ['items'] = {
             7003, -- Beetle Clasps
             7004, -- Prelacy Cape
+        },
+    },
+    {
+        ['quests'] = {
+            4003, -- The Royal Rescue
+        },
+        ['items'] = {
+            12544, -- Thrall's Resolve
+            12545, -- Eye of Orgrimmar
         },
     },
     {
