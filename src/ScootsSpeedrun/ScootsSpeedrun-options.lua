@@ -5,6 +5,7 @@ ScootsSpeedrun.options.load = function()
         ['auto-use-items'] = true,
         ['auto-release'] = false,
         ['include-free-quests'] = false,
+        ['include-event-quests'] = false,
         ['debug'] = false,
         ['toc5-3options'] = 'do-nothing',
         ['toc5-2options'] = 'dialogue-2',
@@ -164,7 +165,7 @@ ScootsSpeedrun.options.buildGeneralOptions = function()
                 
                 if(value) then
                     ScootsSpeedrun.applyAutoQuestFreeQuests()
-                    StaticPopup_Hide('SCOOTSSPEEDRUN_OPTION_INFO')
+                    StaticPopup_Hide('SCOOTSSPEEDRUN_OPTION_CONFIRM')
                 else
                     ScootsSpeedrun.action.showConfirmDialogue({
                         ['key'] = 'SCOOTSSPEEDRUN_OPTION_CONFIRM',
@@ -177,14 +178,45 @@ ScootsSpeedrun.options.buildGeneralOptions = function()
             end,
         })
         
-        height = height + ScootsSpeedrun.frames.optionAutoRelease:GetHeight() + 5
+        height = height + ScootsSpeedrun.frames.optionIncludeFreeQuests:GetHeight() + 5
+        
+        --
+        
+        ScootsSpeedrun.frames.optionIncludeEventQuests = ScootsSpeedrun.options.insertOptionsCheckbox({
+            ['framename'] = 'ScootsSpeedrun-Options-IncludeEventQuests',
+            ['parent'] = ScootsSpeedrun.frames.optionsScrollChild,
+            ['prior'] = ScootsSpeedrun.frames.optionIncludeFreeQuests,
+            ['offset'] = -5,
+            ['name'] = 'Include event quests',
+            ['defaultState'] = ScootsSpeedrun.options.get('include-event-quests'),
+            ['tooltip'] = 'Adds quests for the Midsummer Festival, Lunar Festival, Love is in the Air, and Hallows End events to the auto-quest-pickup function.',
+            ['onClickEvent'] = function(self)
+                local value = (self:GetChecked() and true) or false
+                ScootsSpeedrun.options.set('include-event-quests', value)
+                
+                if(value) then
+                    ScootsSpeedrun.applyAutoQuestEventQuests()
+                    StaticPopup_Hide('SCOOTSSPEEDRUN_OPTION_CONFIRM')
+                else
+                    ScootsSpeedrun.action.showConfirmDialogue({
+                        ['key'] = 'SCOOTSSPEEDRUN_OPTION_CONFIRM',
+                        ['text'] = 'Disabling this option requires you to reload the UI to take effect.\n\nDo you wish to reload the UI now?',
+                        ['confirmButton'] = 'Yes',
+                        ['cancelButton'] = 'No',
+                        ['onConfirm'] = ReloadUI,
+                    })
+                end
+            end,
+        })
+        
+        height = height + ScootsSpeedrun.frames.optionIncludeEventQuests:GetHeight() + 5
         
         --
         
         ScootsSpeedrun.frames.optionDebug = ScootsSpeedrun.options.insertOptionsCheckbox({
             ['framename'] = 'ScootsSpeedrun-Options-Debug',
             ['parent'] = ScootsSpeedrun.frames.optionsScrollChild,
-            ['prior'] = ScootsSpeedrun.frames.optionIncludeFreeQuests,
+            ['prior'] = ScootsSpeedrun.frames.optionIncludeEventQuests,
             ['offset'] = -5,
             ['name'] = 'Debug mode',
             ['defaultState'] = ScootsSpeedrun.options.get('debug'),
