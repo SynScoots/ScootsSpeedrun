@@ -76,7 +76,7 @@ ScootsSpeedrun.action = {
         
         return false
     end,
-    ['selectAttuneableReward'] = function()
+    ['selectAttuneableReward'] = function(preventFollowupQueue)
         if(CanAttuneItemHelper == nil or CustomExtractItemId == nil) then
             return false
         end
@@ -93,6 +93,12 @@ ScootsSpeedrun.action = {
                 _G['QuestInfoItem' .. rewardIndex]:Click()
                 return true
             end
+        end
+        
+        if(preventFollowupQueue ~= true) then
+            ScootsSpeedrun.pushQueuedEvent(0.1, function()
+                ScootsSpeedrun.action.selectAttuneableReward(true)
+            end)
         end
         
         return false
