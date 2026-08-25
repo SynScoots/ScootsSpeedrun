@@ -2,6 +2,10 @@ ScootsSpeedrun.extraQuests = {
     -- Misc
     [3421] = true, -- Return Trip
     [3503] = true, -- Meeting with the Master
+}
+
+ScootsSpeedrun.extraQuestsDontAutoUseStartItem = {
+    -- Misc
     [13148] = true, -- Necklace Repair
     [14203] = true, -- Waterlogged Recipe
     
@@ -28,3 +32,7 @@ ScootsSpeedrun.extraQuests = {
     [8687] = true, -- Target: Hive'Zora Tunnelers
     [8772] = true, -- Target: Hive'Zora Waywatchers
 }
+
+for questId, _ in pairs(ScootsSpeedrun.extraQuestsDontAutoUseStartItem) do
+    ScootsSpeedrun.extraQuests[questId] = true
+end

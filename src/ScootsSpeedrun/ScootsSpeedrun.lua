@@ -1,11 +1,11 @@
 ScootsSpeedrun = {
-    ['version'] = '2.31.0',
+    ['version'] = '2.32.0',
     ['title'] = 'ScootsSpeedrun',
     ['frames'] = {
         ['events'] = CreateFrame('Frame', 'ScootsSpeedrun-Events', UIParent),
     },
-    ['action'] = {},
-    ['condition'] = {},
+    ['core'] = {},
+    ['options'] = {},
     ['map'] = {
         -- ['zoneId'] = { ['npcId'] = { ... } }
     },

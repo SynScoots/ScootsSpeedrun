@@ -1,9 +1,10 @@
 ## Interface: 30300
-## Title: ScootsSpeedrun
+## Title: Scoots Speedrun
 ## Notes: Automatically chooses conversation options to speed up dungeon/raid runs
 ## Author: Scoots
-## Version: 2.31.0
+## Version: 2.32.0
 ## SavedVariables: SCOOTS_SPEED_RUN_OPTIONS
+## Dependencies: ScootsLibOptions
 
 ScootsSpeedrun.lua
 ScootsSpeedrun-options.lua

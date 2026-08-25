@@ -111,6 +111,34 @@ ScootsSpeedrun.map[3519] = {
             ['data'] = 11004, -- World of Shadows
         },
     },
+    [23038] = { -- Sky Commander Adaris
+        {
+            ['action'] = 'select-available-quest',
+            ['data'] = 11005, -- Secrets of the Talonpriests
+        },
+        {
+            ['action'] = 'accept-quest',
+            ['data'] = 11005, -- Secrets of the Talonpriests
+        },
+        {
+            ['action'] = 'select-active-quest',
+            ['data'] = 11005, -- Secrets of the Talonpriests
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-handin-ready',
+                    ['data'] = 11005, -- Secrets of the Talonpriests
+                },
+            },
+        },
+        {
+            ['action'] = 'progress-quest',
+            ['data'] = 11005, -- Secrets of the Talonpriests
+        },
+        {
+            ['action'] = 'complete-quest',
+            ['data'] = 11005, -- Secrets of the Talonpriests
+        },
+    },
     [23306] = { -- Hazzik
         {
             ['action'] = 'select-available-quest',
