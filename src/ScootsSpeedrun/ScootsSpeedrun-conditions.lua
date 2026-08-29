@@ -18,6 +18,9 @@ ScootsSpeedrun.condition = {
         
         return false
     end,
+    ['questNotHandinReady'] = function(checkQuestId)
+        return not ScootsSpeedrun.condition.questHandinReady(checkQuestId)
+    end,
     ['questComplete'] = function(questId)
         if(ScootsSpeedrun.executedQueryQuestsCompleted == nil) then
             QueryQuestsCompleted()
@@ -44,17 +47,20 @@ ScootsSpeedrun.condition = {
         
         return false
     end,
-    ['questNotInLog'] = function(checkQuestId)
+    ['questInLog'] = function(checkQuestId)
         local questIndex
         for questIndex = 1, GetNumQuestLogEntries() do
             local _, _, _, _, isHeader, _, _, _, questId = GetQuestLogTitle(questIndex)
             
             if(not isHeader and questId == checkQuestId) then
-                return false
+                return true
             end
         end
         
-        return true
+        return false
+    end,
+    ['questNotInLog'] = function(checkQuestId)
+        return not ScootsSpeedrun.condition.questInLog(checkQuestId)
     end,
     ['availableQuestCount'] = function(numQuests)
         return GetNumGossipAvailableQuests() == numQuests

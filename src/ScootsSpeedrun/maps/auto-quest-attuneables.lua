@@ -160,6 +160,16 @@ ScootsSpeedrun.extraQuestsAttuneables = {
     },
     {
         ['quests'] = {
+            1125, -- The Spirits of Southwind
+            1126, -- Hive in the Tower
+        },
+        ['items'] = {
+            18400, -- Ring of Living Stone
+            18402, -- Glowing Crystal Ring
+        },
+    },
+    {
+        ['quests'] = {
             1140, -- The Tower of Althalaxx
             1167, -- The Tower of Althalaxx
         },
@@ -170,12 +180,10 @@ ScootsSpeedrun.extraQuestsAttuneables = {
     },
     {
         ['quests'] = {
-            1125, -- The Spirits of Southwind
-            1126, -- Hive in the Tower
+            1147, -- The Swarm Grows
         },
         ['items'] = {
-            18400, -- Ring of Living Stone
-            18402, -- Glowing Crystal Ring
+            6737, -- Dryleaf Pants
         },
     },
     {
@@ -393,6 +401,15 @@ ScootsSpeedrun.extraQuestsAttuneables = {
         ['items'] = {
             15860, -- Blinkstrike Armguards
             15861, -- Swiftfoot Treads
+        },
+    },
+    {
+        ['quests'] = {
+            4821, -- Alien Egg
+        },
+        ['items'] = {
+            15464, -- Brute Hammer
+            15466, -- Clink Shield
         },
     },
     {
@@ -853,7 +870,140 @@ ScootsSpeedrun.extraQuestsAttuneables = {
             38104, -- Stonepath Helm - Item - WotLK Classic
         },
     },
+    {
+        ['quests'] = {
+            12557, -- Lab Work
+            12599, -- Creature Comforts
+            12597, -- Something for the Pain
+            12598, -- Throwing Down
+        },
+        ['items'] = {
+            39800, -- Pantaloons of the Dutybound
+            39864, -- Belt of Service
+            39851, -- Ribbed Helm of Servitude
+            39850, -- Wristguards of Service
+            39827, -- Vile Tome of Tenets
+        },
+    },
+    {
+        ['quests'] = {
+            12603, -- Sharpening Your Talons
+            12605, -- Securing the Bait
+        },
+        ['items'] = {
+            39368, -- Field Researcher's Boots
+            39413, -- Hydrafang Breeches
+            39463, -- Norrington's Burnished Breastplate
+            39445, -- Roc Hunter's Bracer
+        },
+    },
+    {
+        ['quests'] = {
+            12654, -- The Part-time Hunter
+            12529, -- The Ape Hunter's Slave
+            12535, -- Mischief in the Making
+            12538, -- The Mist Isn't Listening
+            12572, -- Gods like Shiny Things
+            12576, -- Forced Hand
+            12579, -- Lifeblood of the Mosswalker Shrine
+        },
+        ['items'] = {
+            39483, -- Choker of Binding
+            39485, -- Blood-Infused Pendant
+            39484, -- Spiked Collar of Servitude
+            39475, -- Artruis's Focus Stone
+        },
+    },
+    {
+        ['quests'] = {
+            12660, -- Weapons of Destruction
+            12617, -- Exterminate the Intruders
+            12547, -- The Activation Rune
+            12797, -- Back Through the Waygate
+        },
+        ['items'] = {
+            40290, -- Gaze of the Punishing Construct
+            40291, -- Helm of the Avenging Protector
+            40293, -- Helm of Towering Rage
+            40292, -- Headguard of Vast Destruction
+            40295, -- Greathelm of the Titan Protectorate
+        },
+    },
+    {
+        ['quests'] = {
+            12673, -- It Rolls Downhill
+        },
+        ['items'] = {
+            39810, -- Cords of Duplicity
+            39871, -- Subtle Boots of the Infiltrator
+            39874, -- Infiltrator's Shield
+            39872, -- Helm of Subtle Whispers
+        },
+    },
+    {
+        ['quests'] = {
+            12686, -- Zero Tolerance
+        },
+        ['items'] = {
+            39811, -- Badge of the Infiltrator
+            39873, -- Skins of Subterfuge
+            39877, -- Belt of the Betrayer
+            39875, -- Shoulderguards of Subterfuge
+        },
+    },
+    {
+        ['quests'] = {
+            12991, -- Hit Them Where it Hurts
+            12988, -- Destroy the Forges!
+            12993, -- A Colossal Threat
+        },
+        ['items'] = {
+            43200, -- Snowdrift Pantaloons
+            43201, -- Leggings of Heightened Renewal
+            43202, -- Jormungar Hide Legguards
+            43203, -- Iron Colossus Legplates
+        },
+    },
+    {
+        ['quests'] = {
+            12937, -- Relief for the Fallen
+            12931, -- Fighting Back
+            12957, -- Slaves of the Stormforged
+            12964, -- The Dark Ore
+        },
+        ['items'] = {
+            42795, -- Leggings of Renewed Hope
+            42820, -- Mantle of Bouldercrag
+            42808, -- Bouldercrag's Pendant
+            42827, -- Rockshaper's Resolve
+        },
+    },
     -- 13000:
+    {
+        ['quests'] = {
+            13042, -- Deep in the Bowels of The Underhalls
+        },
+        ['items'] = {
+            43861, -- Bone Witch's Drape
+            43909, -- Belt of Njorndar
+            43979, -- Glaciel Ranger's Leggings
+            43944, -- Rings of Nergeld
+        },
+    },
+    {
+        ['quests'] = {
+            13064, -- Sibling Rivalry
+            12915, -- Mending Fences
+            12922, -- The Refiner's Fire
+            12967, -- Battling the Elements
+        },
+        ['items'] = {
+            42792, -- Vestments of Dun Niffelem
+            42805, -- Njormeld's Pauldrons
+            42830, -- Ring of Jokkum
+            42817, -- Reforged Chain Leggings
+        },
+    },
     {
         ['quests'] = {
             13074, -- Hope Within the Emerald Nightmare
@@ -865,6 +1015,79 @@ ScootsSpeedrun.extraQuestsAttuneables = {
             44041, -- Belt of the Never-Forgotten
             44042, -- Chained Belt of Remembrance
             44043, -- Girdle of Eternal Memory
+        },
+    },
+    {
+        ['quests'] = {
+            13117, -- Where Are They Coming From?
+            13119, -- Destroying the Altars
+            13120, -- Death's Gaze
+            13134, -- Spill Their Blood
+            13138, -- I'm Smelting... Smelting!
+        },
+        ['items'] = {
+            43880, -- Fair Touch of the Crusader
+            43893, -- Olakin's Enchanted Torch
+            43900, -- Fleshwerk Throwing Glaive
+        },
+    },
+    {
+        ['quests'] = {
+            13129, -- Head Games
+        },
+        ['items'] = {
+            44366, -- Shameful Cuffs
+            44367, -- Scorned Bands
+            44369, -- Disavowed Bracers
+            44368, -- Accused Wristguards
+        },
+    },
+    {
+        ['quests'] = {
+            13131, -- Junk in My Trunk
+        },
+        ['items'] = {
+            44404, -- Bauble-Woven Gown
+            44405, -- Exotic Leather Tunic
+            44407, -- Silver-Plated Battlechest
+            44406, -- Gilded Ringmail Hauberk
+        },
+    },
+    {
+        ['quests'] = {
+            13132, -- Vengeance Be Mine!
+        },
+        ['items'] = {
+            44408, -- Cowl of the Vindictive Captain
+            44409, -- Headguard of Retaliation
+            44410, -- Helmet of Just Retribution
+            44412, -- Faceguard of Punishment
+            44411, -- Platehelm of Irate Revenge
+        },
+    },
+    {
+        ['quests'] = {
+            13168, -- Parting Gifts
+            13169, -- An Undead's Best Friend
+            13170, -- Honor is for the Weak
+            13171, -- From Whence They Came
+            13174, -- Amidst the Confusion
+        },
+        ['items'] = {
+            44027, -- Bloodbane Shroud
+            44025, -- Bloodbane Cloak
+            44020, -- Bloodbane's Fall
+            44026, -- Bloodbane's Resolve
+        },
+    },
+    {
+        ['quests'] = {
+            13237, -- Poke and Prod
+        },
+        ['items'] = {
+            43903, -- Ring of the Fallen Shadow Adept
+            43889, -- Hulking Abomination Hide Cloak
+            43884, -- Amulet of the Malefic Necromancer
         },
     },
     {
@@ -884,7 +1107,39 @@ ScootsSpeedrun.extraQuestsAttuneables = {
             44579, -- Medallion of Heroism
         },
     },
-    
+    {
+        ['quests'] = {
+            13264, -- That's Abominable!
+        },
+        ['items'] = {
+            39814, -- Slippers of the Broken Front
+            39881, -- Mantle of Reanimation
+            39888, -- Scourgebane Pauldrons
+            39887, -- Geist Stalker Leggings
+        },
+    },
+    {
+        ['quests'] = {
+            13277, -- Against the Giants
+        },
+        ['items'] = {
+            44386, -- Newt-Eye Ring
+            44388, -- Frog-Toe Band
+            44387, -- Bat-Wool Signet
+        },
+    },
+    {
+        ['quests'] = {
+            13351, -- Sneak Preview
+            13354, -- Chain of Command
+        },
+        ['items'] = {
+            43882, -- Cultist's Cowl
+            43891, -- Jhaeqon's Tunic
+            39458, -- Cultbreaker's Chestguard
+            43931, -- Savryn's Muddy Boots
+        },
+    },
 }
 
 ScootsSpeedrun.extraQuestsDungeonSet2 = {

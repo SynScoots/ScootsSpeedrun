@@ -55,6 +55,38 @@ ScootsSpeedrun.map[3703] = {
             ['data'] = 1,
         },
     },
+    [18584] = { -- Sal'salabim
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-in-log',
+                    ['data'] = 10004, -- Patience and Understanding
+                },
+                {
+                    ['type'] = 'quest-not-handin-ready',
+                    ['data'] = 10004, -- Patience and Understanding
+                },
+            },
+        },
+    },
+    [18585] = { -- Raliq the Drunk
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-in-log',
+                    ['data'] = 10009, -- Crackin' Some Skulls
+                },
+                {
+                    ['type'] = 'quest-not-handin-ready',
+                    ['data'] = 10009, -- Crackin' Some Skulls
+                },
+            },
+        },
+    },
 }
 
 -- Terokkar Forest
@@ -434,6 +466,22 @@ ScootsSpeedrun.map[3519] = {
             ['data'] = 27097, -- Trial of the Champion: Reward
         },
     },
+    [18588] = { -- Floon
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-in-log',
+                    ['data'] = 10009, -- Crackin' Some Skulls
+                },
+                {
+                    ['type'] = 'quest-not-handin-ready',
+                    ['data'] = 10009, -- Crackin' Some Skulls
+                },
+            },
+        },
+    },
 }
 
 -- Nagrand
@@ -578,6 +626,22 @@ ScootsSpeedrun.map[3518] = {
             ['data'] = 10076, -- Oshu'gun Crystal Powder
         },
     },
+    [18261] = { -- Lantresor of the Blade
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-in-log',
+                    ['data'] = 10108, -- Diplomatic Measures
+                },
+                {
+                    ['type'] = 'quest-not-handin-ready',
+                    ['data'] = 10108, -- Diplomatic Measures
+                },
+            },
+        },
+    },
 }
 
 -- Zangarmarsh
@@ -602,6 +666,22 @@ ScootsSpeedrun.map[3521] = {
         {
             ['action'] = 'complete-quest',
             ['data'] = 27037, -- Halls of Lightning: Reward
+        },
+    },
+    [18586] = { -- Coosh'coosh
+        {
+            ['action'] = 'dialogue-select',
+            ['data'] = 1,
+            ['conditions'] = {
+                {
+                    ['type'] = 'quest-in-log',
+                    ['data'] = 10009, -- Crackin' Some Skulls
+                },
+                {
+                    ['type'] = 'quest-not-handin-ready',
+                    ['data'] = 10009, -- Crackin' Some Skulls
+                },
+            },
         },
     },
 }

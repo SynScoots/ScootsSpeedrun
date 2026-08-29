@@ -10,6 +10,10 @@ This addon will automatically and instantly perform many repetitive operations t
 - Accept / hand-in many quests during world events.
 - Open certain containers during fishing / world events.
 
+## Dependencies ##
+
+- <a href="https://github.com/SynScoots/ScootsLibOptions">ScootsLibOptions</a>
+
 ## Installation ##
 
 Download this repository, then extract the `ScootsSpeedrun` subdirectory from the `src` directory into your `World of Warcraft/Interface/AddOns` directory.
