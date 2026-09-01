@@ -56,7 +56,6 @@ local core = {
         local original_itemHuntHook = __itemHuntHook
         
         __itemHuntHook = function()
-            ScootsSpeedrun.updateTrackerQuestCache()
             ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
             ScootsSpeedrun.processQuestStartItems()
             
@@ -228,7 +227,7 @@ local core = {
         ScootsSpeedrun.processRegisteredEvents(event)
     end,
     ['handleCharacterMap'] = function(event, map)
-        local eventLast = ''
+        local eventLast
         
         if(event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
             eventLast = ScootsSpeedrun.lastQuestEvent
@@ -390,7 +389,7 @@ local core = {
         return false
     end,
     ['shouldPickupQuest'] = function(questId)
-        if(ScootsSpeedrun.questsFromTracker and ScootsSpeedrun.questsFromTracker[questId] == true) then
+        if(IsQuestInItemTracker(questId)) then
             return true
         end
         
@@ -422,7 +421,7 @@ local core = {
         return false
     end,
     ['buildMapFromTracker'] = function(event)
-        local eventLast = ''
+        local eventLast
         
         if(event == 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE') then
             eventLast = ScootsSpeedrun.lastQuestEvent
@@ -552,20 +551,6 @@ local core = {
             end
             
             return map
-        end
-    end,
-    ['updateTrackerQuestCache'] = function()
-        ScootsSpeedrun.questsFromTracker = {}
-        
-        local tracker = ItemHuntFrame and ItemHuntFrame.cele.objArr
-        if(tracker) then
-            for trackerIndex = 1, #tracker do
-                local trackerObject = tracker[trackerIndex]
-                
-                if(trackerObject.objType and trackerObject.objType == 2 and trackerObject.objId and trackerObject.objId > 0) then
-                    ScootsSpeedrun.questsFromTracker[trackerObject.objId] = true
-                end
-            end
         end
     end,
     ['applyAutoQuestDialogue'] = function()

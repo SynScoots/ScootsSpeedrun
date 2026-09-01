@@ -2,7 +2,7 @@
 ## Title: Scoots Speedrun
 ## Notes: Automatically chooses conversation options to speed up dungeon/raid runs
 ## Author: Scoots
-## Version: 2.33.1
+## Version: 2.34.0
 ## SavedVariables: SCOOTS_SPEED_RUN_OPTIONS
 ## Dependencies: ScootsLibOptions
 
