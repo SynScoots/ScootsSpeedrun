@@ -2,7 +2,7 @@
 ## Title: Scoots Speedrun
 ## Notes: Automatically chooses conversation options to speed up dungeon/raid runs
 ## Author: Scoots
-## Version: 2.33.0
+## Version: 2.33.1
 ## SavedVariables: SCOOTS_SPEED_RUN_OPTIONS
 ## Dependencies: ScootsLibOptions
 
@@ -27,3 +27,4 @@ maps\auto-quest-free.lua
 maps\auto-quest-events.lua
 maps\quest-complete-events.lua
 maps\loot-events.lua
+maps\auto-quest-dialogue.lua

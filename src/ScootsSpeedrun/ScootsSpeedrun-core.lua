@@ -38,6 +38,7 @@ local core = {
             end
         end
         
+        ScootsSpeedrun.applyAutoQuestDialogue()
         ScootsSpeedrun.applyAutoQuestAttuneables()
         
         if(ScootsSpeedrun.options.get('include-free-quests')) then
@@ -567,6 +568,36 @@ local core = {
             end
         end
     end,
+    ['applyAutoQuestDialogue'] = function()
+        QueryQuestsCompleted()
+        local completedQuests = GetQuestsCompleted()
+        
+        for zoneId, dataList in pairs(ScootsSpeedrun.autoQuestDialogue) do
+            ScootsSpeedrun.map[zoneId] = ScootsSpeedrun.map[zoneId] or {}
+            
+            for _, data in ipairs(dataList) do
+                if(not GetQuestsCompleted()[data.quest]) then
+                    ScootsSpeedrun.map[zoneId][data.npc] = ScootsSpeedrun.map[zoneId][data.npc] or {}
+                    table.insert(ScootsSpeedrun.map[zoneId][data.npc], {
+                        ['action'] = 'dialogue-select',
+                        ['data'] = data.choice,
+                        ['conditions'] = {
+                            {
+                                ['type'] = 'quest-in-log',
+                                ['data'] = data.quest,
+                            },
+                            {
+                                ['type'] = 'quest-not-handin-ready',
+                                ['data'] = data.quest,
+                            },
+                        },
+                    })
+                end
+            end
+        end
+        
+        ScootsSpeedrun.autoQuestDialogue = nil
+    end,
     ['applyAutoQuestAttuneables'] = function()
         ScootsSpeedrun.extraQuests = ScootsSpeedrun.extraQuests or {}
         ScootsSpeedrun.extraQuestsOneInSet = ScootsSpeedrun.extraQuestsOneInSet or {}
@@ -585,54 +616,6 @@ local core = {
             end
             
             ScootsSpeedrun.extraQuestsAttuneables = nil
-        end
-        
-        --
-        
-        if(ScootsSpeedrun.extraQuestsDungeonSet2) then
-            local add = {}
-        
-            for className, _ in pairs(ScootsSpeedrun.playerClass) do
-                for key, data in pairs(ScootsSpeedrun.extraQuestsDungeonSet2[className]) do
-                    for _, itemId in ipairs(data.items) do
-                        if(CanAttuneItemHelper(itemId) > 0 and GetItemAttuneForge(itemId) < 0) then
-                            table.insert(add, key)
-                            
-                            for _, questId in ipairs(data.quests) do
-                                ScootsSpeedrun.extraQuests[questId] = true
-                            end
-                            
-                            break
-                        end
-                    end
-                end
-            end
-            
-            for _, key in ipairs(add) do
-                local data = ScootsSpeedrun.extraQuestsDungeonSet2.all[key]
-                
-                if(data) then
-                    if(data.all) then
-                        for _, questId in ipairs(data.all) do
-                            ScootsSpeedrun.extraQuests[questId] = true
-                        end
-                    end
-                    
-                    if(data.onlyOne) then
-                        for _, questList in ipairs(data.onlyOne) do
-                            local questSet = {}
-                            
-                            for _, questId in ipairs(questList) do
-                                questSet[questId] = true
-                            end
-                            
-                            table.insert(ScootsSpeedrun.extraQuestsOneInSet, questSet)
-                        end
-                    end
-                end
-            end
-            
-            ScootsSpeedrun.extraQuestsDungeonSet2 = nil
         end
     end,
     ['applyAutoQuestFreeQuests'] = function()

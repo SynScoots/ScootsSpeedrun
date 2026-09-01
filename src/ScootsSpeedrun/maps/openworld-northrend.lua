@@ -198,23 +198,3 @@ ScootsSpeedrun.map[65] = {
         },
     },
 }
-
--- Icecrown
-ScootsSpeedrun.map[210] = {
-    [30718] = { -- Slumbering Mjordin
-        {
-            ['action'] = 'dialogue-select',
-            ['data'] = 1,
-            ['conditions'] = {
-                {
-                    ['type'] = 'quest-in-log',
-                    ['data'] = 13133, -- Find the Ancient Hero
-                },
-                {
-                    ['type'] = 'quest-not-handin-ready',
-                    ['data'] = 13133, -- Find the Ancient Hero
-                },
-            },
-        },
-    },
-}
