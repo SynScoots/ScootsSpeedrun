@@ -111,16 +111,25 @@ ScootsSpeedrun.condition = {
         
         return false
     end,
-    ['itemNotInBags'] = function(itemIdCheck)
+    ['itemNotInBags'] = function(data)
+        local currentCount = 0
         for bagIndex = 0, 4 do
             local bagSlots = GetContainerNumSlots(bagIndex)
             
             for slotIndex = 1, bagSlots do
-                local itemLink = select(7, GetContainerItemInfo(bagIndex, slotIndex))
+                local _, itemCount, _, _, _, _, itemLink = GetContainerItemInfo(bagIndex, slotIndex)
                 local itemId = CustomExtractItemId(itemLink)
 
-                if(itemId and itemId == itemIdCheck) then
-                    return false
+                if(itemId and itemId == data.item) then
+                    if(not data.count) then
+                        return false
+                    end
+                    
+                    currentCount = currentCount + itemCount
+                    
+                    if(currentCount >= data.count) then
+                        return false
+                    end
                 end
             end
         end
@@ -187,17 +196,20 @@ ScootsSpeedrun.condition = {
             data = {data}
         end
         
-        if(not GetItemAttuneForge or not CanAttuneItemHelper) then
-            return true
-        end
+        data.count = data.count or 1
+        local unattunedCount = 0
         
         for _, itemId in pairs(data) do
             if(GetItemAttuneForge(itemId) == -1 and CanAttuneItemHelper(itemId) > 0) then
-                return true
+                unattunedCount = unattunedCount + 1
+                
+                if(unattunedCount >= data.count) then
+                    return false
+                end
             end
         end
         
-        return false
+        return true
     end,
     ['bankIsOpen'] = function()
         return ScootsSpeedrun.bankOpen

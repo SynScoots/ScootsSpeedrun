@@ -336,103 +336,6 @@ ScootsSpeedrun.map[33] = {
 
 -- Eastern Plaguelands
 ScootsSpeedrun.map[139] = {
-    [16135] = { -- Rayne
-        {
-            ['action'] = 'select-available-quest',
-            ['data'] = 9137, -- Savage Fronds
-            ['conditions'] = {
-                {
-                    ['type'] = 'item-in-bags',
-                    ['data'] = {
-                        ['item'] = 22529, -- Savage Frond
-                        ['count'] = 30,
-                    },
-                },
-            },
-        },
-        {
-            ['action'] = 'select-active-quest',
-            ['data'] = 9137, -- Savage Fronds
-            ['conditions'] = {
-                {
-                    ['type'] = 'item-in-bags',
-                    ['data'] = {
-                        ['item'] = 22529, -- Savage Frond
-                        ['count'] = 30,
-                    },
-                },
-            },
-        },
-        {
-            ['action'] = 'progress-quest',
-            ['data'] = 9137, -- Savage Fronds
-        },
-        {
-            ['action'] = 'select-fewest-owned-reward-in-set',
-            ['data'] = {
-                22523, -- Insignia of the Dawn
-                22524, -- Insignia of the Crusade
-            },
-        },
-        {
-            ['action'] = 'complete-quest',
-            ['data'] = 9137, -- Savage Fronds
-        },
-        {
-            ['action'] = 'select-available-quest',
-            ['data'] = 9136, -- Savage Flora
-            ['conditions'] = {
-                {
-                    ['type'] = 'item-in-bags',
-                    ['data'] = {
-                        ['item'] = 22529, -- Savage Frond
-                        ['count'] = 30,
-                    },
-                },
-            },
-        },
-        {
-            ['action'] = 'accept-quest',
-            ['data'] = 9136, -- Savage Flora
-            ['conditions'] = {
-                {
-                    ['type'] = 'item-in-bags',
-                    ['data'] = {
-                        ['item'] = 22529, -- Savage Frond
-                        ['count'] = 30,
-                    },
-                },
-            },
-        },
-        {
-            ['action'] = 'select-active-quest',
-            ['data'] = 9136, -- Savage Flora
-            ['conditions'] = {
-                {
-                    ['type'] = 'item-in-bags',
-                    ['data'] = {
-                        ['item'] = 22529, -- Savage Frond
-                        ['count'] = 30,
-                    },
-                },
-            },
-        },
-        {
-            ['action'] = 'progress-quest',
-            ['data'] = 9136, -- Savage Flora
-        },
-        {
-            ['action'] = 'select-fewest-owned-reward-in-set',
-            ['data'] = {
-                22523, -- Insignia of the Dawn
-                22524, -- Insignia of the Crusade
-            },
-        },
-        {
-            ['action'] = 'complete-quest',
-            ['data'] = 9136, -- Savage Flora
-        },
-    },
     [1855] = { -- Tirion Fordring
         {
             ['action'] = 'select-available-quest',
@@ -456,6 +359,121 @@ ScootsSpeedrun.map[139] = {
         },
     },
 }
+
+for _, data in pairs({
+    {
+        ['npc'] = 16135, -- Rayne
+        ['quests'] = {
+            9137, -- Savage Fronds
+            9136, -- Savage Flora
+        },
+        ['item'] = 22529, -- Savage Frond
+        ['count'] = 30,
+        ['selectFewest'] = true,
+    },
+    {
+        ['npc'] = 16116, -- Archmage Angela Dosantos <Brotherhood of the Light>
+        ['quests'] = {
+            9128, -- The Elemental Equation
+            9129, -- Core of Elements
+        },
+        ['item'] = 22527, -- Core of Elements
+        ['count'] = 30,
+    },
+    {
+        ['npc'] = 16112, -- Korfax, Champion of the Light <Brotherhood of the Light>
+        ['quests'] = {
+            9131, -- Binding the Dreadnaught
+            9132, -- Dark Iron Scraps
+        },
+        ['item'] = 22528, -- Dark Iron Scraps
+        ['count'] = 30,
+    },
+    {
+        ['npc'] = 16132, -- Huntsman Leopold <The Scarlet Crusade>
+        ['quests'] = {
+            9124, -- Cryptstalker Armor Doesn't Make Itself...
+            9125, -- Crypt Fiend Parts
+        },
+        ['item'] = 22525, -- Crypt Fiend Parts
+        ['count'] = 30,
+    },
+    {
+        ['npc'] = 16131, -- Rohan the Assassin <The Scarlet Crusade>
+        ['quests'] = {
+            9126, -- Bonescythe Digs
+            9127, -- Bone Fragments
+        },
+        ['item'] = 22526, -- Bone Fragments
+        ['count'] = 30,
+    },
+}) do
+    ScootsSpeedrun.map[139][data.npc] = {}
+    
+    for _, questId in ipairs(data.quests) do
+        table.insert(ScootsSpeedrun.map[139][data.npc], {
+            ['action'] = 'select-available-quest',
+            ['data'] = questId,
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = data.item,
+                        ['count'] = data.count,
+                    },
+                },
+            },
+        })
+        
+        table.insert(ScootsSpeedrun.map[139][data.npc], {
+            ['action'] = 'accept-quest',
+            ['data'] = questId,
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = data.item,
+                        ['count'] = data.count,
+                    },
+                },
+            },
+        })
+        
+        table.insert(ScootsSpeedrun.map[139][data.npc], {
+            ['action'] = 'select-active-quest',
+            ['data'] = questId,
+            ['conditions'] = {
+                {
+                    ['type'] = 'item-in-bags',
+                    ['data'] = {
+                        ['item'] = data.item,
+                        ['count'] = data.count,
+                    },
+                },
+            },
+        })
+        
+        table.insert(ScootsSpeedrun.map[139][data.npc], {
+            ['action'] = 'progress-quest',
+            ['data'] = questId,
+        })
+        
+        if(data.selectFewest) then
+            table.insert(ScootsSpeedrun.map[139][data.npc], {
+                ['action'] = 'select-fewest-owned-reward-in-set',
+                ['data'] = {
+                    22523, -- Insignia of the Dawn
+                    22524, -- Insignia of the Crusade
+                },
+            })
+        end
+        
+        table.insert(ScootsSpeedrun.map[139][data.npc], {
+            ['action'] = 'complete-quest',
+            ['data'] = questId,
+        })
+    end
+end
 
 -- Swamp of Sorrows
 ScootsSpeedrun.map[8] = {
@@ -518,7 +536,9 @@ ScootsSpeedrun.map[4080] = {
             ['conditions'] = {
                 {
                     ['type'] = 'item-not-in-bags',
-                    ['data'] = 34664, -- Sunmote
+                    ['data'] = {
+                        ['item'] = 34664, -- Sunmote
+                    },
                 },
             },
         },

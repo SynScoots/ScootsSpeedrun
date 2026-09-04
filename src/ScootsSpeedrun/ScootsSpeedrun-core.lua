@@ -40,6 +40,7 @@ local core = {
         
         ScootsSpeedrun.applyAutoQuestDialogue()
         ScootsSpeedrun.applyAutoQuestAttuneables()
+        ScootsSpeedrun.applyDarkmoonFaireMapping()
         
         if(ScootsSpeedrun.options.get('include-free-quests')) then
             ScootsSpeedrun.applyAutoQuestFreeQuests()
@@ -54,13 +55,12 @@ local core = {
         end
 
         local original_itemHuntHook = __itemHuntHook
-        
-        __itemHuntHook = function()
+        __itemHuntHook = function(...)
             ScootsSpeedrun.eventHandler(nil, 'SCOOTSSPEEDRUN_ITEM_TRACKER_UPDATE')
             ScootsSpeedrun.processQuestStartItems()
             
             if(original_itemHuntHook) then
-                original_itemHuntHook()
+                original_itemHuntHook(...)
             end
         end
         
@@ -602,6 +602,94 @@ local core = {
             
             ScootsSpeedrun.extraQuestsAttuneables = nil
         end
+    end,
+    ['applyDarkmoonFaireMapping'] = function()
+        local conditionDeclarations = {
+            ['tickets2400'] = {
+                ['type'] = 'item-not-in-bags',
+                ['data'] = {
+                    ['item'] = ScootsSpeedrun.darkMoonFaireMap.ticketItem,
+                    ['count'] = 2400,
+                }
+            },
+            ['tickets1200'] = {
+                ['type'] = 'item-not-in-bags',
+                ['data'] = {
+                    ['item'] = ScootsSpeedrun.darkMoonFaireMap.ticketItem,
+                    ['count'] = 1200,
+                },
+            },
+            ['rewards2'] = {
+                ['type'] = 'item-not-attuned',
+                ['data'] = {
+                    ['item'] = ScootsSpeedrun.darkMoonFaireMap.ticketItem,
+                    ['count'] = 2,
+                },
+            },
+            ['rewards1'] = {
+                ['type'] = 'item-not-attuned',
+                ['data'] = {
+                    ['item'] = ScootsSpeedrun.darkMoonFaireMap.ticketItem,
+                },
+            },
+        }
+        
+        for _, zoneId in ipairs(ScootsSpeedrun.darkMoonFaireMap.zones) do
+            ScootsSpeedrun.map[zoneId] = ScootsSpeedrun.map[zoneId] or {}
+            
+            for npcId, actionList in pairs(ScootsSpeedrun.darkMoonFaireMap.actions) do
+                ScootsSpeedrun.map[zoneId][npcId] = ScootsSpeedrun.map[zoneId][npcId] or {}
+                
+                for _, action in ipairs(actionList) do
+                    table.insert(ScootsSpeedrun.map[zoneId][npcId], action)
+                end
+            end
+            
+            for npcId, questList in pairs(ScootsSpeedrun.darkMoonFaireMap.ticketQuests) do
+                ScootsSpeedrun.map[zoneId][npcId] = ScootsSpeedrun.map[zoneId][npcId] or {}
+                
+                for _, quest in ipairs(questList) do
+                    table.insert(ScootsSpeedrun.map[zoneId][npcId], {
+                        ['action'] = 'select-available-quest',
+                        ['data'] = quest.id,
+                        ['conditions'] = {
+                            conditionDeclarations.tickets2400,
+                            conditionDeclarations.rewards2,
+                            {
+                                ['type'] = 'item-in-bags-and-resource-bank',
+                                ['data'] = quest,
+                            },
+                        }
+                    })
+                    
+                    table.insert(ScootsSpeedrun.map[zoneId][npcId], {
+                        ['action'] = 'select-available-quest',
+                        ['data'] = quest.id,
+                        ['conditions'] = {
+                            conditionDeclarations.tickets1200,
+                            conditionDeclarations.rewards1,
+                            {
+                                ['type'] = 'item-in-bags-and-resource-bank',
+                                ['data'] = quest,
+                            },
+                        }
+                    })
+                    
+                    table.insert(ScootsSpeedrun.map[zoneId][npcId], {
+                        ['action'] = 'select-available-quest',
+                        ['data'] = quest.id,
+                        ['conditions'] = {
+                            {
+                                ['type'] = 'item-in-bags',
+                                ['data'] = quest,
+                            },
+                        }
+                    })
+                end
+            end
+        end
+        
+        ScootsSpeedrun.darkMoonFaireMap = nil
     end,
     ['applyAutoQuestFreeQuests'] = function()
         if(ScootsSpeedrun.freeQuests == nil) then

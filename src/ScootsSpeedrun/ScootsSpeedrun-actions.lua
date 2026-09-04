@@ -77,10 +77,6 @@ ScootsSpeedrun.action = {
         return false
     end,
     ['selectAttuneableReward'] = function(preventFollowupQueue)
-        if(CanAttuneItemHelper == nil or CustomExtractItemId == nil) then
-            return false
-        end
-
         local numRewards = GetNumQuestChoices()
         if(numRewards == 0) then
             return false
@@ -112,7 +108,7 @@ ScootsSpeedrun.action = {
         
         if(numRewards == 0) then
             return ScootsSpeedrun.action.completeQuest(param)
-        elseif(CustomExtractItemId ~= nil) then
+        else
             ignoreRewards = true
             
             for rewardIndex = 1, numRewards do
@@ -295,14 +291,12 @@ ScootsSpeedrun.action = {
         end
     end,
     ['dismount'] = function()
-        if(GetPerkOption ~= nil and TogglePerkOption ~= nil) then
-            if(GetPerkOption('Automatic Mount', 'Disabled') == nil) then
+        if(GetPerkOption('Automatic Mount', 'Disabled') == nil) then
+            TogglePerkOption('Automatic Mount', 'Disabled', false)
+            
+            ScootsSpeedrun.pushQueuedEvent(2, function()
                 TogglePerkOption('Automatic Mount', 'Disabled', false)
-                
-                ScootsSpeedrun.pushQueuedEvent(2, function()
-                    TogglePerkOption('Automatic Mount', 'Disabled', false)
-                end)
-            end
+            end)
         end
 
         Dismount()
